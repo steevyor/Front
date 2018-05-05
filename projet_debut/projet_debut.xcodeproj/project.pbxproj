@@ -7,18 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		061D2F79209A3590004C67DC /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D2F78209A3590004C67DC /* Alert.swift */; };
 		06B414F5207D016500CE64F8 /* alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B414F3207D016500CE64F8 /* alamofire.swift */; };
 		06B414F6207D016500CE64F8 /* Reseau.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B414F4207D016500CE64F8 /* Reseau.swift */; };
 		06CF3C572087B19E006A7A3D /* InscriptionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF3C562087B19E006A7A3D /* InscriptionPage.swift */; };
 		06DA6EC0209886A600AE1F4C /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DA6EBF209886A600AE1F4C /* FriendList.swift */; };
 		06EE035C207B642100616D49 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06EE034C207B631700616D49 /* Alamofire.framework */; };
 		06EE035D207B644400616D49 /* Alamofire.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = 06EE034C207B631700616D49 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		33AFEB2F209A3FC00030A9A8 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33AFEB2E209A3FC00030A9A8 /* Json.swift */; };
 		33DA4DD9207ED0E1008E22DB /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA4DD8207ED0E1008E22DB /* LoginPage.swift */; };
-		33DA4DE2207F61F1008E22DB /* connexion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA4DE1207F61F1008E22DB /* connexion.swift */; };
 		33FBD6D4207F8334007A3826 /* VueAmis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FBD6D3207F8334007A3826 /* VueAmis.swift */; };
 		D65D76E2207673B70058AD27 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65D76E1207673B70058AD27 /* Friend.swift */; };
-		D65D76E42076752E0058AD27 /* Coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65D76E32076752E0058AD27 /* Coordinates.swift */; };
 		D65D76E7207679420058AD27 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D65D76E6207679420058AD27 /* MapKit.framework */; };
 		D6750C5720752C5C005B15F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C5620752C5C005B15F3 /* AppDelegate.swift */; };
 		D6750C5920752C5C005B15F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C5820752C5C005B15F3 /* ViewController.swift */; };
@@ -118,17 +116,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		061D2F78209A3590004C67DC /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		06B414F3207D016500CE64F8 /* alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = alamofire.swift; sourceTree = "<group>"; };
 		06B414F4207D016500CE64F8 /* Reseau.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reseau.swift; sourceTree = "<group>"; };
 		06CF3C562087B19E006A7A3D /* InscriptionPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InscriptionPage.swift; sourceTree = "<group>"; };
 		06DA6EBF209886A600AE1F4C /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendList.swift; sourceTree = "<group>"; };
 		06EE0340207B631600616D49 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
-		33AFEB2E209A3FC00030A9A8 /* Json.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Json.swift; path = "../../eclipse-workspace-2/Front-master/projet_debut/Json.swift"; sourceTree = "<group>"; };
 		33DA4DD8207ED0E1008E22DB /* LoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
-		33DA4DE1207F61F1008E22DB /* connexion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = connexion.swift; sourceTree = "<group>"; };
 		33FBD6D3207F8334007A3826 /* VueAmis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VueAmis.swift; sourceTree = "<group>"; };
 		D65D76E1207673B70058AD27 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
-		D65D76E32076752E0058AD27 /* Coordinates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinates.swift; sourceTree = "<group>"; };
 		D65D76E6207679420058AD27 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D6750C5320752C5C005B15F3 /* projet_debut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = projet_debut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6750C5620752C5C005B15F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -192,9 +188,8 @@
 			children = (
 				D6750C8420752C75005B15F3 /* User.swift */,
 				D65D76E1207673B70058AD27 /* Friend.swift */,
-				D65D76E32076752E0058AD27 /* Coordinates.swift */,
-				33DA4DE1207F61F1008E22DB /* connexion.swift */,
 				06DA6EBF209886A600AE1F4C /* FriendList.swift */,
+				061D2F78209A3590004C67DC /* Alert.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -205,7 +200,6 @@
 				33FBD6D3207F8334007A3826 /* VueAmis.swift */,
 				06B414F3207D016500CE64F8 /* alamofire.swift */,
 				33DA4DD8207ED0E1008E22DB /* LoginPage.swift */,
-				33AFEB2E209A3FC00030A9A8 /* Json.swift */,
 				06CF3C562087B19E006A7A3D /* InscriptionPage.swift */,
 				06B414F4207D016500CE64F8 /* Reseau.swift */,
 				D6750C5820752C5C005B15F3 /* ViewController.swift */,
@@ -484,13 +478,11 @@
 				06DA6EC0209886A600AE1F4C /* FriendList.swift in Sources */,
 				33DA4DD9207ED0E1008E22DB /* LoginPage.swift in Sources */,
 				06B414F5207D016500CE64F8 /* alamofire.swift in Sources */,
-				D65D76E42076752E0058AD27 /* Coordinates.swift in Sources */,
 				D65D76E2207673B70058AD27 /* Friend.swift in Sources */,
 				33FBD6D4207F8334007A3826 /* VueAmis.swift in Sources */,
+				061D2F79209A3590004C67DC /* Alert.swift in Sources */,
 				06B414F6207D016500CE64F8 /* Reseau.swift in Sources */,
 				D6750C8520752C75005B15F3 /* User.swift in Sources */,
-				33AFEB2F209A3FC00030A9A8 /* Json.swift in Sources */,
-				33DA4DE2207F61F1008E22DB /* connexion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

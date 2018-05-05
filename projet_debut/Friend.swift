@@ -1,19 +1,18 @@
 
-
+import CoreLocation
 import Foundation
 
 class Friend : Equatable{
     private var pseudo: String
     private var isConnected: Bool
     private var isVisible: Bool
-    private var coordinates = [Double]()
+    private var coordinates = CLLocationCoordinate2D()
     
     
     init(pseudo: String){
         self.pseudo = pseudo
         self.isVisible = false
         self.isConnected = false
-        self.coordinates = []
         
     }
     

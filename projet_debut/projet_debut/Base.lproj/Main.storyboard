@@ -301,6 +301,9 @@
                                     <constraint firstAttribute="width" constant="73" id="cTt-Tm-X09"/>
                                 </constraints>
                                 <state key="normal" title="Inscription"/>
+                                <connections>
+                                    <action selector="inscription:" destination="bBg-lJ-KJK" eventType="touchUpInside" id="t8B-sa-Hyb"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Pj-lJ-NwL">
                                 <rect key="frame" x="221" y="418.5" width="73" height="30"/>
@@ -340,7 +343,11 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="email" destination="gQ4-eQ-l7U" id="VTH-cv-Dn5"/>
+                        <outlet property="login" destination="pE9-oj-6Bq" id="mQF-QQ-hIc"/>
                         <outlet property="loginPage" destination="mv8-tq-85u" id="WIl-UO-DUq"/>
+                        <outlet property="password1" destination="4lC-AD-nx5" id="jfP-he-Tu0"/>
+                        <outlet property="password2" destination="D2x-Q3-rBI" id="pMu-1p-IYZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hzL-N5-ZV8" userLabel="First Responder" sceneMemberID="firstResponder"/>

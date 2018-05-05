@@ -5,10 +5,11 @@ import UIKit
 class LoginPage: UIViewController {
 
     @IBOutlet weak var loginPage: UIImageView!
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let game = Json()
-        //game.getJSON()
 
         // Do any additional setup after loading the view.
     }

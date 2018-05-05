@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
     let locationManager = CLLocationManager()
     var window: UIWindow?
     
+    var locations = CLLocationCoordinate2D.init()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         locationManager.delegate = self
@@ -27,8 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
         return true
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
+        //print(locValue.latitude, " ", locValue.longitude)
+        self.locations = locValue
+        
+    }
     
-    
+
+
     func enableLocationManager() {
         
         locationManager.startUpdatingLocation()
