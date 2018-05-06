@@ -13,7 +13,8 @@ class Alert {
         let alert = UIAlertController(title: "Alert", message: msg, preferredStyle: UIAlertControllerStyle.alert)
     
         alert.addAction(UIAlertAction(title: "Click", style: UIAlertActionStyle.default, handler: nil))
-    
-        alert.present(alert, animated: true, completion: nil)
+        
     }
 }
+
+
