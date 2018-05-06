@@ -1,4 +1,3 @@
-
 import Alamofire
 
 class HTTPControler {
