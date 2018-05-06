@@ -1,5 +1,3 @@
-
-
 import UIKit
 
 class VueAmis: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {

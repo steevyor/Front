@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  projet_debut
-//
-//  Created by m2sar on 04/04/2018.
-//  Copyright © 2018 m2sar. All rights reserved.
-//
-
 import UIKit
 import CoreLocation
 
@@ -31,7 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegat
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        //print(locValue.latitude, " ", locValue.longitude)
         self.locations = locValue
         
     }

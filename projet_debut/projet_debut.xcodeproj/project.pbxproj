@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		061D2F79209A3590004C67DC /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061D2F78209A3590004C67DC /* Alert.swift */; };
 		06B414F5207D016500CE64F8 /* alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B414F3207D016500CE64F8 /* alamofire.swift */; };
 		06B414F6207D016500CE64F8 /* Reseau.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B414F4207D016500CE64F8 /* Reseau.swift */; };
 		06CF3C572087B19E006A7A3D /* InscriptionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF3C562087B19E006A7A3D /* InscriptionPage.swift */; };
@@ -116,7 +115,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		061D2F78209A3590004C67DC /* Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		06B414F3207D016500CE64F8 /* alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = alamofire.swift; sourceTree = "<group>"; };
 		06B414F4207D016500CE64F8 /* Reseau.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reseau.swift; sourceTree = "<group>"; };
 		06CF3C562087B19E006A7A3D /* InscriptionPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InscriptionPage.swift; sourceTree = "<group>"; };
@@ -127,7 +125,7 @@
 		D65D76E1207673B70058AD27 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		D65D76E6207679420058AD27 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D6750C5320752C5C005B15F3 /* projet_debut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = projet_debut.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6750C5620752C5C005B15F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D6750C5620752C5C005B15F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = projet_debut/AppDelegate.swift; sourceTree = "<group>"; };
 		D6750C5820752C5C005B15F3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = projet_debut/ViewController.swift; sourceTree = "<group>"; };
 		D6750C5B20752C5C005B15F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D6750C5D20752C5C005B15F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -189,7 +187,6 @@
 				D6750C8420752C75005B15F3 /* User.swift */,
 				D65D76E1207673B70058AD27 /* Friend.swift */,
 				06DA6EBF209886A600AE1F4C /* FriendList.swift */,
-				061D2F78209A3590004C67DC /* Alert.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -202,6 +199,7 @@
 				33DA4DD8207ED0E1008E22DB /* LoginPage.swift */,
 				06CF3C562087B19E006A7A3D /* InscriptionPage.swift */,
 				06B414F4207D016500CE64F8 /* Reseau.swift */,
+				D6750C5620752C5C005B15F3 /* AppDelegate.swift */,
 				D6750C5820752C5C005B15F3 /* ViewController.swift */,
 			);
 			name = Controller;
@@ -251,7 +249,6 @@
 		D6750C5520752C5C005B15F3 /* projet_debut */ = {
 			isa = PBXGroup;
 			children = (
-				D6750C5620752C5C005B15F3 /* AppDelegate.swift */,
 				D6750C5D20752C5C005B15F3 /* Assets.xcassets */,
 				D6750C5F20752C5C005B15F3 /* LaunchScreen.storyboard */,
 				D6750C6220752C5C005B15F3 /* Info.plist */,
@@ -480,7 +477,6 @@
 				06B414F5207D016500CE64F8 /* alamofire.swift in Sources */,
 				D65D76E2207673B70058AD27 /* Friend.swift in Sources */,
 				33FBD6D4207F8334007A3826 /* VueAmis.swift in Sources */,
-				061D2F79209A3590004C67DC /* Alert.swift in Sources */,
 				06B414F6207D016500CE64F8 /* Reseau.swift in Sources */,
 				D6750C8520752C75005B15F3 /* User.swift in Sources */,
 			);
