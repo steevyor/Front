@@ -20,6 +20,22 @@ class LoginPage: UIViewController {
     }
     
 
+    @IBAction func connexion(_ sender: Any) {
+        //Voir si le mot de passe est ok
+        
+        if !true {
+            
+                
+            } else {
+               let monAlerte = UIAlertController(title: "", message:
+                    "Login ou mot de passe incorrect.", preferredStyle: UIAlertControllerStyle.alert)
+                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                
+                self.present(monAlerte, animated: true, completion: nil)
+
+        }
+        
+    }
     /*
     // MARK: - Navigation
 

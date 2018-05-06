@@ -64,6 +64,7 @@
                                 </constraints>
                                 <state key="normal" title="Connexion"/>
                                 <connections>
+                                    <action selector="connexion:" destination="VVX-Ef-FjC" eventType="touchUpInside" id="4hU-8y-ohh"/>
                                     <segue destination="BYZ-38-t0r" kind="presentation" id="eti-ZM-D5J"/>
                                 </connections>
                             </button>
