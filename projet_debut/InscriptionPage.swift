@@ -15,7 +15,6 @@ class InscriptionPage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // Do any additional setup after loading the view.
     }
     
@@ -31,34 +30,49 @@ class InscriptionPage: UIViewController {
             email et login n'existent pas déjà
             mot de passe assez long ? */
  
- 
-        
-        if password1.text == password2.text {
-            //Alert.alert()
-            //alert.createAlert(msg: "inscription effectuée vous pouvez maintenant vous connecter")
+        if (login.text?.isEmpty)! || (email.text?.isEmpty)! || (password1.text?.isEmpty)! || (password2.text?.isEmpty)!
+        {
             let monAlerte = UIAlertController(title: "", message:
-                "L'inscription a bien été prise en compte!", preferredStyle: UIAlertControllerStyle.alert)
+                "Veuillez remplir tout les champs", preferredStyle: UIAlertControllerStyle.alert)
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             
             self.present(monAlerte, animated: true, completion: nil)
             
-
-            
-        } else {
-            //alert()
-            //alert.createAlert(msg: "l'inscription à échoué, mots de passe différents")
-            let monAlerte = UIAlertController(title: "", message:
-                "Attention les mots de passe entrés sont différents!", preferredStyle: UIAlertControllerStyle.alert)
-            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-            
-            self.present(monAlerte, animated: true, completion: nil)
-            
-
         }
+        else
+        {
+            if password1.text == password2.text
+            {
+                //Alert.alert()
+                //alert.createAlert(msg: "inscription effectuée vous pouvez maintenant vous connecter")
+                let monAlerte = UIAlertController(title: "", message:
+                    "L'inscription a bien été prise en compte!", preferredStyle: UIAlertControllerStyle.alert)
+                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                
+                self.present(monAlerte, animated: true, completion: nil)
+                
+            }
+            else
+            {
+                //alert()
+                //alert.createAlert(msg: "l'inscription à échoué, mots de passe différents")
+                let monAlerte = UIAlertController(title: "", message:
+                    "Attention les mots de passe entrés sont différents!", preferredStyle: UIAlertControllerStyle.alert)
+                monAlerte.addAction(UIAlertAction(title: "Annuler", style: .default,handler: nil ))
+                self.present(monAlerte, animated: true, completion: nil)
+            }
+            
+            
+            
+        }
+
         
         
         
-        
+    }
+    
+    func okHandler(alert: UIAlertAction!){
+        self.navigationController?.pushViewController(UIViewController(), animated: true)
     }
     
     /*

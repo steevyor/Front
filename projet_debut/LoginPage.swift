@@ -27,8 +27,7 @@ class LoginPage: UIViewController {
             } else {
                let monAlerte = UIAlertController(title: "", message:
                     "Login ou mot de passe incorrect.", preferredStyle: UIAlertControllerStyle.alert)
-                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                
+                monAlerte.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default,handler: nil))
                 self.present(monAlerte, animated: true, completion: nil)
 
         }
