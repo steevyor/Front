@@ -1,6 +1,7 @@
 import Alamofire
 
-class HTTPControler {
+class alamofire {
+}
 /*
     public var Contacts: [String]
 
@@ -26,4 +27,4 @@ class HTTPControler {
             }
         }
     }*/
-}
+

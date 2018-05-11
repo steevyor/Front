@@ -24,6 +24,8 @@ class InscriptionPage: UIViewController {
     }
     
     @IBAction func inscription(_ sender: UIButton) {
+        
+        print("bouton d'inscription")
         /* criteres pour une inscription reussie:
             remplir tous les champs
             les deux mots de passe sont différents
@@ -32,8 +34,8 @@ class InscriptionPage: UIViewController {
  
         if (login.text?.isEmpty)! || (email.text?.isEmpty)! || (password1.text?.isEmpty)! || (password2.text?.isEmpty)!
         {
-            let monAlerte = UIAlertController(title: "", message:
-                "Veuillez remplir tout les champs", preferredStyle: UIAlertControllerStyle.alert)
+            let monAlerte = UIAlertController(title: "☔️", message:
+                "Veuillez renseigner tout les champs", preferredStyle: UIAlertControllerStyle.alert)
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             
             self.present(monAlerte, animated: true, completion: nil)
@@ -45,7 +47,12 @@ class InscriptionPage: UIViewController {
             {
                 //Alert.alert()
                 //alert.createAlert(msg: "inscription effectuée vous pouvez maintenant vous connecter")
-                let monAlerte = UIAlertController(title: "", message:
+
+                
+                //requete qui permet de transmettre le tout à la base de données
+                //si la requete réussi on envoi l'alerte sinon une erreur
+                
+                let monAlerte = UIAlertController(title: "🦁", message:
                     "L'inscription a bien été prise en compte!", preferredStyle: UIAlertControllerStyle.alert)
                 monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
                 
@@ -56,8 +63,8 @@ class InscriptionPage: UIViewController {
             {
                 //alert()
                 //alert.createAlert(msg: "l'inscription à échoué, mots de passe différents")
-                let monAlerte = UIAlertController(title: "", message:
-                    "Attention les mots de passe entrés sont différents!", preferredStyle: UIAlertControllerStyle.alert)
+                let monAlerte = UIAlertController(title: "Erreur", message:
+                    "Attention les mots de passes entrés sont différents!", preferredStyle: UIAlertControllerStyle.alert)
                 monAlerte.addAction(UIAlertAction(title: "Annuler", style: .default,handler: nil ))
                 self.present(monAlerte, animated: true, completion: nil)
             }

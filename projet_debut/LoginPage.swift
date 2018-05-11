@@ -1,10 +1,13 @@
 import UIKit
+import SwiftKeychainWrapper
 
 class LoginPage: UIViewController {
 
     @IBOutlet weak var loginPage: UIImageView!
     
-    
+    @IBOutlet weak var mail: UITextField!
+
+    @IBOutlet weak var mdp: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,17 +22,46 @@ class LoginPage: UIViewController {
     
 
     @IBAction func connexion(_ sender: Any) {
-        //Voir si le mot de passe est ok
         
-        if !true {
+        
+        print("Bouton de connexion appuyé")
+        
+        let login = mail.text
+        let password = mdp.text
+        
+        if (login?.isEmpty)! || (password?.isEmpty)!
+        {
             
-                
-            } else {
-               let monAlerte = UIAlertController(title: "", message:
-                    "Login ou mot de passe incorrect.", preferredStyle: UIAlertControllerStyle.alert)
-                monAlerte.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.default,handler: nil))
-                self.present(monAlerte, animated: true, completion: nil)
+            let monAlerte = UIAlertController(title: "☔️", message: "Veillez renseigner tout les chmaps", preferredStyle: UIAlertControllerStyle.alert)
+            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+            self.present(monAlerte, animated: true, completion: nil)
+            
 
+            return
+        }
+                
+            let loading = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+            
+            loading.center = loginPage.center
+            
+            loading.hidesWhenStopped = false
+            
+            loading.startAnimating()
+            
+            loginPage.addSubview(loading)
+        
+            //envoyer une requete avec le mail et le user pour authentification
+        let token :String = "ok"//doit résulté du parsing après la requete
+        let userId :String = "ok"//doit résulter du parsing après la requete
+        
+        let saveSuccessful: Bool = KeychainWrapper.standard.set(token, forKey: "accesToken")
+        let saveId: Bool = KeychainWrapper.standard.set(userId, forKey: "login")
+        
+        if token.isEmpty
+        {
+            let monAlerte = UIAlertController(title: "☔️", message: "Il y a un soucis", preferredStyle: UIAlertControllerStyle.alert)
+            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+            self.present(monAlerte, animated: true, completion: nil)
         }
         
     }

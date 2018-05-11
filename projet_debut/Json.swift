@@ -10,17 +10,26 @@ import Foundation
 
 class Json{
     
+    var lien :String
+    var type :String // Variable qui contient le type de la donnée qui va etre parsée
+    var values : [String:Any]
+    
+    init( new: String, kind: String) {
+        self.lien = new
+        self.type = kind
+        self.values = ["":""];
+    }
+    
     var json:[String:AnyObject] = [:]
-    
-    
-    let lien = "https://jsonplaceholder.typicode.com/posts/1"
     
     func getJSON(){
         
-        let url = URL(string: lien)
+        if (type == "user")
+        {
+        let url = URL(string: self.lien)
         URLSession.shared.dataTask(with:url!) { (data, response, error) in
             if error != nil {
-                print("probleme mgl");
+                print("Une erreur est survenue");
                 print("\(String(describing: error))")
             } else {
                 do {
@@ -30,7 +39,7 @@ class Json{
                     
                     let myData = self.json["data"]! //on sauvegarde le tout dans cette varialble
                     
-                    let meCount = Int(self.json["data"]!.count) - 1//Nomnre d'éléments
+                    let meCount = Int(self.json["data"]!.count) - 1//Nombre d'éléments
                     
                     for index in 0...meCount {
                         
@@ -39,6 +48,7 @@ class Json{
                         print(myLine["id"]!)
                         print(myLine["title"]!)
                         print(myLine["body"]!)
+                        self.values = myLine
                         
                     }
                     
@@ -50,8 +60,50 @@ class Json{
             }
             
             }.resume()
+        }
+        
+        if (type == "token")
+        {
+            let url = URL(string: self.lien)
+            URLSession.shared.dataTask(with:url!) { (data, response, error) in
+                if error != nil {
+                    print("Une erreur est survenue");
+                    print("\(String(describing: error))")
+                } else {
+                    do {
+                        print(" ********** ********** LO-A-DING **********  ********** ");
+                        self.json = try JSONSerialization.jsonObject(with: data!, options:.allowFragments) as! [String:AnyObject]
+                        
+                        
+                        let myData = self.json["data"]! //on sauvegarde le tout dans cette varialble
+                        
+                        let meCount = Int(self.json["data"]!.count) - 1//Nombre d'éléments
+                        
+                        for index in 0...meCount {
+                            
+                            let myLine = myData[index] as! [String:Any]//On récupère puis affiche les éléments
+                            print(myLine["token"]!)
+                            self.values = myLine
+                            
+                        }
+                        
+                        
+                        
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+                
+                }.resume()
+            
+            
+        
+        }
         
         
     }
     
+    func getValues() -> [String:Any] {
+        return self.values
+    }
 }
