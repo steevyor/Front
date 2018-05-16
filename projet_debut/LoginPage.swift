@@ -43,6 +43,7 @@ class LoginPage: UIViewController {
             let loading = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
             
             loading.center = loginPage.center
+        
             
             loading.hidesWhenStopped = false
             
@@ -51,28 +52,24 @@ class LoginPage: UIViewController {
             loginPage.addSubview(loading)
         
             //envoyer une requete avec le mail et le user pour authentification
-        let token :String = "ok"//doit résulté du parsing après la requete
-        let userId :String = "ok"//doit résulter du parsing après la requete
         
-        let saveSuccessful: Bool = KeychainWrapper.standard.set(token, forKey: "accesToken")
-        let saveId: Bool = KeychainWrapper.standard.set(userId, forKey: "login")
+            let userId :String = "ok"//doit résulter du parsing après la requete
         
-        if token.isEmpty
-        {
-            let monAlerte = UIAlertController(title: "☔️", message: "Il y a un soucis", preferredStyle: UIAlertControllerStyle.alert)
-            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-            self.present(monAlerte, animated: true, completion: nil)
+            let saveSuccessful: Bool = KeychainWrapper.standard.set(token, forKey: "accesToken")
+            let saveId: Bool = KeychainWrapper.standard.set(userId, forKey: "login")
+        
+            NSUUID.init(password: String)
+        
+        
+            /*if token.isEmpty
+            {
+                let monAlerte = UIAlertController(title: "☔️", message: "Il y a un soucis", preferredStyle: UIAlertControllerStyle.alert)
+                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                self.present(monAlerte, animated: true, completion: nil)
+            }
+            */
+            
         }
-        
-    }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

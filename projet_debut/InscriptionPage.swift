@@ -58,6 +58,7 @@ class InscriptionPage: UIViewController {
                 
                 self.present(monAlerte, animated: true, completion: nil)
                 
+                
             }
             else
             {
