@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17E202" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VVX-Ef-FjC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VVX-Ef-FjC">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -119,23 +119,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vJG-ZC-jGB">
-                                <rect key="frame" x="16" y="64" width="343" height="603"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="9SF-So-Hu5">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <rect key="frame" x="16" y="20" width="329" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZb-CN-HL2">
+                                <rect key="frame" x="349" y="20" width="22" height="44"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6cS-Wz-MwJ" firstAttribute="top" secondItem="vJG-ZC-jGB" secondAttribute="bottom" id="26e-H4-l27"/>
+                            <constraint firstAttribute="trailing" secondItem="vJG-ZC-jGB" secondAttribute="trailing" id="2Ea-Uk-sxS"/>
                             <constraint firstItem="vJG-ZC-jGB" firstAttribute="top" secondItem="9SF-So-Hu5" secondAttribute="bottom" id="863-lH-2FH"/>
-                            <constraint firstAttribute="trailing" secondItem="9SF-So-Hu5" secondAttribute="trailing" id="IGK-hL-QiB"/>
-                            <constraint firstItem="vJG-ZC-jGB" firstAttribute="leading" secondItem="dZa-aI-ccm" secondAttribute="leadingMargin" id="MR3-Vy-dlR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="vJG-ZC-jGB" secondAttribute="trailing" id="XYZ-OU-HFu"/>
-                            <constraint firstItem="9SF-So-Hu5" firstAttribute="leading" secondItem="dZa-aI-ccm" secondAttribute="leading" id="Xbx-2z-4vL"/>
+                            <constraint firstItem="vJG-ZC-jGB" firstAttribute="top" secondItem="OZb-CN-HL2" secondAttribute="bottom" id="E3j-uf-5PZ"/>
                             <constraint firstItem="9SF-So-Hu5" firstAttribute="top" secondItem="SZq-dM-891" secondAttribute="bottom" id="aQh-Tr-4j8"/>
+                            <constraint firstItem="6cS-Wz-MwJ" firstAttribute="top" secondItem="vJG-ZC-jGB" secondAttribute="bottom" id="ahe-pG-aFu"/>
+                            <constraint firstAttribute="trailing" secondItem="OZb-CN-HL2" secondAttribute="trailing" constant="4" id="dwp-LT-OJg"/>
+                            <constraint firstItem="6cS-Wz-MwJ" firstAttribute="top" secondItem="vJG-ZC-jGB" secondAttribute="bottom" id="hUn-KE-5wu"/>
+                            <constraint firstItem="OZb-CN-HL2" firstAttribute="leading" secondItem="9SF-So-Hu5" secondAttribute="trailing" constant="4" id="sF6-Wf-NGo"/>
+                            <constraint firstItem="vJG-ZC-jGB" firstAttribute="leading" secondItem="dZa-aI-ccm" secondAttribute="leading" id="uYf-o6-Q25"/>
+                            <constraint firstItem="9SF-So-Hu5" firstAttribute="leading" secondItem="dZa-aI-ccm" secondAttribute="leadingMargin" id="vd5-2p-LEc"/>
+                            <constraint firstItem="OZb-CN-HL2" firstAttribute="top" secondItem="SZq-dM-891" secondAttribute="bottom" id="xGx-Py-X8k"/>
                         </constraints>
                     </view>
                     <connections>
