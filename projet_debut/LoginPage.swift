@@ -32,7 +32,7 @@ class LoginPage: UIViewController {
         if (login?.isEmpty)! || (password?.isEmpty)!
         {
             
-            let monAlerte = UIAlertController(title: "☔️", message: "Veillez renseigner tout les chmaps", preferredStyle: UIAlertControllerStyle.alert)
+            let monAlerte = UIAlertController(title: "☔️", message: "Veillez renseigner tout les champs", preferredStyle: UIAlertControllerStyle.alert)
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             self.present(monAlerte, animated: true, completion: nil)
             

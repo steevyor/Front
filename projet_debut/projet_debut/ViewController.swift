@@ -32,6 +32,12 @@ class ViewController: UIViewController {
         }
     }
     
+    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Segue"{
+           let vueAmis = segue.destination as! VueAmis
+            secondViewController.
+        }*/
+    
     
 }
 

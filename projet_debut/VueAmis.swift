@@ -56,7 +56,7 @@ class VueAmis: UIViewController, UITableViewDataSource, UITableViewDelegate, UIS
         } else {
             searchActive = true;
         }
-        self.listeAmis.reloadData()
+        //self.listeAmis.reloadData()
     }
     
     
