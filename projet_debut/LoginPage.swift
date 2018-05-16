@@ -56,15 +56,18 @@ class LoginPage: UIViewController {
         
             let token = NSUUID.init(uuidString: password!)?.uuidString
         
+            let saveSuccessful: Bool = KeychainWrapper.standard.set(token!, forKey: "getToken()")
+        
             let parameters = [
                 "token": "\(NSUUID.init(uuidString: password!)?.uuidString ?? "0")"
             ]
         
-            let url = "http://localhost:8080/check"
+            var url = "http://localhost:8080/check"
+            url.append("/\(token ?? "ok")")
             Alamofire.request(url, method:.post, parameters:parameters,encoding: JSONEncoding.default).responseJSON { response in
                 switch response.result {
                 case .success:
-                    print(response)
+                    print(response.result.value)
                 case .failure(let error):
                     print("\(error)")
                 
@@ -75,11 +78,6 @@ class LoginPage: UIViewController {
                 }
             }
         
-            // -> HTTP body: {"foo": [1, 2, 3], "bar": {"baz": "qux"}}
-        
-            //envoyer une requete avec le mail et le user pour authentification
-        
-
             
     }
             

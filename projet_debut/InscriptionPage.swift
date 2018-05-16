@@ -1,5 +1,6 @@
 import UIKit
 import Alamofire
+import SwiftKeychainWrapper
 
 class InscriptionPage: UIViewController {
     
@@ -36,7 +37,7 @@ class InscriptionPage: UIViewController {
         if (login.text?.isEmpty)! || (email.text?.isEmpty)! || (password1.text?.isEmpty)! || (password2.text?.isEmpty)!
         {
             let monAlerte = UIAlertController(title: "☔️", message:
-                "Veuillez renseigner tous les champs", preferredStyle: UIAlertControllerStyle.alert)
+                "Veuillez renseigner tout les champs", preferredStyle: UIAlertControllerStyle.alert)
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             
             self.present(monAlerte, animated: true, completion: nil)
@@ -49,10 +50,16 @@ class InscriptionPage: UIViewController {
                 //Alert.alert()
                 //alert.createAlert(msg: "inscription effectuée vous pouvez maintenant vous connecter")
                 
+                let saveSuccessful: Bool = KeychainWrapper.standard.set((NSUUID.init(uuidString: password1.text!)?.uuidString)!, forKey: "getToken()")
+                print("\(saveSuccessful)")
+                
+                let retrievedString: String? = KeychainWrapper.standard.string(forKey: "getToken()")
+                print("\(retrievedString)")
+                
                 let parameters = [
                     "login": "\(login.text ?? "ok")",
                     "login": "\(email.text ?? "ok")",
-                    "token": "\(NSUUID.init(uuidString: password1.text!)?.uuidString ?? "0")"
+                    "token": "\(retrievedString)"
                 ]
                 
                 let url = "http://localhost:8080/users/query"
@@ -68,6 +75,7 @@ class InscriptionPage: UIViewController {
                         
                     }
                 }
+                
                 
                 
                 let monAlerte = UIAlertController(title: "", message:
@@ -92,8 +100,6 @@ class InscriptionPage: UIViewController {
             
         }
 
-        
-        
         
     }
     
