@@ -1,5 +1,6 @@
 import UIKit
 import SwiftKeychainWrapper
+import Alamofire
 
 class LoginPage: UIViewController {
 
@@ -11,7 +12,7 @@ class LoginPage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
         // Do any additional setup after loading the view.
     }
 
@@ -21,9 +22,11 @@ class LoginPage: UIViewController {
     }
     
 
-    @IBAction func connexion(_ sender: Any) {
+    @IBAction func connexion(_ sender: Any)
+    
+    {
         
-        
+
         print("Bouton de connexion appuyé")
         
         let login = mail.text
@@ -32,7 +35,7 @@ class LoginPage: UIViewController {
         if (login?.isEmpty)! || (password?.isEmpty)!
         {
             
-            let monAlerte = UIAlertController(title: "☔️", message: "Veillez renseigner tout les chmaps", preferredStyle: UIAlertControllerStyle.alert)
+            let monAlerte = UIAlertController(title: "☔️", message: "Veillez renseigner tout les champs", preferredStyle: UIAlertControllerStyle.alert)
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             self.present(monAlerte, animated: true, completion: nil)
             
@@ -51,25 +54,36 @@ class LoginPage: UIViewController {
             
             loginPage.addSubview(loading)
         
+            let token = NSUUID.init(uuidString: password!)?.uuidString
+        
+            let parameters = [
+                "token": "\(NSUUID.init(uuidString: password!)?.uuidString ?? "0")"
+            ]
+        
+            let url = "http://localhost:8080/check"
+            Alamofire.request(url, method:.post, parameters:parameters,encoding: JSONEncoding.default).responseJSON { response in
+                switch response.result {
+                case .success:
+                    print(response)
+                case .failure(let error):
+                    print("\(error)")
+                
+                    let monAlerte = UIAlertController(title: "☔️", message: "Une erreur esr survenue", preferredStyle: UIAlertControllerStyle.alert)
+                    monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                    self.present(monAlerte, animated: true, completion: nil)
+                    
+                }
+            }
+        
+            // -> HTTP body: {"foo": [1, 2, 3], "bar": {"baz": "qux"}}
+        
             //envoyer une requete avec le mail et le user pour authentification
         
-            let userId :String = "ok"//doit résulter du parsing après la requete
-        
-            let saveSuccessful: Bool = KeychainWrapper.standard.set(token, forKey: "accesToken")
-            let saveId: Bool = KeychainWrapper.standard.set(userId, forKey: "login")
-        
-            NSUUID.init(password: String)
-        
-        
-            /*if token.isEmpty
-            {
-                let monAlerte = UIAlertController(title: "☔️", message: "Il y a un soucis", preferredStyle: UIAlertControllerStyle.alert)
-                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                self.present(monAlerte, animated: true, completion: nil)
-            }
-            */
+
+            
+    }
             
         }
 
 
-}
+
