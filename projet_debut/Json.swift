@@ -42,12 +42,17 @@ class Json{
                     let meCount = Int(self.json["data"]!.count) - 1//Nombre d'éléments
                     
                     for index in 0...meCount {
-                        
-                        let myLine = myData[index] as! [String:Any]//On récupère puis affiche les éléments
+
+                        let myLine = myData[index] as! [String: Any]//On récupère puis affiche les éléments
                         print(myLine["userId"]!)
                         print(myLine["id"]!)
                         print(myLine["title"]!)
                         print(myLine["body"]!)
+                        /*
+                        if let string = myLine["title"] as? String {
+                            
+                        }
+                        */
                         self.values = myLine
                         
                     }

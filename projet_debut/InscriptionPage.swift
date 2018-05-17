@@ -1,4 +1,6 @@
 import UIKit
+import Alamofire
+import SwiftKeychainWrapper
 
 class InscriptionPage: UIViewController {
     
@@ -35,7 +37,7 @@ class InscriptionPage: UIViewController {
         if (login.text?.isEmpty)! || (email.text?.isEmpty)! || (password1.text?.isEmpty)! || (password2.text?.isEmpty)!
         {
             let monAlerte = UIAlertController(title: "☔️", message:
-                "Veuillez renseigner tous les champs", preferredStyle: UIAlertControllerStyle.alert)
+                "Veuillez renseigner tout les champs", preferredStyle: UIAlertControllerStyle.alert)
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             
             self.present(monAlerte, animated: true, completion: nil)
@@ -47,16 +49,41 @@ class InscriptionPage: UIViewController {
             {
                 //Alert.alert()
                 //alert.createAlert(msg: "inscription effectuée vous pouvez maintenant vous connecter")
-
                 
-                //requete qui permet de transmettre le tout à la base de données
-                //si la requete réussi on envoi l'alerte sinon une erreur
+                let saveSuccessful: Bool = KeychainWrapper.standard.set((NSUUID.init(uuidString: password1.text!)?.uuidString)!, forKey: "getToken()")
+                print("\(saveSuccessful)")
                 
-                let monAlerte = UIAlertController(title: "🦁", message:
+                let retrievedString: String? = KeychainWrapper.standard.string(forKey: "getToken()")
+                print("\(retrievedString)")
+                
+                let parameters = [
+                    "login": "\(login.text ?? "ok")",
+                    "login": "\(email.text ?? "ok")",
+                    "token": "\(retrievedString)"
+                ]
+                
+                let url = "http://localhost:8080/users/query"
+                Alamofire.request(url, method:.post, parameters:parameters,encoding: JSONEncoding.default).responseJSON { response in
+                    switch response.result {
+                    case .success:
+                        print(response)
+                    case .failure(let error):
+                        print("\(error)")
+                        let monAlerte = UIAlertController(title: "☔️", message: "Une erreur esr survenue", preferredStyle: UIAlertControllerStyle.alert)
+                        monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                        self.present(monAlerte, animated: true, completion: nil)
+                        
+                    }
+                }
+                
+                
+                
+                let monAlerte = UIAlertController(title: "", message:
                     "L'inscription a bien été prise en compte!", preferredStyle: UIAlertControllerStyle.alert)
                 monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
                 
                 self.present(monAlerte, animated: true, completion: nil)
+                
                 
             }
             else
@@ -74,22 +101,10 @@ class InscriptionPage: UIViewController {
         }
 
         
-        
-        
     }
     
     func okHandler(alert: UIAlertAction!){
         self.navigationController?.pushViewController(UIViewController(), animated: true)
     }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

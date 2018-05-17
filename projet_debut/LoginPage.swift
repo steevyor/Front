@@ -1,5 +1,6 @@
 import UIKit
 import SwiftKeychainWrapper
+import Alamofire
 
 class LoginPage: UIViewController {
 
@@ -11,7 +12,7 @@ class LoginPage: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
         // Do any additional setup after loading the view.
     }
 
@@ -21,9 +22,11 @@ class LoginPage: UIViewController {
     }
     
 
-    @IBAction func connexion(_ sender: Any) {
+    @IBAction func connexion(_ sender: Any)
+    
+    {
         
-        
+
         print("Bouton de connexion appuyé")
         
         let login = mail.text
@@ -43,6 +46,7 @@ class LoginPage: UIViewController {
             let loading = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
             
             loading.center = loginPage.center
+        
             
             loading.hidesWhenStopped = false
             
@@ -50,29 +54,34 @@ class LoginPage: UIViewController {
             
             loginPage.addSubview(loading)
         
-            //envoyer une requete avec le mail et le user pour authentification
-        let token :String = "ok"//doit résulté du parsing après la requete
-        let userId :String = "ok"//doit résulter du parsing après la requete
+            let token = NSUUID.init(uuidString: password!)?.uuidString
         
-        let saveSuccessful: Bool = KeychainWrapper.standard.set(token, forKey: "accesToken")
-        let saveId: Bool = KeychainWrapper.standard.set(userId, forKey: "login")
+            let saveSuccessful: Bool = KeychainWrapper.standard.set(token!, forKey: "getToken()")
         
-        if token.isEmpty
-        {
-            let monAlerte = UIAlertController(title: "☔️", message: "Il y a un soucis", preferredStyle: UIAlertControllerStyle.alert)
-            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-            self.present(monAlerte, animated: true, completion: nil)
+            let parameters = [
+                "token": "\(NSUUID.init(uuidString: password!)?.uuidString ?? "0")"
+            ]
+        
+            var url = "http://localhost:8080/check"
+            url.append("/\(token ?? "ok")")
+            Alamofire.request(url, method:.post, parameters:parameters,encoding: JSONEncoding.default).responseJSON { response in
+                switch response.result {
+                case .success:
+                    print(response.result.value)
+                case .failure(let error):
+                    print("\(error)")
+                
+                    let monAlerte = UIAlertController(title: "☔️", message: "Une erreur esr survenue", preferredStyle: UIAlertControllerStyle.alert)
+                    monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                    self.present(monAlerte, animated: true, completion: nil)
+                    
+                }
+            }
+        
+            
+    }
+            
         }
-        
-    }
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
-}
+
