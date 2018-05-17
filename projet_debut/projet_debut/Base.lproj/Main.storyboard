@@ -142,7 +142,7 @@
                                     </attributedString>
                                 </state>
                                 <connections>
-                                    <segue destination="cVr-QG-dW9" kind="show" id="lWb-Hs-d1u"/>
+                                    <segue destination="tKn-jy-97S" kind="show" id="il0-uE-VkW"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -164,17 +164,56 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="760.79999999999995" y="-781.25937031484261"/>
+            <point key="canvasLocation" x="662" y="-1652"/>
+        </scene>
+        <!--Ajouts-->
+        <scene sceneID="8zF-M9-HE6">
+            <objects>
+                <viewController id="4mL-OI-tOw" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="n7G-lg-goA"/>
+                        <viewControllerLayoutGuide type="bottom" id="xAY-ZE-8Wc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bDx-AR-KNe">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Ajouts" id="JOZ-uy-72O"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BEw-Pt-WiF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1791" y="-37"/>
+        </scene>
+        <!--Demandes-->
+        <scene sceneID="t8G-cT-UCX">
+            <objects>
+                <viewController id="but-r7-ngy" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="06N-uk-GTF"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ceu-kj-eub"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="c33-aZ-Viw">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Demandes" id="GTO-5w-zwq"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xm3-uw-ZN6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1791" y="1095"/>
         </scene>
         <!--Liste d'amis-->
-        <scene sceneID="Oqv-mf-Xm5">
+        <scene sceneID="SnE-ny-j4n">
             <objects>
-                <viewController id="cVr-QG-dW9" customClass="VueAmis" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ll9-fS-wem" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="poq-3D-w5W" customClass="VueAmis" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="0cF-9U-zbP"/>
-                        <viewControllerLayoutGuide type="bottom" id="t1y-LB-6zs"/>
+                        <viewControllerLayoutGuide type="top" id="GME-5O-5Ho"/>
+                        <viewControllerLayoutGuide type="bottom" id="5df-BD-zo0"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="XzT-FE-NNU">
+                    <view key="view" contentMode="scaleToFill" id="zkF-Td-01R">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -189,26 +228,47 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="BnM-rg-wIr" firstAttribute="leading" secondItem="XzT-FE-NNU" secondAttribute="leading" id="16X-ix-jxA"/>
-                            <constraint firstItem="wOZ-QT-uX7" firstAttribute="leading" secondItem="XzT-FE-NNU" secondAttribute="leading" id="5gu-fW-LrS"/>
-                            <constraint firstItem="t1y-LB-6zs" firstAttribute="top" secondItem="BnM-rg-wIr" secondAttribute="bottom" id="P1Z-W6-Dm4"/>
-                            <constraint firstItem="BnM-rg-wIr" firstAttribute="top" secondItem="wOZ-QT-uX7" secondAttribute="bottom" id="PLV-AR-pLQ"/>
-                            <constraint firstItem="wOZ-QT-uX7" firstAttribute="top" secondItem="0cF-9U-zbP" secondAttribute="bottom" id="SGY-h4-QAu"/>
-                            <constraint firstAttribute="trailing" secondItem="wOZ-QT-uX7" secondAttribute="trailing" id="Z81-fz-nEO"/>
-                            <constraint firstAttribute="trailing" secondItem="BnM-rg-wIr" secondAttribute="trailing" id="s9X-hb-Ggt"/>
+                            <constraint firstItem="BnM-rg-wIr" firstAttribute="top" secondItem="wOZ-QT-uX7" secondAttribute="bottom" id="3Zl-8K-ugi"/>
+                            <constraint firstItem="wOZ-QT-uX7" firstAttribute="leading" secondItem="zkF-Td-01R" secondAttribute="leading" id="OKh-5D-N7V"/>
+                            <constraint firstAttribute="trailing" secondItem="wOZ-QT-uX7" secondAttribute="trailing" id="QSU-BI-tal"/>
+                            <constraint firstAttribute="trailing" secondItem="BnM-rg-wIr" secondAttribute="trailing" id="chS-77-UJu"/>
+                            <constraint firstItem="wOZ-QT-uX7" firstAttribute="top" secondItem="GME-5O-5Ho" secondAttribute="bottom" id="drf-Ko-xZU"/>
+                            <constraint firstItem="BnM-rg-wIr" firstAttribute="leading" secondItem="zkF-Td-01R" secondAttribute="leading" id="skv-eh-hIa"/>
+                            <constraint firstAttribute="bottom" secondItem="BnM-rg-wIr" secondAttribute="bottom" id="yjZ-U3-705"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Liste d'amis" id="Pyh-J4-COW">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="NJo-IB-QvH"/>
+                    <tabBarItem key="tabBarItem" title="Liste dAmis" id="rOq-7N-7of"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Liste d'amis" id="lOC-Om-cTA">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="JW7-nc-rJu"/>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="listeAmis" destination="BnM-rg-wIr" id="BcX-FA-hUs"/>
-                        <outlet property="searchBar" destination="wOZ-QT-uX7" id="zLv-tb-EpQ"/>
+                        <outlet property="listeAmis" destination="BnM-rg-wIr" id="z4r-L3-xRY"/>
+                        <outlet property="searchBar" destination="wOZ-QT-uX7" id="Iso-r6-gSp"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Pqw-lC-uHw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1805.5999999999999" y="-780.35982008995506"/>
+            <point key="canvasLocation" x="1791" y="-1227"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="JW5-6s-ODS">
+            <objects>
+                <tabBarController id="tKn-jy-97S" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="kyl-0G-CNH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="poq-3D-w5W" kind="relationship" relationship="viewControllers" id="W4s-Cd-kdB"/>
+                        <segue destination="4mL-OI-tOw" kind="relationship" relationship="viewControllers" id="hcm-gx-ccO"/>
+                        <segue destination="but-r7-ngy" kind="relationship" relationship="viewControllers" id="13y-bi-3fO"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BQt-dr-S4N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="662" y="-580"/>
         </scene>
         <!--Inscription Page-->
         <scene sceneID="xiV-3d-kuu">
