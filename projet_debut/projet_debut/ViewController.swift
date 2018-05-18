@@ -13,7 +13,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         map.setUserTrackingMode( MKUserTrackingMode.follow, animated: true) //zoomer sur la position
-        
+        self.addFriendsPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11))
         print(self.del.locations.longitude, del.locations.latitude)
     }
 
@@ -31,6 +31,14 @@ class ViewController: UIViewController {
             self.del.disableLocationManager()
         }
     }
+    
+    func addFriendsPosition(pos: CLLocationCoordinate2D){
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = pos
+        map.addAnnotation(annotation)
+        
+    }
+    
     
     /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "Segue"{
