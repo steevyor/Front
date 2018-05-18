@@ -21,7 +21,6 @@ class VueAmis: UIViewController, UITableViewDataSource, UITableViewDelegate, UIS
         
         
         //print(friends)
-        print("On est dans le viewDidLoad")
 
         listeAmis.dataSource = self
         listeAmis.delegate = self
@@ -56,7 +55,7 @@ class VueAmis: UIViewController, UITableViewDataSource, UITableViewDelegate, UIS
         } else {
             searchActive = true;
         }
-        //self.listeAmis.reloadData()
+        self.listeAmis.reloadData()
     }
     
     

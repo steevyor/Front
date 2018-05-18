@@ -41,7 +41,7 @@ class LoginPage: UIViewController {
             
             return
         }
-                
+             /*
             let loading = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
             
             loading.center = loginPage.center
@@ -115,7 +115,7 @@ class LoginPage: UIViewController {
                     self.present(monAlerte, animated: true, completion: nil)
                     
                 }
-            }
+            }*/
         
             
     }
