@@ -51,6 +51,10 @@ class ViewController: UIViewController {
         self.map.setUserTrackingMode( MKUserTrackingMode.follow, animated: true) //zoomer sur la position
     }
     
+    func myPos()-> CLLocationCoordinate2D {
+        return self.del.locations
+    }
+    
     
     
     
