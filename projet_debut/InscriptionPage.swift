@@ -49,6 +49,7 @@ class InscriptionPage: UIViewController {
             {
                 //Alert.alert()
                 //alert.createAlert(msg: "inscription effectuée vous pouvez maintenant vous connecter")
+                return
                 
                 let parameters = [
                     "login": "\(login.text!)",
