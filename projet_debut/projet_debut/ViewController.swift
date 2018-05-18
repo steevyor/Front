@@ -5,6 +5,7 @@ import MapKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var map: MKMapView!
+  
     
     @IBOutlet weak var `switch`: UISwitch!
     let del = UIApplication.shared.delegate as! AppDelegate
@@ -12,8 +13,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        map.setUserTrackingMode( MKUserTrackingMode.follow, animated: true) //zoomer sur la position
-        self.addFriendsPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11))
+        self.zoomPos()
+        self.displayFriendPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11), friendName: "Soso")
         print(self.del.locations.longitude, del.locations.latitude)
     }
 
@@ -32,12 +33,25 @@ class ViewController: UIViewController {
         }
     }
     
-    func addFriendsPosition(pos: CLLocationCoordinate2D){
+    @IBAction func loupe(_ sender: UIButton) {
+        self.zoomPos()        
+    }
+    
+    func displayFriendPosition(pos: CLLocationCoordinate2D, friendName: String){
         let annotation = MKPointAnnotation()
         annotation.coordinate = pos
-        map.addAnnotation(annotation)
+        annotation.title = friendName
+        //annotation.UIImage(named: "pins.png")
+        self.map.addAnnotation(annotation)
+    
         
     }
+    
+    func zoomPos(){
+        self.map.setUserTrackingMode( MKUserTrackingMode.follow, animated: true) //zoomer sur la position
+    }
+    
+    
     
     
     /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
