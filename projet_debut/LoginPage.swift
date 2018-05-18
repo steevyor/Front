@@ -45,8 +45,8 @@ class LoginPage: UIViewController
             return
             
             let parameters = [
-                "login": "\(login ?? "ok")",
-                "login": "\(password ?? "ok")"
+                "login": "\(login!)",
+                "login": "\(password!)"
             ]
             let loading = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
             
