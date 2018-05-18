@@ -50,32 +50,42 @@ class InscriptionPage: UIViewController {
                 //Alert.alert()
                 //alert.createAlert(msg: "inscription effectuée vous pouvez maintenant vous connecter")
                 
-                let saveSuccessful: Bool = KeychainWrapper.standard.set((NSUUID.init(uuidString: password1.text!)?.uuidString)!, forKey: "getToken()")
-                print("\(saveSuccessful)")
-                
-                let retrievedString: String? = KeychainWrapper.standard.string(forKey: "getToken()")
-                print("\(retrievedString)")
-                
                 let parameters = [
-                    "login": "\(login.text ?? "ok")",
-                    "login": "\(email.text ?? "ok")"
+                    "login": "\(login.text!)",
+                    "login": "\(email.text!)",
+                    "login": "\(password1.text!)"
                 ]
                 
-                let url = "http://localhost:8080/users/query"
-                Alamofire.request(url, method:.post, parameters:parameters,encoding: JSONEncoding.default).responseJSON { response in
-                    switch response.result {
-                    case .success:
-                        print(response)
-                    case .failure(let error):
-                        print("\(error)")
-                        let monAlerte = UIAlertController(title: "☔️", message: "Une erreur esr survenue", preferredStyle: UIAlertControllerStyle.alert)
-                        monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                        self.present(monAlerte, animated: true, completion: nil)
-                        
+                let loading = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+                
+                loading.center = loginPage.center
+                loading.hidesWhenStopped = false
+                loading.startAnimating()
+                loginPage.addSubview(loading)
+                
+                let feedURL = "163.172.154.4:8080/dant/api/test/register"
+                var request = URLRequest(url: URL(string: feedURL)!)
+                request.httpMethod = "POST"
+                request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {return}
+                request.httpBody = httpBody
+                _ = URLSession.shared.dataTask(with: request) { (data, response, error) in
+                    if let jsonData = data{
+                        print(data!)
                     }
-                }
+                    //let artist = feed.value(forKeyPath: "feed.entry.im:artist.label") as? String ,
+                    //let imageURLs = feed.value(forKeyPath: "feed.entry.im:image") as? [NSDictionary] {
+                    //if let imageURL = imageURLs.last ,
+                    /*let imageURLString = imageURL.value(forKeyPath: "label") as? String{
+                     self.loadImage(from: URL(string:imageURLString)!)
+                     self.titleLabel.text = title
+                     self.titleLabel.isHidden = false
+                     self.arstistLabel.text = artist
+                     self.arstistLabel.isHidden = false
+                     */
+                    }.resume()
                 
-                
+                loading.stopAnimating()
                 
                 let monAlerte = UIAlertController(title: "", message:
                     "L'inscription a bien été prise en compte!", preferredStyle: UIAlertControllerStyle.alert)
