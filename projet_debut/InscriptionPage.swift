@@ -58,8 +58,7 @@ class InscriptionPage: UIViewController {
                 
                 let parameters = [
                     "login": "\(login.text ?? "ok")",
-                    "login": "\(email.text ?? "ok")",
-                    "token": "\(retrievedString)"
+                    "login": "\(email.text ?? "ok")"
                 ]
                 
                 let url = "http://localhost:8080/users/query"

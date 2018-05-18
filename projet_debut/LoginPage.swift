@@ -39,7 +39,6 @@ class LoginPage: UIViewController {
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             self.present(monAlerte, animated: true, completion: nil)
             
-
             return
         }
                 
@@ -54,16 +53,56 @@ class LoginPage: UIViewController {
             
             loginPage.addSubview(loading)
         
-            let token = NSUUID.init(uuidString: password!)?.uuidString
+        func loadImage(from URL: URL) {
+            let request = URLRequest(url: URL)
+            let session = URLSession.shared.dataTask(with: request ,
+                                                     completionHandler: { (data, response, error) in
+                                                        if let imageData = data {
+                                                            self.imageView.image = UIImage(data: imageData)
+                                                        }
+            })
+            session.resume()
+        }
         
-            let saveSuccessful: Bool = KeychainWrapper.standard.set(token!, forKey: "getToken()")
-        
+        override func viewDidLoad() {
+            
+            super.viewDidLoad()
+            
+            
+            
+            
+            
+            //titleLabel.text = titleText
+            let request = URLRequest(url: URL(string: self.feedURL)!)
+            let session = URLSession.shared.dataTask(with: request ,completionHandler:
+            { (data, response, error) in
+                if let jsonData = data ,
+                    let feed = (try? JSONSerialization.jsonObject(with: jsonData , options: .mutableContainers)) as? NSDictionary , let title = feed.value(forKeyPath: "feed.entry.im:name.label") as? String ,
+                    let artist = feed.value(forKeyPath: "feed.entry.im:artist.label") as? String ,
+                    let imageURLs = feed.value(forKeyPath: "feed.entry.im:image") as? [NSDictionary] {
+                    if let imageURL = imageURLs.last ,
+                        let imageURLString = imageURL.value(forKeyPath: "label") as? String{
+                        self.loadImage(from: URL(string:imageURLString)!)
+                        self.titleLabel.text = title
+                        self.titleLabel.isHidden = false
+                        self.arstistLabel.text = artist
+                        self.arstistLabel.isHidden = false
+                    }
+                    
+                }
+                
+                
+            })
+            session.resume() }
+
+            
             let parameters = [
-                "token": "\(NSUUID.init(uuidString: password!)?.uuidString ?? "0")"
+                "login" : "\(login)",
+                "pwd" : "\(password)"
             ]
         
             var url = "http://localhost:8080/check"
-            url.append("/\(token ?? "ok")")
+            url.append("/authentificate")
             Alamofire.request(url, method:.post, parameters:parameters,encoding: JSONEncoding.default).responseJSON { response in
                 switch response.result {
                 case .success:
