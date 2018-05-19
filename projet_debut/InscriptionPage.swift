@@ -15,17 +15,20 @@ class InscriptionPage: UIViewController {
     @IBOutlet weak var password2: UITextField!
     
     
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
     
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func inscription(_ sender: UIButton) {
+    @IBAction func inscription(_ sender: UIButton)
+    {
         
         print("bouton d'inscription")
         /* criteres pour une inscription reussie:
@@ -51,11 +54,12 @@ class InscriptionPage: UIViewController {
                 //alert.createAlert(msg: "inscription effectuée vous pouvez maintenant vous connecter")
                 return
                 
-                let parameters = [
+                let parameters =
+                    [
                     "login": "\(login.text!)",
                     "login": "\(email.text!)",
                     "login": "\(password1.text!)"
-                ]
+                    ]
                 
                 let loading = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
                 
@@ -107,13 +111,13 @@ class InscriptionPage: UIViewController {
             }
             
             
-            
         }
 
         
     }
     
-    func okHandler(alert: UIAlertAction!){
+    func okHandler(alert: UIAlertAction!)
+    {
         self.navigationController?.pushViewController(UIViewController(), animated: true)
     }
     
