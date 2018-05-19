@@ -120,6 +120,10 @@ class ViewController: UIViewController {
         self.map.setUserTrackingMode( MKUserTrackingMode.followWithHeading, animated: true) //zoomer sur la position
     }
     
+    func myPos()-> CLLocationCoordinate2D {
+        return self.del.locations
+    }
+    
     
     
     
@@ -129,6 +133,13 @@ class ViewController: UIViewController {
             secondViewController.
         }*/
     
+    @IBAction func logOut(_ sender: Any) {
+        
+      //Deconnexion
+    }
     
+    @IBAction func liste(_ sender: Any) {
+        //charger la liste d'amis
+    }
 }
 
