@@ -6,31 +6,30 @@ class LoginPageController: UIViewController
 {
 
     @IBOutlet weak var loginPage: UIImageView!
-    
     @IBOutlet weak var mail: UITextField!
-
     @IBOutlet weak var mdp: UITextField!
     
-    override func viewDidLoad()
-    {
+    //Les amis récupérés à afficher sur la map
+    let friendsToDisplay = [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 12.10, longitude: 10.12)),
+                            Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 13.10, longitude: 15.19)),
+                            Friend.init(pseudo: "C", coord: CLLocationCoordinate2D(latitude: 15.15, longitude: 14.11))]
+    
+
+    
+    override func viewDidLoad(){
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
     }
 
-    override func didReceiveMemoryWarning()
-    {
+    override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
     @IBAction func connexion(_ sender: Any)
     
     {
-        
 
-        print("Bouton de connexion appuyé")
+        //print("Bouton de connexion appuyé")
         
         let login = mail.text
         let password = mdp.text
@@ -85,14 +84,11 @@ class LoginPageController: UIViewController
         }
     }
     
+    //Envoyer à la vue suivante les amis récupérés
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let friendsToDisplay = [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 12.10, longitude: 10.12)),
-                            Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 13.10, longitude: 15.19)),
-                            Friend.init(pseudo: "C", coord: CLLocationCoordinate2D(latitude: 15.15, longitude: 14.11))]
-        
         let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
 
-        map.friendSegue = friendsToDisplay
+        map.friendSegue = self.friendsToDisplay
         
     }
 

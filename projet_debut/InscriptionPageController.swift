@@ -5,13 +5,9 @@ import SwiftKeychainWrapper
 class InscriptionPageController: UIViewController {
     
     @IBOutlet weak var loginPage: UIImageView!
-    
     @IBOutlet weak var login: UITextField!
-    
     @IBOutlet weak var email: UITextField!
-    
     @IBOutlet weak var password1: UITextField!
-    
     @IBOutlet weak var password2: UITextField!
     
     

@@ -5,6 +5,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listeAmis: UITableView!
     
+    //Pour récupérer les amis à afficher dans la liste
     var friendSegue: [Friend] = [Friend].init()
     var friends: FriendList = FriendList.init()
     
@@ -13,12 +14,13 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Afficher les amis récupérés
         friends.addList(tab: friendSegue)
         friends.addList(tab: [Friend.init(pseudo: "Alex"),
                      Friend.init(pseudo: "Guillaume"),
                      Friend.init(pseudo: "Henri"),
                      Friend.init(pseudo: "Sonia")]
-        )
+    )
         
         
         //print(friends)
@@ -43,8 +45,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchActive = false;
     }
-    
-        
+    //On récupère le contenu de la recherche et on filtre les amis
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
     
         filteredFriends.remove()
@@ -58,8 +59,6 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         }
         self.listeAmis.reloadData()
     }
-    
-    
     //par rapport à la mémoire et au nombre de lignes
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -77,17 +76,12 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Récupérer le bon élément
+        // Récupérer le bon élément, en fonction de si la liste est filtrée ou non
         let friend : Friend
-        
         if searchActive {
-            
             friend = filteredFriends.getList()[indexPath.row]
-            
         } else {
-            
             friend = friends.getList()[indexPath.row]
-            
         }
         
         // Créer une cellule
@@ -96,7 +90,6 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         // Ajouter les infos
         cell.textLabel?.text = friend.getPseudo()
         //cell.detailTextLabel?.text = element.name
-        
         
         return cell
     }

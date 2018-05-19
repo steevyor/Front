@@ -8,6 +8,7 @@ class MapViewController: UIViewController {
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var `switch`: UISwitch!
     
+    //Amis révupérés à afficher
     var friendsToDisplay: FriendList = FriendList.init()
     var friendSegue: [Friend] = [Friend].init()
     
@@ -35,6 +36,7 @@ class MapViewController: UIViewController {
         
         Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
                              repeats: true)
+        //Ajouter à la liste d'amis à afficher
         friendsToDisplay.addList(tab: self.friendSegue)
         self.displayFriends()
         
