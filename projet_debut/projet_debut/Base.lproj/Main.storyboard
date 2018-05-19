@@ -237,7 +237,7 @@
                             <constraint firstAttribute="bottom" secondItem="BnM-rg-wIr" secondAttribute="bottom" id="yjZ-U3-705"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Liste dAmis" id="rOq-7N-7of"/>
+                    <tabBarItem key="tabBarItem" title="Liste d'amis" id="rOq-7N-7of"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Liste d'amis" id="lOC-Om-cTA">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="JW7-nc-rJu"/>
