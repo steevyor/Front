@@ -157,7 +157,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Liste d'amis" id="XXl-Qy-cMN">
                             <connections>
                                 <action selector="liste:" destination="BYZ-38-t0r" id="EIg-zY-NJM"/>
-                                <segue destination="tKn-jy-97S" kind="show" id="aBH-C0-U6h"/>
+                                <segue destination="tKn-jy-97S" kind="show" identifier="Segue" id="aBH-C0-U6h"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -259,7 +259,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="JW5-6s-ODS">
             <objects>
-                <tabBarController id="tKn-jy-97S" sceneMemberID="viewController">
+                <tabBarController id="tKn-jy-97S" customClass="TabBarController" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="kyl-0G-CNH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -429,6 +429,6 @@
         <image name="loginBGCard" width="1101" height="1431"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="XbI-wx-aQn"/>
+        <segue reference="pmY-qF-Pg2"/>
     </inferredMetricsTieBreakers>
 </document>

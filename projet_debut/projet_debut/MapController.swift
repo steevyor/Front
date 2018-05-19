@@ -124,14 +124,14 @@ class MapViewController: UIViewController {
         return self.del.locations
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let tab = [Friend.init(pseudo: "A"), Friend.init(pseudo: "B"), Friend.init(pseudo: "C")]
+        let vueAmis = (segue.destination as! TabBarController).viewControllers?.first as! VueAmisController
+        vueAmis.friendSegue = tab
+        
+    }
     
     
-    
-    /*override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Segue"{
-           let vueAmis = segue.destination as! VueAmis
-            secondViewController.
-        }*/
     
     @IBAction func logOut(_ sender: Any) {
         
@@ -140,6 +140,9 @@ class MapViewController: UIViewController {
     
     @IBAction func liste(_ sender: Any) {
         //charger la liste d'amis
+        
+        
+        
     }
 }
 

@@ -1,10 +1,11 @@
 import UIKit
 
-class VueAmisController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listeAmis: UITableView!
     
+    var friendSegue: [Friend] = [Friend].init()
     var friends: FriendList = FriendList.init()
     
     var filteredFriends: FriendList = FriendList.init()
@@ -12,7 +13,7 @@ class VueAmisController: UIViewController, UITableViewDataSource, UITableViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        friends.addList(tab: friendSegue)
         friends.addList(tab: [Friend.init(pseudo: "Alex"),
                      Friend.init(pseudo: "Guillaume"),
                      Friend.init(pseudo: "Henri"),

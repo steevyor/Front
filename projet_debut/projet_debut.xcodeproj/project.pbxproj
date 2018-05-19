@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		061E46E520B07B1F002DB85A /* VueDemandesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061E46E420B07B1F002DB85A /* VueDemandesController.swift */; };
+		061E46E720B08789002DB85A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061E46E620B08789002DB85A /* TabBarController.swift */; };
 		06CF3C572087B19E006A7A3D /* InscriptionPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF3C562087B19E006A7A3D /* InscriptionPageController.swift */; };
 		06DA6EC0209886A600AE1F4C /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DA6EBF209886A600AE1F4C /* FriendList.swift */; };
 		157B242F71A6D06908A155BC /* Pods_projet_debutUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26499256A34CAEE00997D63A /* Pods_projet_debutUITests.framework */; };
@@ -46,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		061E46E420B07B1F002DB85A /* VueDemandesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VueDemandesController.swift; path = ../../../Documents/VueDemandesController.swift; sourceTree = "<group>"; };
+		061E46E620B08789002DB85A /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = ../../../Documents/TabBarController.swift; sourceTree = "<group>"; };
 		06CF3C562087B19E006A7A3D /* InscriptionPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InscriptionPageController.swift; sourceTree = "<group>"; };
 		06DA6EBF209886A600AE1F4C /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendList.swift; sourceTree = "<group>"; };
 		26499256A34CAEE00997D63A /* Pods_projet_debutUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_projet_debutUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -138,6 +140,7 @@
 				D6750C5620752C5C005B15F3 /* MapAppDelegate.swift */,
 				D6750C5820752C5C005B15F3 /* MapController.swift */,
 				061E46E420B07B1F002DB85A /* VueDemandesController.swift */,
+				061E46E620B08789002DB85A /* TabBarController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -431,6 +434,7 @@
 				D6750C5920752C5C005B15F3 /* MapController.swift in Sources */,
 				06CF3C572087B19E006A7A3D /* InscriptionPageController.swift in Sources */,
 				D6750C5720752C5C005B15F3 /* MapAppDelegate.swift in Sources */,
+				061E46E720B08789002DB85A /* TabBarController.swift in Sources */,
 				06DA6EC0209886A600AE1F4C /* FriendList.swift in Sources */,
 				061E46E520B07B1F002DB85A /* VueDemandesController.swift in Sources */,
 				33DA4DD9207ED0E1008E22DB /* LoginPageController.swift in Sources */,
