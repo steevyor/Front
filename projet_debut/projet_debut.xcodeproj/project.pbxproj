@@ -24,11 +24,12 @@
 		D6750C5720752C5C005B15F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C5620752C5C005B15F3 /* AppDelegate.swift */; };
 		D6750C5920752C5C005B15F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C5820752C5C005B15F3 /* ViewController.swift */; };
 		D6750C5C20752C5C005B15F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6750C5A20752C5C005B15F3 /* Main.storyboard */; };
-		D6750C5E20752C5C005B15F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6750C5D20752C5C005B15F3 /* Assets.xcassets */; };
 		D6750C6120752C5C005B15F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6750C5F20752C5C005B15F3 /* LaunchScreen.storyboard */; };
 		D6750C6C20752C5C005B15F3 /* projet_debutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C6B20752C5C005B15F3 /* projet_debutTests.swift */; };
 		D6750C7720752C5C005B15F3 /* projet_debutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C7620752C5C005B15F3 /* projet_debutUITests.swift */; };
 		D6750C8520752C75005B15F3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C8420752C75005B15F3 /* User.swift */; };
+		D689442620AF022C006E49A2 /* vueDemandes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D689442520AF022C006E49A2 /* vueDemandes.swift */; };
+		D6E208A320AEF166006BBB9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6E208A220AEF166006BBB9A /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,7 +142,6 @@
 		D6750C5620752C5C005B15F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = projet_debut/AppDelegate.swift; sourceTree = "<group>"; };
 		D6750C5820752C5C005B15F3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = projet_debut/ViewController.swift; sourceTree = "<group>"; };
 		D6750C5B20752C5C005B15F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D6750C5D20752C5C005B15F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D6750C6020752C5C005B15F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6750C6220752C5C005B15F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6750C6720752C5C005B15F3 /* projet_debutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = projet_debutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +151,8 @@
 		D6750C7620752C5C005B15F3 /* projet_debutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projet_debutUITests.swift; sourceTree = "<group>"; };
 		D6750C7820752C5C005B15F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6750C8420752C75005B15F3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = projet_debut/User.swift; sourceTree = "<group>"; };
+		D689442520AF022C006E49A2 /* vueDemandes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vueDemandes.swift; sourceTree = "<group>"; };
+		D6E208A220AEF166006BBB9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1598E5D446786FEDBF3C944 /* Pods_projet_debutTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_projet_debutTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -225,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				33FBD6D3207F8334007A3826 /* VueAmis.swift */,
+				D689442520AF022C006E49A2 /* vueDemandes.swift */,
 				06B414F3207D016500CE64F8 /* alamofire.swift */,
 				33DA4DD8207ED0E1008E22DB /* LoginPage.swift */,
 				06CF3C562087B19E006A7A3D /* InscriptionPage.swift */,
@@ -284,7 +287,7 @@
 		D6750C5520752C5C005B15F3 /* projet_debut */ = {
 			isa = PBXGroup;
 			children = (
-				D6750C5D20752C5C005B15F3 /* Assets.xcassets */,
+				D6E208A220AEF166006BBB9A /* Assets.xcassets */,
 				D6750C5F20752C5C005B15F3 /* LaunchScreen.storyboard */,
 				D6750C6220752C5C005B15F3 /* Info.plist */,
 			);
@@ -482,7 +485,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6750C6120752C5C005B15F3 /* LaunchScreen.storyboard in Resources */,
-				D6750C5E20752C5C005B15F3 /* Assets.xcassets in Resources */,
+				D6E208A320AEF166006BBB9A /* Assets.xcassets in Resources */,
 				D6750C5C20752C5C005B15F3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -584,6 +587,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6750C5920752C5C005B15F3 /* ViewController.swift in Sources */,
+				D689442620AF022C006E49A2 /* vueDemandes.swift in Sources */,
 				06CF3C572087B19E006A7A3D /* InscriptionPage.swift in Sources */,
 				D6750C5720752C5C005B15F3 /* AppDelegate.swift in Sources */,
 				337057AD209FC1E900393C59 /* Json.swift in Sources */,
