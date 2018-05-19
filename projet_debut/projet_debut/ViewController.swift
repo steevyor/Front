@@ -27,6 +27,8 @@ class ViewController: UIViewController {
         self.displayFriendPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11), friendName: "Soso")
         print(self.del.locations.longitude, del.locations.latitude)
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(ViewController.updatePosition), userInfo: nil,
                              repeats: true)
         
@@ -89,11 +91,13 @@ class ViewController: UIViewController {
         {
             self.del.enableLocationManager()
             self.partage = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
             else
         {
             self.del.disableLocationManager()
             self.partage = false
+             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
     

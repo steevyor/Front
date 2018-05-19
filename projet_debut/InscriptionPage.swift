@@ -54,6 +54,8 @@ class InscriptionPage: UIViewController {
                 //alert.createAlert(msg: "inscription effectuée vous pouvez maintenant vous connecter")
                 return
                 
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                
                 let parameters =
                     [
                     "login": "\(login.text!)",
@@ -90,6 +92,7 @@ class InscriptionPage: UIViewController {
                      */
                     }.resume()
                 
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 loading.stopAnimating()
                 
                 let monAlerte = UIAlertController(title: "", message:

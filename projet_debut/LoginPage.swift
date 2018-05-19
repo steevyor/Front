@@ -50,12 +50,8 @@ class LoginPage: UIViewController
                 "login": "\(login!)",
                 "login": "\(password!)"
             ]
-            let loading = UIActivityIndicatorView.init(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
             
-            loading.center = loginPage.center
-            loading.hidesWhenStopped = false
-            loading.startAnimating()
-            loginPage.addSubview(loading)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             
             let feedURL = "163.172.154.4:8080/dant/api/test/authentificate"
             var request = URLRequest(url: URL(string: feedURL)!)
@@ -84,8 +80,7 @@ class LoginPage: UIViewController
                         self.arstistLabel.isHidden = false
                         */
                 }.resume()
-            
-            loading.stopAnimating()
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
 
