@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		06CF3C572087B19E006A7A3D /* InscriptionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF3C562087B19E006A7A3D /* InscriptionPage.swift */; };
+		061E46E520B07B1F002DB85A /* VueDemandesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061E46E420B07B1F002DB85A /* VueDemandesController.swift */; };
+		06CF3C572087B19E006A7A3D /* InscriptionPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF3C562087B19E006A7A3D /* InscriptionPageController.swift */; };
 		06DA6EC0209886A600AE1F4C /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DA6EBF209886A600AE1F4C /* FriendList.swift */; };
 		157B242F71A6D06908A155BC /* Pods_projet_debutUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26499256A34CAEE00997D63A /* Pods_projet_debutUITests.framework */; };
 		2311697E0EF797ED371C9506 /* Pods_projet_debutTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1598E5D446786FEDBF3C944 /* Pods_projet_debutTests.framework */; };
-		33DA4DD9207ED0E1008E22DB /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA4DD8207ED0E1008E22DB /* LoginPage.swift */; };
-		33FBD6D4207F8334007A3826 /* VueAmis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FBD6D3207F8334007A3826 /* VueAmis.swift */; };
+		33DA4DD9207ED0E1008E22DB /* LoginPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA4DD8207ED0E1008E22DB /* LoginPageController.swift */; };
+		33FBD6D4207F8334007A3826 /* VueAmisController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FBD6D3207F8334007A3826 /* VueAmisController.swift */; };
 		87A1383D9929483299F31C78 /* Pods_projet_debut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5359F428502C9AB8BF533C89 /* Pods_projet_debut.framework */; };
 		D65D76E2207673B70058AD27 /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = D65D76E1207673B70058AD27 /* Friend.swift */; };
 		D65D76E7207679420058AD27 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D65D76E6207679420058AD27 /* MapKit.framework */; };
-		D6750C5720752C5C005B15F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C5620752C5C005B15F3 /* AppDelegate.swift */; };
-		D6750C5920752C5C005B15F3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C5820752C5C005B15F3 /* ViewController.swift */; };
+		D6750C5720752C5C005B15F3 /* MapAppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C5620752C5C005B15F3 /* MapAppDelegate.swift */; };
+		D6750C5920752C5C005B15F3 /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C5820752C5C005B15F3 /* MapController.swift */; };
 		D6750C5C20752C5C005B15F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6750C5A20752C5C005B15F3 /* Main.storyboard */; };
 		D6750C6120752C5C005B15F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6750C5F20752C5C005B15F3 /* LaunchScreen.storyboard */; };
 		D6750C6C20752C5C005B15F3 /* projet_debutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C6B20752C5C005B15F3 /* projet_debutTests.swift */; };
 		D6750C7720752C5C005B15F3 /* projet_debutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C7620752C5C005B15F3 /* projet_debutUITests.swift */; };
 		D6750C8520752C75005B15F3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C8420752C75005B15F3 /* User.swift */; };
-		D689442620AF022C006E49A2 /* vueDemandes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D689442520AF022C006E49A2 /* vueDemandes.swift */; };
 		D6E208A320AEF166006BBB9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6E208A220AEF166006BBB9A /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -45,11 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		06CF3C562087B19E006A7A3D /* InscriptionPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InscriptionPage.swift; sourceTree = "<group>"; };
+		061E46E420B07B1F002DB85A /* VueDemandesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VueDemandesController.swift; path = ../../../Documents/VueDemandesController.swift; sourceTree = "<group>"; };
+		06CF3C562087B19E006A7A3D /* InscriptionPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InscriptionPageController.swift; sourceTree = "<group>"; };
 		06DA6EBF209886A600AE1F4C /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendList.swift; sourceTree = "<group>"; };
 		26499256A34CAEE00997D63A /* Pods_projet_debutUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_projet_debutUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		33DA4DD8207ED0E1008E22DB /* LoginPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
-		33FBD6D3207F8334007A3826 /* VueAmis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VueAmis.swift; sourceTree = "<group>"; };
+		33DA4DD8207ED0E1008E22DB /* LoginPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageController.swift; sourceTree = "<group>"; };
+		33FBD6D3207F8334007A3826 /* VueAmisController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VueAmisController.swift; sourceTree = "<group>"; };
 		4C4D764532B6D81E74A07FD2 /* Pods-projet_debutTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-projet_debutTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-projet_debutTests/Pods-projet_debutTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4E01CDF2D9FD6CD8D53DFE2D /* Pods-projet_debutTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-projet_debutTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-projet_debutTests/Pods-projet_debutTests.release.xcconfig"; sourceTree = "<group>"; };
 		5359F428502C9AB8BF533C89 /* Pods_projet_debut.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_projet_debut.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,8 +61,8 @@
 		D65D76E1207673B70058AD27 /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
 		D65D76E6207679420058AD27 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D6750C5320752C5C005B15F3 /* projet_debut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = projet_debut.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6750C5620752C5C005B15F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = projet_debut/AppDelegate.swift; sourceTree = "<group>"; };
-		D6750C5820752C5C005B15F3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = projet_debut/ViewController.swift; sourceTree = "<group>"; };
+		D6750C5620752C5C005B15F3 /* MapAppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapAppDelegate.swift; path = projet_debut/MapAppDelegate.swift; sourceTree = "<group>"; };
+		D6750C5820752C5C005B15F3 /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapController.swift; path = projet_debut/MapController.swift; sourceTree = "<group>"; };
 		D6750C5B20752C5C005B15F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D6750C6020752C5C005B15F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6750C6220752C5C005B15F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		D6750C7620752C5C005B15F3 /* projet_debutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projet_debutUITests.swift; sourceTree = "<group>"; };
 		D6750C7820752C5C005B15F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6750C8420752C75005B15F3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = projet_debut/User.swift; sourceTree = "<group>"; };
-		D689442520AF022C006E49A2 /* vueDemandes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = vueDemandes.swift; sourceTree = "<group>"; };
 		D6E208A220AEF166006BBB9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1598E5D446786FEDBF3C944 /* Pods_projet_debutTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_projet_debutTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -132,11 +132,12 @@
 		D65D76DF207670110058AD27 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				33FBD6D3207F8334007A3826 /* VueAmis.swift */,
-				33DA4DD8207ED0E1008E22DB /* LoginPage.swift */,
-				06CF3C562087B19E006A7A3D /* InscriptionPage.swift */,
-				D6750C5620752C5C005B15F3 /* AppDelegate.swift */,
-				D6750C5820752C5C005B15F3 /* ViewController.swift */,
+				33FBD6D3207F8334007A3826 /* VueAmisController.swift */,
+				33DA4DD8207ED0E1008E22DB /* LoginPageController.swift */,
+				06CF3C562087B19E006A7A3D /* InscriptionPageController.swift */,
+				D6750C5620752C5C005B15F3 /* MapAppDelegate.swift */,
+				D6750C5820752C5C005B15F3 /* MapController.swift */,
+				061E46E420B07B1F002DB85A /* VueDemandesController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -427,14 +428,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6750C5920752C5C005B15F3 /* ViewController.swift in Sources */,
-				D689442620AF022C006E49A2 /* vueDemandes.swift in Sources */,
-				06CF3C572087B19E006A7A3D /* InscriptionPage.swift in Sources */,
-				D6750C5720752C5C005B15F3 /* AppDelegate.swift in Sources */,
+				D6750C5920752C5C005B15F3 /* MapController.swift in Sources */,
+				06CF3C572087B19E006A7A3D /* InscriptionPageController.swift in Sources */,
+				D6750C5720752C5C005B15F3 /* MapAppDelegate.swift in Sources */,
 				06DA6EC0209886A600AE1F4C /* FriendList.swift in Sources */,
-				33DA4DD9207ED0E1008E22DB /* LoginPage.swift in Sources */,
+				061E46E520B07B1F002DB85A /* VueDemandesController.swift in Sources */,
+				33DA4DD9207ED0E1008E22DB /* LoginPageController.swift in Sources */,
 				D65D76E2207673B70058AD27 /* Friend.swift in Sources */,
-				33FBD6D4207F8334007A3826 /* VueAmis.swift in Sources */,
+				33FBD6D4207F8334007A3826 /* VueAmisController.swift in Sources */,
 				D6750C8520752C75005B15F3 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

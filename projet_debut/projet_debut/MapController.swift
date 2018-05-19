@@ -3,7 +3,7 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController {
+class MapViewController: UIViewController {
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var `switch`: UISwitch!
@@ -17,7 +17,7 @@ class ViewController: UIViewController {
         }
     }
     
-    let del = UIApplication.shared.delegate as! AppDelegate
+    let del = UIApplication.shared.delegate as! MappAppDelegate
     
     override func viewDidLoad()
     {
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(ViewController.updatePosition), userInfo: nil,
+        Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
                              repeats: true)
         
     }

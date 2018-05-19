@@ -1,7 +1,7 @@
 import UIKit
 import SwiftKeychainWrapper
 
-class LoginPage: UIViewController
+class LoginPageController: UIViewController
 {
 
     @IBOutlet weak var loginPage: UIImageView!
@@ -36,7 +36,7 @@ class LoginPage: UIViewController
         
         if (login?.isEmpty)! || (password?.isEmpty)!
         {
-            let monAlerte = UIAlertController(title: "☔️", message: "Veillez renseigner tout les champs", preferredStyle: UIAlertControllerStyle.alert)
+            let monAlerte = UIAlertController(title: "☔️", message: "Veuillez renseigner tous les champs", preferredStyle: UIAlertControllerStyle.alert)
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             self.present(monAlerte, animated: true, completion: nil)
             

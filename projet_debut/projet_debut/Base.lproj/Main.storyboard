@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Login Page-->
+        <!--Login Page Controller-->
         <scene sceneID="uLQ-26-ci9">
             <objects>
-                <viewController id="VVX-Ef-FjC" customClass="LoginPage" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="VVX-Ef-FjC" customClass="LoginPageController" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="c6k-TC-VXq"/>
                         <viewControllerLayoutGuide type="bottom" id="g2l-7j-mqw"/>
@@ -105,10 +105,10 @@
             </objects>
             <point key="canvasLocation" x="-1194" y="-780"/>
         </scene>
-        <!--View Controller-->
+        <!--Map View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MapViewController" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -151,7 +151,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Déconnexion" id="Enc-kT-fTh">
                             <connections>
                                 <action selector="logOut:" destination="BYZ-38-t0r" id="uxK-gx-GBQ"/>
-                                <segue destination="VVX-Ef-FjC" kind="show" id="2IZ-ye-8Pz"/>
+                                <segue destination="VVX-Ef-FjC" kind="presentation" id="pmY-qF-Pg2"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Liste d'amis" id="XXl-Qy-cMN">
@@ -173,7 +173,7 @@
         <!--Demandes-->
         <scene sceneID="t8G-cT-UCX">
             <objects>
-                <viewController id="but-r7-ngy" customClass="VueDemandes" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="but-r7-ngy" customClass="VueDemandesController" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="06N-uk-GTF"/>
                         <viewControllerLayoutGuide type="bottom" id="Ceu-kj-eub"/>
@@ -213,7 +213,7 @@
         <!--Liste d'amis-->
         <scene sceneID="SnE-ny-j4n">
             <objects>
-                <viewController id="poq-3D-w5W" customClass="VueAmis" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="poq-3D-w5W" customClass="VueAmisController" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GME-5O-5Ho"/>
                         <viewControllerLayoutGuide type="bottom" id="5df-BD-zo0"/>
@@ -274,10 +274,10 @@
             </objects>
             <point key="canvasLocation" x="662" y="-580"/>
         </scene>
-        <!--Inscription Page-->
+        <!--Inscription Page Controller-->
         <scene sceneID="xiV-3d-kuu">
             <objects>
-                <viewController id="bBg-lJ-KJK" customClass="InscriptionPage" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="bBg-lJ-KJK" customClass="InscriptionPageController" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ins-iv-mad"/>
                         <viewControllerLayoutGuide type="bottom" id="gpH-IA-vZh"/>
@@ -429,6 +429,6 @@
         <image name="loginBGCard" width="1101" height="1431"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2IZ-ye-8Pz"/>
+        <segue reference="XbI-wx-aQn"/>
     </inferredMetricsTieBreakers>
 </document>

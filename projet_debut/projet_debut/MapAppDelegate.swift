@@ -3,7 +3,7 @@ import CoreLocation
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegate{
+class MappAppDelegate: UIResponder, UIApplicationDelegate , CLLocationManagerDelegate{
     let locationManager = CLLocationManager()
     var window: UIWindow?
     

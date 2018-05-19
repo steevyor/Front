@@ -1,6 +1,6 @@
 import UIKit
 
-class VueAmis: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class VueAmisController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listeAmis: UITableView!

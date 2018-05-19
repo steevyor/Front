@@ -2,7 +2,7 @@ import UIKit
 import Alamofire
 import SwiftKeychainWrapper
 
-class InscriptionPage: UIViewController {
+class InscriptionPageController: UIViewController {
     
     @IBOutlet weak var loginPage: UIImageView!
     
@@ -40,7 +40,7 @@ class InscriptionPage: UIViewController {
         if (login.text?.isEmpty)! || (email.text?.isEmpty)! || (password1.text?.isEmpty)! || (password2.text?.isEmpty)!
         {
             let monAlerte = UIAlertController(title: "☔️", message:
-                "Veuillez renseigner tout les champs", preferredStyle: UIAlertControllerStyle.alert)
+                "Veuillez renseigner tous les champs", preferredStyle: UIAlertControllerStyle.alert)
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             
             self.present(monAlerte, animated: true, completion: nil)
