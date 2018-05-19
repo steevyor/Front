@@ -7,6 +7,10 @@ class MapViewController: UIViewController {
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var `switch`: UISwitch!
+    
+    var friendsToDisplay: FriendList = FriendList.init()
+    var friendSegue: [Friend] = [Friend].init()
+    
     var partage : Bool = true
     let timer :Timer? = nil
     deinit
@@ -31,6 +35,8 @@ class MapViewController: UIViewController {
         
         Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
                              repeats: true)
+        friendsToDisplay.addList(tab: self.friendSegue)
+        self.displayFriends()
         
     }
     
@@ -113,6 +119,16 @@ class MapViewController: UIViewController {
         annotation.title = friendName
         //annotation.UIImage(named: "pins.png")
         self.map.addAnnotation(annotation)
+    }
+    
+    func displayFriends(){
+        if self.friendsToDisplay.getList().count != 0 {
+            for i in 0...self.friendsToDisplay.getList().count-1{
+                displayFriendPosition(pos: self.friendsToDisplay.getList()[i].getCoordinates(), friendName:
+                    self.friendsToDisplay.getList()[i].getPseudo())
+            }
+        }
+        
     }
     
     func zoomPos()

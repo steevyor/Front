@@ -9,10 +9,18 @@ class Friend : Equatable{
     private var coordinates = CLLocationCoordinate2D()
     
     
+    init(pseudo: String, coord: CLLocationCoordinate2D){
+        self.pseudo = pseudo
+        self.isVisible = false
+        self.isConnected = false
+        self.coordinates = coord
+        
+    }
     init(pseudo: String){
         self.pseudo = pseudo
         self.isVisible = false
         self.isConnected = false
+        self.coordinates = CLLocationCoordinate2D(latitude: 0, longitude: 0)
         
     }
     
@@ -24,6 +32,10 @@ class Friend : Equatable{
         return user1.pseudo == user2.pseudo 
         
     }
+    func getCoordinates() -> CLLocationCoordinate2D{
+        return self.coordinates
+    }
+
     
     
 }

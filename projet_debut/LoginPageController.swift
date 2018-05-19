@@ -1,5 +1,6 @@
 import UIKit
 import SwiftKeychainWrapper
+import MapKit
 
 class LoginPageController: UIViewController
 {
@@ -13,7 +14,7 @@ class LoginPageController: UIViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-    
+        
         // Do any additional setup after loading the view.
     }
 
@@ -83,9 +84,20 @@ class LoginPageController: UIViewController
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let friendsToDisplay = [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 12.10, longitude: 10.12)),
+                            Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 13.10, longitude: 15.19)),
+                            Friend.init(pseudo: "C", coord: CLLocationCoordinate2D(latitude: 15.15, longitude: 14.11))]
+        
+        let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
+
+        map.friendSegue = friendsToDisplay
+        
+    }
 
 }
-            
+
 
 
 

@@ -408,7 +408,7 @@
         <!--Navigation Controller-->
         <scene sceneID="bjA-yO-3kF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WHO-gf-lbg" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="WHO-gf-lbg" customClass="NavigationController" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="N0q-9X-KSl">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
