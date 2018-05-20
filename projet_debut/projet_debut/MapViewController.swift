@@ -145,10 +145,13 @@ class MapViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let tab = [Friend.init(pseudo: "A"), Friend.init(pseudo: "B"), Friend.init(pseudo: "C")]
-        let vueAmis = (segue.destination as! TabBarController).viewControllers?.first as! VueAmisController
-        vueAmis.friendSegue = tab
-        vueAmis.token = self.token
+        if segue.identifier == "Segue" {
+            let tab = [Friend.init(pseudo: "A"), Friend.init(pseudo: "B"), Friend.init(pseudo: "C")]
+            let vueAmis = (segue.destination as! TabBarController).viewControllers?.first as! VueAmisController
+            vueAmis.friendSegue = tab
+            vueAmis.token = self.token
+        }
+       
         
     }
     
