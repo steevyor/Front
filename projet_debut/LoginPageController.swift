@@ -9,6 +9,9 @@ class LoginPageController: UIViewController
     @IBOutlet weak var mail: UITextField!
     @IBOutlet weak var mdp: UITextField!
     
+    var token: String = ""
+    
+    
     //Les amis récupérés à afficher sur la map
     let friendsToDisplay = [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 12.10, longitude: 10.12)),
                             Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 13.10, longitude: 15.19)),
@@ -84,11 +87,13 @@ class LoginPageController: UIViewController
         }
     }
     
-    //Envoyer à la vue suivante les amis récupérés
+    //Envoyer à la vue suivante les amis récupérés et le token
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
-
         map.friendSegue = self.friendsToDisplay
+        map.token = self.token
+        
+        
         
     }
 

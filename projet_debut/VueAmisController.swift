@@ -9,6 +9,9 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     var friendSegue: [Friend] = [Friend].init()
     var friends: FriendList = FriendList.init()
     
+    
+    var token : String = ""
+    
     var filteredFriends: FriendList = FriendList.init()
     var searchActive: Bool = false
     

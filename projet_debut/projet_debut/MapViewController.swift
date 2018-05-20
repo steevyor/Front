@@ -12,6 +12,8 @@ class MapViewController: UIViewController {
     var friendsToDisplay: FriendList = FriendList.init()
     var friendSegue: [Friend] = [Friend].init()
     
+    var token: String = ""
+    
     var partage : Bool = true
     let timer :Timer? = nil
     deinit
@@ -146,6 +148,7 @@ class MapViewController: UIViewController {
         let tab = [Friend.init(pseudo: "A"), Friend.init(pseudo: "B"), Friend.init(pseudo: "C")]
         let vueAmis = (segue.destination as! TabBarController).viewControllers?.first as! VueAmisController
         vueAmis.friendSegue = tab
+        vueAmis.token = self.token
         
     }
     
@@ -155,7 +158,7 @@ class MapViewController: UIViewController {
         
       //Deconnexion
     }
-    
+
     @IBAction func liste(_ sender: Any) {
         //charger la liste d'amis
         
