@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		061E46E520B07B1F002DB85A /* VueDemandesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061E46E420B07B1F002DB85A /* VueDemandesController.swift */; };
 		061E46E720B08789002DB85A /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061E46E620B08789002DB85A /* TabBarController.swift */; };
+		063A9D5920B319590044B1AC /* VueDemandesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063A9D5820B319590044B1AC /* VueDemandesController.swift */; };
 		0665488D20B0AAFF00CCC323 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0665488C20B0AAFF00CCC323 /* NavigationController.swift */; };
 		06CF3C572087B19E006A7A3D /* InscriptionPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF3C562087B19E006A7A3D /* InscriptionPageController.swift */; };
 		06DA6EC0209886A600AE1F4C /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DA6EBF209886A600AE1F4C /* FriendList.swift */; };
@@ -47,8 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		061E46E420B07B1F002DB85A /* VueDemandesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VueDemandesController.swift; path = ../../../Documents/VueDemandesController.swift; sourceTree = "<group>"; };
-		061E46E620B08789002DB85A /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = ../../../Documents/TabBarController.swift; sourceTree = "<group>"; };
+		061E46E620B08789002DB85A /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarController.swift; path = projet_debut/TabBarController.swift; sourceTree = "<group>"; };
+		063A9D5820B319590044B1AC /* VueDemandesController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VueDemandesController.swift; path = projet_debut/VueDemandesController.swift; sourceTree = "<group>"; };
 		0665488C20B0AAFF00CCC323 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		06CF3C562087B19E006A7A3D /* InscriptionPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InscriptionPageController.swift; sourceTree = "<group>"; };
 		06DA6EBF209886A600AE1F4C /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendList.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 				06CF3C562087B19E006A7A3D /* InscriptionPageController.swift */,
 				D6750C5620752C5C005B15F3 /* MapAppDelegate.swift */,
 				D6750C5820752C5C005B15F3 /* MapViewController.swift */,
-				061E46E420B07B1F002DB85A /* VueDemandesController.swift */,
+				063A9D5820B319590044B1AC /* VueDemandesController.swift */,
 				061E46E620B08789002DB85A /* TabBarController.swift */,
 				0665488C20B0AAFF00CCC323 /* NavigationController.swift */,
 			);
@@ -440,7 +440,7 @@
 				D6750C5720752C5C005B15F3 /* MapAppDelegate.swift in Sources */,
 				061E46E720B08789002DB85A /* TabBarController.swift in Sources */,
 				06DA6EC0209886A600AE1F4C /* FriendList.swift in Sources */,
-				061E46E520B07B1F002DB85A /* VueDemandesController.swift in Sources */,
+				063A9D5920B319590044B1AC /* VueDemandesController.swift in Sources */,
 				33DA4DD9207ED0E1008E22DB /* LoginPageController.swift in Sources */,
 				D65D76E2207673B70058AD27 /* Friend.swift in Sources */,
 				33FBD6D4207F8334007A3826 /* VueAmisController.swift in Sources */,
