@@ -44,6 +44,10 @@ class FriendList {
         
     }
     
+    func remove(index: Int){
+        self.list.remove(at: index)
+    }
+    
     func filter( login: String, filteredFriends: inout FriendList) {
         var tab: [Friend] = []
         

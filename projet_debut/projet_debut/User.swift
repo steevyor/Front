@@ -3,7 +3,7 @@ import Foundation
 
 
 class User : Equatable {
-    private var pseudo: String
+    private let pseudo: String
     private let email: String
     private var contacts = FriendList()
     private var invitationDemands = [String]()
@@ -49,43 +49,41 @@ class User : Equatable {
     func getCoordinates() -> CLLocationCoordinate2D{
         return self.coordinates
     }
-    
-    
-    func setPseudo(s : String){
-        self.pseudo = s
-    }
-    func addContacts(f : Friend){
+    func addContact(f : Friend){
         self.contacts.addFriend(f: f)
     }
     
-    //TODO: fonction pour supprimer un ami d'une liste
-    /*func deleteContacts(email : String){
-        for index in 0...self.contacts.count{
-            if(email == self.contacts[index]){
-                self.contacts.remove(at: index)
+    func deleteContact(f : Friend){
+        for index in 0...self.contacts.getList().count{
+            if f == self.contacts.getList()[index]  {
+                self.contacts.remove(index: index)
             }
+            return
         }
-    }*/
-    func addInvitationDemands(demand : String){
+    }
+    
+    func addInvitationDemand(demand : String){
         self.invitationDemands.append(demand)
     }
     
-    func deleteInvitationDemands(demand : String){
+    func deleteInvitationDemand(demand : String){
         for index in 0...self.invitationDemands.count{
             if(demand == self.invitationDemands[index]){
                 self.invitationDemands.remove(at: index)
             }
+            return
         }
     }
-    func addInvitationRequests(request : String){
+    func addInvitationRequest(request : String){
         self.invitationRequests.append(request)
     }
     
-    func deleteInvitationRequests(request : String){
+    func deleteInvitationRequest(request : String){
         for index in 0...self.invitationRequests.count{
             if(request == self.invitationRequests[index]){
                 self.invitationRequests.remove(at: index)
             }
+            return
         }
     }
     func setIsConnected(b : Bool){
