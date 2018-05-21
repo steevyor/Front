@@ -92,13 +92,24 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         
         // Ajouter les infos
         cell.textLabel?.text = friend.getPseudo()
-        //cell.detailTextLabel?.text = element.name
+        
         
         return cell
     }
-
     
-
+    //action sur un ami
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
+        
+        let deleteClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
+            //TODO: Ajouter l'action de suppression
+            print("Ami supprimé")
+        }
+        
+        let deleteFriend = UITableViewRowAction(style: .default, title: "Supprimer", handler: deleteClosure)
+        
+        return [deleteFriend]
+        
+    }
     
     
     
