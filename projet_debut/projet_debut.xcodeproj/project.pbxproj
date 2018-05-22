@@ -142,8 +142,8 @@
 				D6750C5620752C5C005B15F3 /* MapAppDelegate.swift */,
 				D6750C5820752C5C005B15F3 /* MapViewController.swift */,
 				063A9D5820B319590044B1AC /* VueDemandesController.swift */,
-				061E46E620B08789002DB85A /* TabBarController.swift */,
 				0665488C20B0AAFF00CCC323 /* NavigationController.swift */,
+				061E46E620B08789002DB85A /* TabBarController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

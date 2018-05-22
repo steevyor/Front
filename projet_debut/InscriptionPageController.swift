@@ -115,9 +115,9 @@ class InscriptionPageController: UIViewController {
         
     }
     
-    func okHandler(alert: UIAlertAction!)
+    /*func okHandler(alert: UIAlertAction!)
     {
         self.navigationController?.pushViewController(UIViewController(), animated: true)
-    }
+    }*/
     
 }

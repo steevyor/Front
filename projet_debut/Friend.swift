@@ -28,12 +28,17 @@ class Friend : Equatable{
         return self.pseudo
     }
     
+    func getCoordinates() -> CLLocationCoordinate2D{
+        return self.coordinates
+    }
+    func setCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees ){
+        self.coordinates = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+    }
+    
     static func ==(user1: Friend, user2: Friend) -> Bool {
         return user1.pseudo == user2.pseudo 
         
-    }
-    func getCoordinates() -> CLLocationCoordinate2D{
-        return self.coordinates
     }
 
     
