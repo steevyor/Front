@@ -47,7 +47,6 @@ class LoginPageController: UIViewController
         }
         else
         {
-            return
             
             let parameters = [
                 "login": "\(login!)",
@@ -83,7 +82,7 @@ class LoginPageController: UIViewController
                         self.arstistLabel.isHidden = false
                         */
                 }.resume()
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
         }
     }
     

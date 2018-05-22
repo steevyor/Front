@@ -35,8 +35,7 @@ class InscriptionPageController: UIViewController {
  
         if (login.text?.isEmpty)! || (email.text?.isEmpty)! || (password1.text?.isEmpty)! || (password2.text?.isEmpty)!
         {
-            let monAlerte = UIAlertController(title: "☔️", message:
-                "Veuillez renseigner tous les champs", preferredStyle: UIAlertControllerStyle.alert)
+            let monAlerte = UIAlertController(title: "☔️", message:"Veuillez renseigner tous les champs", preferredStyle: UIAlertControllerStyle.alert)
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             
             self.present(monAlerte, animated: true, completion: nil)
@@ -46,8 +45,12 @@ class InscriptionPageController: UIViewController {
         {
             if password1.text == password2.text
             {
-                //Alert.alert()
-                //alert.createAlert(msg: "inscription effectuée vous pouvez maintenant vous connecter")
+                let monAlerte = UIAlertController(title: "☀️", message:
+                "L'inscription a bien été prise en compte, vous pouvez vous connecter !", preferredStyle: UIAlertControllerStyle.alert)
+                monAlerte.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
+                
+                self.present(monAlerte, animated: true, completion: nil)
+
                 return
                 
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -91,11 +94,6 @@ class InscriptionPageController: UIViewController {
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 loading.stopAnimating()
                 
-                let monAlerte = UIAlertController(title: "", message:
-                    "L'inscription a bien été prise en compte!", preferredStyle: UIAlertControllerStyle.alert)
-                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                
-                self.present(monAlerte, animated: true, completion: nil)
                 
                 
             }
@@ -103,8 +101,8 @@ class InscriptionPageController: UIViewController {
             {
                 //alert()
                 //alert.createAlert(msg: "l'inscription à échoué, mots de passe différents")
-                let monAlerte = UIAlertController(title: "Erreur", message:
-                    "Attention les mots de passes entrés sont différents!", preferredStyle: UIAlertControllerStyle.alert)
+                let monAlerte = UIAlertController(title: "☔️", message:
+                    "Attention les mots de passes entrés sont différents !", preferredStyle: UIAlertControllerStyle.alert)
                 monAlerte.addAction(UIAlertAction(title: "Annuler", style: .default,handler: nil ))
                 self.present(monAlerte, animated: true, completion: nil)
             }
@@ -115,9 +113,9 @@ class InscriptionPageController: UIViewController {
         
     }
     
-    /*func okHandler(alert: UIAlertAction!)
+    func okHandler(alert: UIAlertAction!)
     {
         self.navigationController?.pushViewController(UIViewController(), animated: true)
-    }*/
+    }
     
 }
