@@ -89,13 +89,12 @@ class LoginPageController: UIViewController
     
     //Envoyer à la vue suivante les amis récupérés et le token
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
-        map.friendSegue = self.friendsToDisplay
-        map.token = self.token
-        
-        
-        
-    }
+        if segue.identifier == "Identifier" {
+            let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
+            map.friendSegue = self.friendsToDisplay
+            map.token = self.token
+        }
+         }
 
 }
 

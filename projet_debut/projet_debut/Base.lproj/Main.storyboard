@@ -64,7 +64,7 @@
                                 <state key="normal" title="Connexion"/>
                                 <connections>
                                     <action selector="connexion:" destination="VVX-Ef-FjC" eventType="touchUpInside" id="4hU-8y-ohh"/>
-                                    <segue destination="WHO-gf-lbg" kind="presentation" id="eti-ZM-D5J"/>
+                                    <segue destination="WHO-gf-lbg" kind="presentation" identifier="Segue" id="eti-ZM-D5J"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYB-wz-Afw">
