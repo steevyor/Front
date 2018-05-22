@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VVX-Ef-FjC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1314" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VVX-Ef-FjC">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -195,12 +195,8 @@
                             <constraint firstItem="udf-l2-hhf" firstAttribute="top" secondItem="c33-aZ-Viw" secondAttribute="top" constant="20" id="zu8-DU-HTN"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Demandes" id="GTO-5w-zwq">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
-                    </tabBarItem>
-                    <toolbarItems>
-                        <barButtonItem title="Item" id="bxa-bQ-IqI"/>
-                    </toolbarItems>
+                    <tabBarItem key="tabBarItem" tag="12" title="Demandes" image="demandes" selectedImage="demandes" id="GTO-5w-zwq"/>
+                    <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="listeDemands" destination="udf-l2-hhf" id="feJ-DJ-brx"/>
@@ -242,7 +238,7 @@
                             <constraint firstItem="BnM-rg-wIr" firstAttribute="leading" secondItem="zkF-Td-01R" secondAttribute="leading" id="skv-eh-hIa"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Liste d'amis" id="rOq-7N-7of"/>
+                    <tabBarItem key="tabBarItem" title="Amis" image="amis25" selectedImage="amis25" id="CgD-CL-4js"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Liste d'amis" id="lOC-Om-cTA">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="JW7-nc-rJu"/>
@@ -425,7 +421,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="amis25" width="25" height="25"/>
         <image name="background" width="1080" height="1920"/>
+        <image name="demandes" width="25" height="25"/>
         <image name="loginBGCard" width="1101" height="1431"/>
     </resources>
     <inferredMetricsTieBreakers>
