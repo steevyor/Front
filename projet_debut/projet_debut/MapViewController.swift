@@ -90,40 +90,7 @@ class MapViewController: UIViewController {
     //récupérer les amis et lerus positions
     func updateFriends()
     {
-            /*
-            let feedURL = "163.172.154.4:8080/dant/api/test/position"    // verifier adresse
-            
-            var request = URLRequest(url: URL(string: feedURL)!)
-            request.httpMethod = "GET"
-            //request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        _ = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            
-                //chaque ligne du JSon se décompose en login, longitude, latitude
-                let login = feed.value(forKeyPath: "feed.entry.im:login.label") as? String ,
-                let longitude = feed.value(forKeyPath: "feed.entry.im:longitude.label") as? String ,
-                let latitude = feed.value(forKeyPath: "feed.entry.im:latitude.label") as? String {
-                    
-                    var f: Friend = Friend.init(pseudo: login)
-                    f.setCoordinates(latitude: longitude, longitude: latitude)
-                    
-                }
-            
-            
-            
-            
-            
-            
-                //let imageURLs = feed.value(forKeyPath: "feed.entry.im:image") as? [NSDictionary] {
-                //if let imageURL = imageURLs.last ,
-                /*let imageURLString = imageURL.value(forKeyPath: "label") as? String{
-                self.loadImage(from: URL(string:imageURLString)!)
-                self.titleLabel.text = title*/
- 
- 
- 
-                }.resume()*/
-        
-        
+                   
         let feedURL = "163.172.154.4:8080/dant/api/test/position"    // verifier adresse
         var request = URLRequest(url: URL(string: feedURL)!)
         let session = URLSession.shared.dataTask(with: request ,completionHandler:

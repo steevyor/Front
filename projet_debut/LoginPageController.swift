@@ -47,7 +47,7 @@ class LoginPageController: UIViewController
         }
         else
         {
-            
+            return
             let parameters = [
                 "login": "\(login!)",
                 "login": "\(password!)"
