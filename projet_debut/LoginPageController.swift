@@ -62,7 +62,7 @@ class LoginPageController: UIViewController
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        let feedURL = "163.172.154.4:8080/user/auth"
+        let feedURL = "163.172.154.4:8080/api/user/auth"
         var request = URLRequest(url: URL(string: feedURL)!)
         
         request.httpMethod = "POST"
