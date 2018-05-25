@@ -45,9 +45,9 @@ class LoginPageController: UIViewController
         else
         {
             return
-                connexion(login: login! ,password: password!)
-
-            
+                self.connexion(login: login! ,password: password!)
+                self.getToken()
+                self.getFriends()
             
         }
     }
@@ -57,12 +57,12 @@ class LoginPageController: UIViewController
     func connexion(login: String, password: String){
         let parameters = [
             "login": "\(login)",
-            "login": "\(password)"
+            "password": "\(password)"
         ]
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        let feedURL = "163.172.154.4:8080/dant/api/test/authentificate"
+        let feedURL = "163.172.154.4:8080/user/auth"
         var request = URLRequest(url: URL(string: feedURL)!)
         
         request.httpMethod = "POST"
