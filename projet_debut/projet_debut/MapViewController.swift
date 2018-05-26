@@ -12,7 +12,7 @@ class MapViewController: UIViewController {
     var friendsToDisplay: FriendList = FriendList.init()
     var friendSegue: [Friend] = [Friend].init()
     
-    var token: String = ""
+    var user: User = User.init()
     
     var partage : Bool = true
     let timer :Timer? = nil
@@ -172,7 +172,8 @@ class MapViewController: UIViewController {
             let tab = [Friend.init(pseudo: "A"), Friend.init(pseudo: "B"), Friend.init(pseudo: "C")]
             let vueAmis = (segue.destination as! TabBarController).viewControllers?.first as! VueAmisController
             vueAmis.friendSegue = tab
-            vueAmis.token = self.token
+            vueAmis.user = User.init(u: self.user)
+            
         }
        
         
