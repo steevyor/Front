@@ -57,7 +57,7 @@ class MapViewController: UIViewController {
             let latitude = del.locations.latitude
             let longitude = del.locations.longitude
             
-            print("Longitude :\(longitude) , Latitude: \(latitude)")
+            print("Map : Longitude :\(longitude) , Latitude: \(latitude)")
             
             let parameters = [
                 "latitude": "Longitude \(longitude)",

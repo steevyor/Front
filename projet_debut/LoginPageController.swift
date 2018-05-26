@@ -44,32 +44,36 @@ class LoginPageController: UIViewController
         }
         else
         {
-            return
                 self.connexion(login: login! ,password: password!)
                 self.getToken()
                 self.getFriends()
-            
         }
     }
     
     
     
     func connexion(login: String, password: String){
+        
         let parameters = [
-            "login": "\(login)",
+            "pseudo": "\(login)",
             "password": "\(password)"
         ]
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
-        let feedURL = "163.172.154.4:8080/api/user/auth"
+        let feedURL = "https://59c86c5d.ngrok.io/api/user/auth"
         var request = URLRequest(url: URL(string: feedURL)!)
         
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {return}
+        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
+            print("ERROR")
+            return
+        }
         request.httpBody = httpBody
+        print("*********************************")
+        print("\(request)")
         _ = URLSession.shared.dataTask(with: request) { (data, response, error) in
             if let jsonData = data ,
                 let feed = (try? JSONSerialization.jsonObject(with: jsonData , options: .mutableContainers)) as? NSDictionary , let token = feed.value(forKeyPath: "feed.entry.im:token.label") as? String
@@ -89,8 +93,8 @@ class LoginPageController: UIViewController
              self.arstistLabel.isHidden = false
              */
             }.resume()
-        getFriends()
-        getToken()
+        //getFriends()
+        //getToken()
 
         
     }
