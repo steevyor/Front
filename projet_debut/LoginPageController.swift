@@ -14,6 +14,7 @@ class LoginPageController: UIViewController
     
     var token: String = ""
     var user: User = User.init()
+    var statut: Int = 0
     
     
     //Les amis récupérés à afficher sur la map
@@ -47,97 +48,86 @@ class LoginPageController: UIViewController
         }
         else
         {
-                self.connexion(login: login! ,password: password!)
-                self.getToken()
-                self.getFriendsPosition()
+            self.connexion(login: login! ,password: password!)
+            print(self.statut)
+            
+            if self.statut == 200 {
+                self.getFriends()
+            } else if self.statut == 401{
+                let monAlerte = UIAlertController(title: "☔️", message: "Pseudo ou mot de passe incorrect", preferredStyle: UIAlertControllerStyle.alert)
+                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                self.present(monAlerte, animated: true, completion: nil)
+                
+            } else if self.statut == 404 {
+                let monAlerte = UIAlertController(title: "☔️", message: "Pseudo inconnu", preferredStyle: UIAlertControllerStyle.alert)
+                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                self.present(monAlerte, animated: true, completion: nil)
+                
+            }
         }
     }
     
     
     
-    func connexion(login: String, password: String){
+    func connexion(login: String, password: String) {
         
         let parameters = [
             "pseudo": "\(login)",
             "password": "\(password)"
         ]
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
-        let feedURL = "https://59c86c5d.ngrok.io/api/user/auth"
-        var request = URLRequest(url: URL(string: feedURL)!)
-        
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+
+        let url = URL(string: "https://90f349a9.ngrok.io/api/user/auth")!
+            
         let session = URLSession.shared
+            
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST" //set http method as POST
         do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata
+        } catch let error {
+                print(error.localizedDescription)
         }
-        catch let error {
-            print(error.localizedDescription)
-        }
+            
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
         
-        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
-            print("ERROR")
+        
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            
+        guard error == nil else {
             return
         }
-        request.httpBody = httpBody
-        print("*********************************")
-        print("\(request)")
-        _ = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let jsonData = data ,
-                let feed = (try? JSONSerialization.jsonObject(with: jsonData , options: .mutableContainers)) as? NSDictionary , let token = feed.value(forKeyPath: "feed.entry.im:token.label") as? String
-            {
                 
-                let saveSuccessful: Bool = KeychainWrapper.standard.set(token, forKey: "myKey")
-                print("\(saveSuccessful)")
-            }
-            //let artist = feed.value(forKeyPath: "feed.entry.im:artist.label") as? String ,
-            //let imageURLs = feed.value(forKeyPath: "feed.entry.im:image") as? [NSDictionary] {
-            //if let imageURL = imageURLs.last ,
-            /*let imageURLString = imageURL.value(forKeyPath: "label") as? String{
-             self.loadImage(from: URL(string:imageURLString)!)
-             self.titleLabel.text = title
-             self.titleLabel.isHidden = false
-             self.arstistLabel.text = artist
-             self.arstistLabel.isHidden = false
-             */
-            }.resume()
-        //getFriends()
-        //getToken()
-
-        
-    }
-    
-    func getToken(){
-        let feedURL = "163.172.154.4:8080/dant/api/test/token"    // verifier adresse
-        var request = URLRequest(url: URL(string: feedURL)!)
-        let session = URLSession.shared.dataTask(with: request ,completionHandler:
-        { (data, response, error) in
-            if let jsonData = data ,
-                let feed = (try? JSONSerialization.jsonObject(with: jsonData , options: .mutableContainers)) as? NSDictionary ,
-                let token = feed.value(forKeyPath: "feed.entry.im:toke,.label") as? String {
-                self.token = token
-            }
+        guard let data = data else {
+            return
+        }
             
-            do {
-                if let res = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
-                    self.user.setPseudo(s: (res["pseudo"]! as? String)!)
-                    self.user.setEmail(s: (res["email"]! as? String)!)
-                    self.user.setToken(s: (res["token"]! as? String)!) 
-                    
-                    
-                    //self.user.setCoord(c: CLLocationCoordinate2D.init(latitude: res["coord"]["xCoordinate"], longitude: res["coord"]["yCoordinate"]))
-                    
+        if let httpStatus = response as? HTTPURLResponse , httpStatus.statusCode != 200 {
+            self.statut = httpStatus.statusCode
+            print(self.statut)
+        }
+            
+        do {
+        //create json object from data
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSArray{
+                self.user.setPseudo(s: json[0] as! String)
+                if let tab = json[1] as? [String: Any] {
+                    self.user.setToken(s: tab["key"] as! String)
                 }
-            } catch let error {
-                print(error.localizedDescription)            }
+            }
+            print()
+        } catch let error {
+            print(error.localizedDescription)
+        }
         })
-        session.resume()
+    task.resume()
         
         
     }
     
-    func getFriendsPosition()
+    
+    
+    func getFriends()
     {
         let feedURL = "localhost:8080/api/user/positions"
         var request = URLRequest(url: URL(string: feedURL)!)
@@ -166,6 +156,8 @@ class LoginPageController: UIViewController
             let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
             map.friendSegue = self.friendsToDisplay
             map.user = User.init(u: self.user)
+            print("prepaaaare")
+            print("Pseudo : " + self.user.getPseudo() + " token :" + self.user.getToken())
         }
     }
 
