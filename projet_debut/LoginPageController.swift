@@ -71,6 +71,8 @@ class LoginPageController: UIViewController
     
     func connexion(login: String, password: String) {
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         let parameters = [
             "pseudo": "\(login)",
             "password": "\(password)"
@@ -122,11 +124,12 @@ class LoginPageController: UIViewController
         })
     task.resume()
         
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
     }
     
     
-    
+    /*
     func getFriends()
     {
         let feedURL = "localhost:8080/api/user/positions"
@@ -146,8 +149,51 @@ class LoginPageController: UIViewController
         //créer un tableau de friends pour l'afficher
         session.resume()
     }
+     */
     
-    
+    func getFriends()
+    {
+        let url = URL(string: "https://90f349a9.ngrok.io/api/user/auth")!
+        
+        let session = URLSession.shared
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET" //set http method as POST
+        
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+            
+            guard error == nil else {
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            if let httpStatus = response as? HTTPURLResponse , httpStatus.statusCode != 200 {
+                self.statut = httpStatus.statusCode
+                print(self.statut)
+            }
+                
+            do {
+                //create json object from data
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSArray{
+                    var f: Friend = Friend.init(pseudo: json[0] as! String)
+                    if let latitude = json[1] as? [String: Any], let longitude = json[2] as? [String: Any] {
+                        f.setCoordinates(latitude: longitude as! CLLocationDegrees, longitude: latitude as! CLLocationDegrees)
+                    }
+                }
+                print()
+            } catch let error {
+                print(error.localizedDescription)
+            }
+        })
+        task.resume()
+
+        
+    }
     
     
     //Envoyer à la vue suivante les amis récupérés et le token
@@ -156,7 +202,7 @@ class LoginPageController: UIViewController
             let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
             map.friendSegue = self.friendsToDisplay
             map.user = User.init(u: self.user)
-            print("prepaaaare")
+            print("prepare")
             print("Pseudo : " + self.user.getPseudo() + " token :" + self.user.getToken())
         }
     }
