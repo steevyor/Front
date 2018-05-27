@@ -2,14 +2,17 @@ import UIKit
 import SwiftKeychainWrapper
 import MapKit
 
+
 class LoginPageController: UIViewController
 {
 
+    
+    
     @IBOutlet weak var loginPage: UIImageView!
     @IBOutlet weak var mail: UITextField!
     @IBOutlet weak var mdp: UITextField!
     
-    var token: String = ""
+    var user: User = User.init()
     
     
     //Les amis récupérés à afficher sur la map
@@ -39,7 +42,6 @@ class LoginPageController: UIViewController
             let monAlerte = UIAlertController(title: "☔️", message: "Veuillez renseigner tous les champs", preferredStyle: UIAlertControllerStyle.alert)
             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
             self.present(monAlerte, animated: true, completion: nil)
-
             
         }
         else
@@ -58,7 +60,6 @@ class LoginPageController: UIViewController
             "pseudo": "\(login)",
             "password": "\(password)"
         ]
-        
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let feedURL = "https://59c86c5d.ngrok.io/api/user/auth"
@@ -66,6 +67,13 @@ class LoginPageController: UIViewController
         
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let session = URLSession.shared
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        }
+        catch let error {
+            print(error.localizedDescription)
+        }
         
         guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else {
             print("ERROR")
@@ -109,21 +117,34 @@ class LoginPageController: UIViewController
                 let token = feed.value(forKeyPath: "feed.entry.im:toke,.label") as? String {
                 self.token = token
             }
+            
+            do {
+                if let res = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                    self.user.setPseudo(s: (res["pseudo"]! as? String)!)
+                    self.user.setEmail(s: (res["email"]! as? String)!)
+                    self.user.setToken(s: (res["token"]! as? String)!) 
+                    
+                    
+                    //self.user.setCoord(c: CLLocationCoordinate2D.init(latitude: res["coord"]["xCoordinate"], longitude: res["coord"]["yCoordinate"]))
+                    
+                }
+            } catch let error {
+                print(error.localizedDescription)            }
         })
+        task.resume()
         
-        session.resume()
         
     }
     
-    func getFriends()
+    func getFriendsPosition()
     {
-        let feedURL = "163.172.154.4:8080/dant/api/test/position"    // verifier adresse
+        let feedURL = "localhost:8080/api/user/positions"
         var request = URLRequest(url: URL(string: feedURL)!)
         let session = URLSession.shared.dataTask(with: request ,completionHandler:
         { (data, response, error) in
             if let jsonData = data ,
                 let feed = (try? JSONSerialization.jsonObject(with: jsonData , options: .mutableContainers)) as? NSDictionary ,
-                let login = feed.value(forKeyPath: "feed.entry.im:login.label") as? String ,
+                let login = feed.value(forKeyPath: "feed.entry.im:pseudo.label") as? String ,
                 let longitude = feed.value(forKeyPath: "feed.entry.im:longitude.label") as? String ,
                 let latitude = feed.value(forKeyPath: "feed.entry.im:latitude.label") as? String {
                 var f: Friend = Friend.init(pseudo: login)
@@ -143,9 +164,9 @@ class LoginPageController: UIViewController
         if segue.identifier == "Segue" {
             let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
             map.friendSegue = self.friendsToDisplay
-            map.token = self.token
+            map.user = User.init(u: self.user)
         }
-         }
+    }
 
 }
 

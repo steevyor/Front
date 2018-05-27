@@ -9,7 +9,7 @@ class VueDemandesController: UIViewController, UITableViewDataSource, UITableVie
     var filteredDemands: [String] = [String].init()
     var searchActive: Bool = false
     
-    var token: String = ""
+    var user: User = User.init()
     
     override func viewDidLoad() {
         super.viewDidLoad()
