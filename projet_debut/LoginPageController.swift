@@ -12,6 +12,7 @@ class LoginPageController: UIViewController
     @IBOutlet weak var mail: UITextField!
     @IBOutlet weak var mdp: UITextField!
     
+    var token: String = ""
     var user: User = User.init()
     
     
@@ -48,7 +49,7 @@ class LoginPageController: UIViewController
         {
                 self.connexion(login: login! ,password: password!)
                 self.getToken()
-                self.getFriends()
+                self.getFriendsPosition()
         }
     }
     
@@ -119,7 +120,7 @@ class LoginPageController: UIViewController
             }
             
             do {
-                if let res = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                if let res = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any] {
                     self.user.setPseudo(s: (res["pseudo"]! as? String)!)
                     self.user.setEmail(s: (res["email"]! as? String)!)
                     self.user.setToken(s: (res["token"]! as? String)!) 
@@ -131,7 +132,7 @@ class LoginPageController: UIViewController
             } catch let error {
                 print(error.localizedDescription)            }
         })
-        task.resume()
+        session.resume()
         
         
     }
