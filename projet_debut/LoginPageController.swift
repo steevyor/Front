@@ -51,8 +51,13 @@ class LoginPageController: UIViewController
             self.connexion(login: login! ,password: password!)
             print(self.statut)
             
+            print("execution friendPositions")
+            self.getFriendsPositions()
+            print(self.statut)
+            
             if self.statut == 200 {
-                self.getFriends()
+                //print("execution friendPositions")
+                //self.getFriendsPositions()
             } else if self.statut == 401{
                 let monAlerte = UIAlertController(title: "☔️", message: "Pseudo ou mot de passe incorrect", preferredStyle: UIAlertControllerStyle.alert)
                 monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
@@ -78,7 +83,7 @@ class LoginPageController: UIViewController
             "password": "\(password)"
         ]
 
-        let url = URL(string: "https://90f349a9.ngrok.io/api/user/auth")!
+        let url = URL(string: "https://10c0a382.ngrok.io/api/user/auth")!
             
         let session = URLSession.shared
             
@@ -151,16 +156,30 @@ class LoginPageController: UIViewController
     }
      */
     
-    func getFriends()
+    func getFriendsPositions()
     {
-        let url = URL(string: "https://90f349a9.ngrok.io/api/user/auth")!
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
+        let parameters = [
+            "pseudo": "\(self.user.getPseudo())",
+            "token": "\(self.token)"
+        ]
+        
+        let url = URL(string: "https://10c0a382.ngrok.io/api/user/friendPositions")!
         
         let session = URLSession.shared
         
         var request = URLRequest(url: url)
-        request.httpMethod = "GET" //set http method as POST
+        request.httpMethod = "POST" //set http method as POST
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata
+        } catch let error {
+            print(error.localizedDescription)
+        }
         
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
         
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
@@ -180,13 +199,17 @@ class LoginPageController: UIViewController
             do {
                 //create json object from data
                 if let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSArray{
+                    print("json ok")
                     var f: Friend = Friend.init(pseudo: json[0] as! String)
+                    print("pseudo ok")
                     if let latitude = json[1] as? [String: Any], let longitude = json[2] as? [String: Any] {
+                        print("latitude ok")
                         f.setCoordinates(latitude: longitude as! CLLocationDegrees, longitude: latitude as! CLLocationDegrees)
                     }
                 }
                 print()
             } catch let error {
+                print("erreur json")
                 print(error.localizedDescription)
             }
         })
