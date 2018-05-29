@@ -48,11 +48,18 @@ class InscriptionPageController: UIViewController {
         }
         else
         {
-            if password1 != password2 {
-                let monAlerte = UIAlertController(title: "☔️", message:"Les mots de passe entrés sont différents", preferredStyle: UIAlertControllerStyle.alert)
+        if password1 != password2 {
+            let monAlerte = UIAlertController(title: "☔️", message:"Les mots de passe entrés sont différents", preferredStyle: UIAlertControllerStyle.alert)
+            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+            self.present(monAlerte, animated: true, completion: nil)
+        
+        }else{
+            if ( password1?.range(of: "@") == nil && password2?.range(of: "@") == nil && password1?.range(of: ".") == nil && password2?.range(of: ".") == nil){
+                let monAlerte = UIAlertController(title: "☔️", message:"Veuillez entrer un mail valide", preferredStyle: UIAlertControllerStyle.alert)
                 monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
                 self.present(monAlerte, animated: true, completion: nil)
-        } else {
+            
+            } else {
                 
                 inscription(login: login!, email: email!, password1: password1!,
                             sortie:{statut in
@@ -89,6 +96,7 @@ class InscriptionPageController: UIViewController {
         }
         
        
+        }
     }
     
     
@@ -147,4 +155,4 @@ class InscriptionPageController: UIViewController {
         self.navigationController?.pushViewController(UIViewController(), animated: true)
     }
     
-}
+ }
