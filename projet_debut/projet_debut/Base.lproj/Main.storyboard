@@ -32,7 +32,7 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="306" id="Ze2-rO-2cd"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mail" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vzx-s4-QDg">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Pseudo" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Vzx-s4-QDg">
                                 <rect key="frame" x="145.5" y="301" width="84" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -64,7 +64,6 @@
                                 <state key="normal" title="Connexion"/>
                                 <connections>
                                     <action selector="connexion:" destination="VVX-Ef-FjC" eventType="touchUpInside" id="4hU-8y-ohh"/>
-                                    <segue destination="WHO-gf-lbg" kind="presentation" identifier="Segue" id="eti-ZM-D5J"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yYB-wz-Afw">
@@ -97,8 +96,9 @@
                     </view>
                     <connections>
                         <outlet property="loginPage" destination="Cn8-8l-FgJ" id="aSO-GS-Ud7"/>
-                        <outlet property="mail" destination="Vzx-s4-QDg" id="gsd-Ro-CoR"/>
                         <outlet property="mdp" destination="G2Z-tx-2zI" id="amr-c8-dNe"/>
+                        <outlet property="pseudo" destination="Vzx-s4-QDg" id="vRQ-3n-KXP"/>
+                        <segue destination="WHO-gf-lbg" kind="presentation" identifier="SegueLogin" id="Qqp-4B-KLt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eku-cI-KaG" userLabel="First Responder" sceneMemberID="firstResponder"/>

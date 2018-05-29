@@ -9,7 +9,7 @@ class LoginPageController: UIViewController
     
     
     @IBOutlet weak var loginPage: UIImageView!
-    @IBOutlet weak var mail: UITextField!
+    @IBOutlet weak var pseudo: UITextField!
     @IBOutlet weak var mdp: UITextField!
     
     var token: String = ""
@@ -36,7 +36,7 @@ class LoginPageController: UIViewController
     @IBAction func connexion(_ sender: Any)
     
     {
-        let login = self.mail.text
+        let login = self.pseudo.text
         let password = self.mdp.text
         
         if (login?.isEmpty)! || (password?.isEmpty)!
@@ -48,33 +48,38 @@ class LoginPageController: UIViewController
         }
         else
         {
-            self.connexion(login: login! ,password: password!)
-            print(self.statut)
-            
-            print("execution friendPositions")
-            self.getFriendsPositions()
-            print(self.statut)
-            
-            if self.statut == 200 {
-                //print("execution friendPositions")
-                //self.getFriendsPositions()
-            } else if self.statut == 401{
-                let monAlerte = UIAlertController(title: "☔️", message: "Pseudo ou mot de passe incorrect", preferredStyle: UIAlertControllerStyle.alert)
-                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                self.present(monAlerte, animated: true, completion: nil)
-                
-            } else if self.statut == 404 {
-                let monAlerte = UIAlertController(title: "☔️", message: "Pseudo inconnu", preferredStyle: UIAlertControllerStyle.alert)
-                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                self.present(monAlerte, animated: true, completion: nil)
-                
+            self.connexion(login: login!, password: password!,
+                        sortie:{statut, token, pseudo  in
+                            print("dans l'appel", statut)
+                            if statut == 200 {
+                                self.user.setToken(s: token)
+                                self.user.setPseudo(s: pseudo)
+                                DispatchQueue.main.async(execute: {
+                                    //self.getFriendsPositions()
+                                    self.performSegue(withIdentifier: "SegueLogin", sender: nil)
+                                })
+                            } else if statut == 401 || statut == 400 {
+                                DispatchQueue.main.async(execute: {
+                                    let monAlerte = UIAlertController(title: "☔️", message: "Pseudo ou mot de passe incorrect", preferredStyle: UIAlertControllerStyle.alert)
+                                    monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                                    self.present(monAlerte, animated: true, completion: nil)
+                                })
+                            } else if statut == 404 {
+                                DispatchQueue.main.async(execute: {
+                                    let monAlerte = UIAlertController(title: "☔️", message: "Pseudo inconnu", preferredStyle: UIAlertControllerStyle.alert)
+                                    monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                                    self.present(monAlerte, animated: true, completion: nil)
+                                })
+                                
+                            }
             }
+            )
         }
     }
     
     
     
-    func connexion(login: String, password: String) {
+    func connexion(login: String, password: String, sortie: @escaping (_ statut: Int, _ token: String, _ pseudo: String) -> Void) {
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
@@ -83,7 +88,7 @@ class LoginPageController: UIViewController
             "password": "\(password)"
         ]
 
-        let url = URL(string: "https://10c0a382.ngrok.io/api/user/auth")!
+        let url = URL(string: "https://6adff20d.ngrok.io/api/user/auth")!
             
         let session = URLSession.shared
             
@@ -109,7 +114,7 @@ class LoginPageController: UIViewController
             return
         }
             
-        if let httpStatus = response as? HTTPURLResponse , httpStatus.statusCode != 200 {
+        if let httpStatus = response as? HTTPURLResponse  {
             self.statut = httpStatus.statusCode
             print(self.statut)
         }
@@ -121,10 +126,15 @@ class LoginPageController: UIViewController
                 if let tab = json[1] as? [String: Any] {
                     self.user.setToken(s: tab["key"] as! String)
                 }
+                print(self.statut)
+                sortie(self.statut, self.user.getToken(), self.user.getPseudo())
+            }else {
+                print(self.statut)
+                sortie(self.statut, "0", "0")
             }
-            print()
         } catch let error {
             print(error.localizedDescription)
+            sortie(self.statut, "0", "0")
         }
         })
     task.resume()
@@ -132,40 +142,17 @@ class LoginPageController: UIViewController
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
     }
-    
-    
-    /*
-    func getFriends()
-    {
-        let feedURL = "localhost:8080/api/user/positions"
-        var request = URLRequest(url: URL(string: feedURL)!)
-        let session = URLSession.shared.dataTask(with: request ,completionHandler:
-        { (data, response, error) in
-            if let jsonData = data ,
-                let feed = (try? JSONSerialization.jsonObject(with: jsonData , options: .mutableContainers)) as? NSDictionary ,
-                let login = feed.value(forKeyPath: "feed.entry.im:pseudo.label") as? String ,
-                let longitude = feed.value(forKeyPath: "feed.entry.im:longitude.label") as? String ,
-                let latitude = feed.value(forKeyPath: "feed.entry.im:latitude.label") as? String {
-                var f: Friend = Friend.init(pseudo: login)
-                f.setCoordinates(latitude: longitude as! CLLocationDegrees, longitude: latitude as! CLLocationDegrees)
-            }
-        })
         
-        //créer un tableau de friends pour l'afficher
-        session.resume()
-    }
-     */
-    
     func getFriendsPositions()
     {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        //UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let parameters = [
             "pseudo": "\(self.user.getPseudo())",
             "token": "\(self.token)"
         ]
         
-        let url = URL(string: "https://10c0a382.ngrok.io/api/user/friendPositions")!
+        let url = URL(string: "https://6adff20d.ngrok.io/api/user/friendPositions")!
         
         let session = URLSession.shared
         
@@ -214,6 +201,8 @@ class LoginPageController: UIViewController
             }
         })
         task.resume()
+        //UIApplication.shared.isNetworkActivityIndicatorVisible = false
+
 
         
     }
@@ -221,7 +210,7 @@ class LoginPageController: UIViewController
     
     //Envoyer à la vue suivante les amis récupérés et le token
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Segue" {
+        if segue.identifier == "SegueLogin" {
             let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
             map.friendSegue = self.friendsToDisplay
             map.user = User.init(u: self.user)
