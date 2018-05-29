@@ -34,8 +34,6 @@ class MapViewController: UIViewController {
         self.displayFriendPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11), friendName: "Soso")
         print(self.del.locations.longitude, del.locations.latitude)
         
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
         Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
                              repeats: true)
         //Ajouter à la liste d'amis à afficher
@@ -122,13 +120,11 @@ class MapViewController: UIViewController {
         {
             self.del.enableLocationManager()
             self.partage = true
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
         }
             else
         {
             self.del.disableLocationManager()
             self.partage = false
-             UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
     }
     

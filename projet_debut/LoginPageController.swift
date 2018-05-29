@@ -47,9 +47,10 @@ class LoginPageController: UIViewController
             
         }
         else
-        {
-            self.connexion(login: login!, password: password!,
+        {   self.connexion(login: login!, password: password!,
                         sortie:{statut, token, pseudo  in
+                            print(pseudo)
+                            print(token)
                             print("dans l'appel", statut)
                             if statut == 200 {
                                 self.user.setToken(s: token)
@@ -80,8 +81,6 @@ class LoginPageController: UIViewController
     
     
     func connexion(login: String, password: String, sortie: @escaping (_ statut: Int, _ token: String, _ pseudo: String) -> Void) {
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let parameters = [
             "pseudo": "\(login)",
@@ -121,9 +120,12 @@ class LoginPageController: UIViewController
             
         do {
         //create json object from data
-            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSArray{
-                self.user.setPseudo(s: json[0] as! String)
-                if let tab = json[1] as? [String: Any] {
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]{
+                if let tab = json["user"] as? [String: AnyObject] {
+                    self.user.setPseudo(s: tab["pseudo"] as! String)
+                }
+                
+                if let tab = json["token"] as? [String: AnyObject] {
                     self.user.setToken(s: tab["key"] as! String)
                 }
                 print(self.statut)
@@ -138,8 +140,8 @@ class LoginPageController: UIViewController
         }
         })
     task.resume()
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+
         
     }
     
