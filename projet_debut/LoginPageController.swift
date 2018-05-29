@@ -55,7 +55,7 @@ class LoginPageController: UIViewController
                                 self.user.setToken(s: token)
                                 self.user.setPseudo(s: pseudo)
                                 DispatchQueue.main.async(execute: {
-                                    //self.getFriendsPositions()
+                                    self.getFriendsPositions()
                                     self.performSegue(withIdentifier: "SegueLogin", sender: nil)
                                 })
                             } else if statut == 401 || statut == 400 {
@@ -142,8 +142,8 @@ class LoginPageController: UIViewController
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         
     }
-        
-    func getFriendsPositions()
+    
+    func getFriendsPositions()//sortie: @escaping (_ statut: Int) -> Void)
     {
         //UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
@@ -180,24 +180,36 @@ class LoginPageController: UIViewController
             
             if let httpStatus = response as? HTTPURLResponse , httpStatus.statusCode != 200 {
                 self.statut = httpStatus.statusCode
-                print(self.statut)
+                print("Positions", self.statut)
             }
                 
             do {
                 //create json object from data
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSArray{
+                if let json = try JSONSerialization.jsonObject(with: data, options: [[]]) as? [String: AnyObject]{
                     print("json ok")
-                    var f: Friend = Friend.init(pseudo: json[0] as! String)
-                    print("pseudo ok")
-                    if let latitude = json[1] as? [String: Any], let longitude = json[2] as? [String: Any] {
-                        print("latitude ok")
-                        f.setCoordinates(latitude: longitude as! CLLocationDegrees, longitude: latitude as! CLLocationDegrees)
+                    for i in 1...json.count {
+                        var f: Friend = Friend.init()
+                        print(json)
+                        /*if let s = json[i]["pseudo"] as? [String: AnyObject] {
+                            print("pseudo ok", coord)
+                            f.setPseudo(s: s)
+                            sortie(self.statut)
+                        }
+                        if let coord = json[i]["coordinates"] as? [String: AnyObject] {
+                            print("latitude ok", coord)
+                            f.setCoordinates(latitude: coord[xCoordinate] as! CLLocationDegrees, longitude: latitude as! CLLocationDegrees)
+                            sortie(self.statut)
+                        }*/
+                        
                     }
+                } else {
+                    //sortie(self.statut)
                 }
                 print()
             } catch let error {
                 print("erreur json")
                 print(error.localizedDescription)
+                //sortie(self.statut)
             }
         })
         task.resume()
