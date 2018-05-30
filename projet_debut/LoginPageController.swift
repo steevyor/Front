@@ -66,7 +66,7 @@ func connexion(login: String, password: String){//, sortie: @escaping (_ statut:
         let url = URL(string: "https://eeba1d3c.ngrok.io/api/user/auth")!
         
         let r = Requests()
-        r.post(parameters: parameters, url: url,
+        r.post(parameters: parameters as [String : AnyObject], url: url,
                                              finRequete:{ response in
                                                 
                                                     self.statut = response["statut"] as! Int
