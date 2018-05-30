@@ -42,23 +42,17 @@ class InscriptionPageController: UIViewController {
         
         if (login?.isEmpty)! || (email?.isEmpty)! || (password1?.isEmpty)! || (password2?.isEmpty)!
         {
-            let monAlerte = UIAlertController(title: "☔️", message:"Veuillez renseigner tous les champs", preferredStyle: UIAlertControllerStyle.alert)
-            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-            self.present(monAlerte, animated: true, completion: nil)
+            self.message(display: "Veuillez renseigner tous les champs", emoji: "☔️", dissmiss: "Annuler")
             
         }
         else
         {
             if password1 != password2 {
-                let monAlerte = UIAlertController(title: "☔️", message:"Les mots de passe entrés sont différents", preferredStyle: UIAlertControllerStyle.alert)
-                monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                self.present(monAlerte, animated: true, completion: nil)
+                    self.message(display: "Les mots de passe entrés sont différents", emoji: "☔️", dissmiss: "Annuler")
                 
             }else{
                 if !isValidEmailAddress(emailAddressString: email!) {
-                    let monAlerte = UIAlertController(title: "☔️", message:"Veuillez entrer un mail valide", preferredStyle: UIAlertControllerStyle.alert)
-                    monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                    self.present(monAlerte, animated: true, completion: nil)
+                    self.message(display: "Veuillez entrer un mail valide", emoji: "☔️", dissmiss: "Annuler")
                     
                     
                 } else {
@@ -70,25 +64,19 @@ class InscriptionPageController: UIViewController {
                                         self.msg = "L'inscription a bien été prise en compte, vous pouvez vous connecter !"
                                         self.emoji = "☀️"
                                         DispatchQueue.main.async(execute: {
-                                            let monAlerte = UIAlertController(title: self.emoji, message:self.msg , preferredStyle: UIAlertControllerStyle.alert)
-                                            monAlerte.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-                                            self.present(monAlerte, animated: true, completion: nil)
+                                            self.message(display: self.msg, emoji: self.emoji, dissmiss: "Ok")
                                         })
                                     } else if statut == 403 {
                                         self.msg = "Pseudo déjà utilisé, veuillez en entrer un nouveau"
                                         self.emoji = "☔️"
                                         DispatchQueue.main.async(execute: {
-                                            let monAlerte = UIAlertController(title: self.emoji, message:self.msg , preferredStyle: UIAlertControllerStyle.alert)
-                                            monAlerte.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-                                            self.present(monAlerte, animated: true, completion: nil)
+                                            self.message(display: self.msg, emoji: self.emoji, dissmiss: "Ok")
                                         })
                                     } else {
                                         self.msg = "Une erreur s'est produite, veuillez réessayer"
                                         self.emoji = "☔️"
                                         DispatchQueue.main.async(execute: {
-                                            let monAlerte = UIAlertController(title: self.emoji, message:self.msg , preferredStyle: UIAlertControllerStyle.alert)
-                                            monAlerte.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default,handler: nil))
-                                            self.present(monAlerte, animated: true, completion: nil)
+                                            self.message(display: self.msg, emoji: self.emoji, dissmiss: "Ok")
                                         })
                                     }
                     }
@@ -101,6 +89,7 @@ class InscriptionPageController: UIViewController {
         }
     }
     
+
     
     func inscription( login: String, email: String, password1: String, sortie: @escaping (_ statut: Int) -> Void) {
         //UIApplication.shared.isNetworkActivityIndicatorVisible = true
@@ -179,5 +168,13 @@ class InscriptionPageController: UIViewController {
     {
         self.navigationController?.pushViewController(UIViewController(), animated: true)
     }
+    
+    func message(display: String, emoji: String, dissmiss: String) -> Void {
+        let monAlerte = UIAlertController(title: emoji, message:display, preferredStyle: UIAlertControllerStyle.alert)
+        monAlerte.addAction(UIAlertAction(title: dissmiss, style: UIAlertActionStyle.default,handler: nil))
+        self.present(monAlerte, animated: true, completion: nil)
+        
+    }
+    
     
 }

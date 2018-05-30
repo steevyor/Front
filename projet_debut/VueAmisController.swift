@@ -110,7 +110,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func doSearch(_ searchWord: String)
-    {
+    {// Requete de récupération de liste d'amis
         searchBar.resignFirstResponder()
         
         let myUrl = URL(string: "https://6adff20d.ngrok.io/api/user/friends")
@@ -135,7 +135,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                 if error != nil
                 {
                     // display an alert message
-                    self.mmessage(display: error!.localizedDescription, emoji: "☔️")
+                    self.message(display: error!.localizedDescription, emoji: "☔️", dissmiss: "Annuler")
                     return
                 }
                 
@@ -165,7 +165,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                             if(errorMessage != nil)
                             {
                                 // display an alert message
-                                self.mmessage(display: errorMessage!, emoji: "☔️")
+                                self.message(display: errorMessage!, emoji: "☔️", dissmiss: "Annuler")
                             }
                         }
                     }
@@ -183,10 +183,11 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         task.resume()
         
     }
-    
-    func mmessage(display: String, emoji: String) -> Void {
+    //Chargée d'afficher les messages renvoyés à l'utilisateur
+    func message(display: String, emoji: String, dissmiss: String) -> Void
+    {
         let monAlerte = UIAlertController(title: emoji, message:display, preferredStyle: UIAlertControllerStyle.alert)
-        monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+        monAlerte.addAction(UIAlertAction(title: dissmiss, style: UIAlertActionStyle.default,handler: nil))
         self.present(monAlerte, animated: true, completion: nil)
         
     }
