@@ -52,8 +52,7 @@ class LoginPageController: UIViewController
     
     
     
-    func connexion(login: String, password: String)
-    {//, sortie: @escaping (_ statut: Int, _ token: String, _ pseudo: String) -> Void) {
+    func connexion(login: String, password: String){
             
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
             
@@ -138,8 +137,8 @@ class LoginPageController: UIViewController
                                                         }
                                                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                                                 }
-                                                 )
-        }
+        })
+    }
     
     
     func getFriendsPositions()//sortie: @escaping (_ statut: Int) -> Void)
@@ -186,43 +185,15 @@ class LoginPageController: UIViewController
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         )
+    }
+    
         
-        /*
-         
-         
-            do {
-                //create json object from data
-                if let json = try JSONSerialization.jsonObject(with: data, options: [[]]) as? [String: AnyObject]{
-                    print("json ok")
-                    for i in 1...json.count {
-                        var f: Friend = Friend.init()
-                        print(json)
-                        if let s = json[i]["pseudo"] as? [String:Any] {
-                            print("pseudo ok", s)
-                            f.setPseudo(s: s)
-                            //sortie(self.statut)
-                        }
-                        if let coord = json[i]["coordinates"] as? [[String: Any]] {
-                            print("coordonnées ok", coord)
-                            f.setCoordinates(latitude: coord["xCoordinate"] as! CLLocationDegrees, longitude: coord["yCoordinate"] as! CLLocationDegrees)
-                            //sortie(self.statut)
-                        }
-                        self.friendsToDisplay.append(f)
-                    }
-                } else {
-                    //sortie(self.statut)
-                }
-                print()
-            } catch let error {
-                print("erreur json")
-                print(error.localizedDescription)
-                //sortie(self.statut)
-            }
-        })
-        task.resume()
-        //UIApplication.shared.isNetworkActivityIndicatorVisible = false
-*/
-
+    //Chargée d'afficher les messages à l'utilisateur
+    func message(display: String, emoji: String, dissmiss: String) -> Void
+    {
+        let monAlerte = UIAlertController(title: emoji, message:display, preferredStyle: UIAlertControllerStyle.alert)
+        monAlerte.addAction(UIAlertAction(title: dissmiss, style: UIAlertActionStyle.default,handler: nil))
+        self.present(monAlerte, animated: true, completion: nil)
         
     }
     
