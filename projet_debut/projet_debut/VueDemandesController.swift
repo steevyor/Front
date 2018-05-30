@@ -66,7 +66,7 @@ class VueDemandesController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         let deleteFriend = UITableViewRowAction(style: .default, title: "Ajouter", handler: deleteClosure)
-        let addFriend = UITableViewRowAction(style: .normal, title: "Suprrimer", handler: addClosure)
+        let addFriend = UITableViewRowAction(style: .normal, title: "Supprimer", handler: addClosure)
         
         return [deleteFriend, addFriend]
         
