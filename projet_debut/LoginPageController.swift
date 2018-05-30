@@ -18,7 +18,7 @@ class LoginPageController: UIViewController
     
     
     //Les amis récupérés à afficher sur la map
-    let friendsToDisplay = [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 20.10, longitude: 10.12)),
+    var friendsToDisplay = [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 20.10, longitude: 10.12)),
                             Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 83.10, longitude: 15.19)),
                             Friend.init(pseudo: "C", coord: CLLocationCoordinate2D(latitude: 04.15, longitude: 17.11))]
     
@@ -47,105 +47,69 @@ class LoginPageController: UIViewController
             
         }
         else
-        {   self.connexion(login: login!, password: password!,
-                        sortie:{statut, token, pseudo  in
-                            print(pseudo)
-                            print(token)
-                            print("dans l'appel", statut)
-                            if statut == 200 {
-                                self.user.setToken(s: token)
-                                self.user.setPseudo(s: pseudo)
-                                DispatchQueue.main.async(execute: {
-                                    self.getFriendsPositions()
-                                    self.performSegue(withIdentifier: "SegueLogin", sender: nil)
-                                })
-                            } else if statut == 401 || statut == 400 {
-                                DispatchQueue.main.async(execute: {
-                                    let monAlerte = UIAlertController(title: "☔️", message: "Pseudo ou mot de passe incorrect", preferredStyle: UIAlertControllerStyle.alert)
-                                    monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                                    self.present(monAlerte, animated: true, completion: nil)
-                                })
-                            } else if statut == 404 {
-                                DispatchQueue.main.async(execute: {
-                                    let monAlerte = UIAlertController(title: "☔️", message: "Pseudo inconnu", preferredStyle: UIAlertControllerStyle.alert)
-                                    monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                                    self.present(monAlerte, animated: true, completion: nil)
-                                })
-                                
-                            }
-            }
-            )
+        {
+            self.connexion(login: login!, password: password!)
         }
     }
     
     
     
-    func connexion(login: String, password: String, sortie: @escaping (_ statut: Int, _ token: String, _ pseudo: String) -> Void) {
+func connexion(login: String, password: String){//, sortie: @escaping (_ statut: Int, _ token: String, _ pseudo: String) -> Void) {
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let parameters = [
             "pseudo": "\(login)",
             "password": "\(password)"
         ]
 
-        let url = URL(string: "https://6adff20d.ngrok.io/api/user/auth")!
-            
-        let session = URLSession.shared
-            
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST" //set http method as POST
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata
-        } catch let error {
-                print(error.localizedDescription)
-        }
-            
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        let url = URL(string: "https://eeba1d3c.ngrok.io/api/user/auth")!
         
-        
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            
-        guard error == nil else {
-            return
-        }
-                
-        guard let data = data else {
-            return
-        }
-            
-        if let httpStatus = response as? HTTPURLResponse  {
-            self.statut = httpStatus.statusCode
-            print(self.statut)
-        }
-            
-        do {
-        //create json object from data
-            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]{
-                if let tab = json["user"] as? [String: AnyObject] {
-                    self.user.setPseudo(s: tab["pseudo"] as! String)
-                }
-                
-                if let tab = json["token"] as? [String: AnyObject] {
-                    self.user.setToken(s: tab["key"] as! String)
-                }
-                print(self.statut)
-                sortie(self.statut, self.user.getToken(), self.user.getPseudo())
-            }else {
-                print(self.statut)
-                sortie(self.statut, "0", "0")
-            }
-        } catch let error {
-            print(error.localizedDescription)
-            sortie(self.statut, "0", "0")
-        }
-        })
-    task.resume()
-    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-
-        
+        let r = Requests()
+        r.post(parameters: parameters, url: url,
+                                             finRequete:{ response in
+                                                
+                                                    self.statut = response["statut"] as! Int
+                                                    let json: [String:Any] = response["json"] as! [String : Any]
+                                                
+                                                    if let tab = json["user"] as? [String: AnyObject] {
+                                                        self.user.setPseudo(s: tab["pseudo"] as! String)
+                                                    }
+                                                
+                                                    if let tab = json["token"] as? [String: AnyObject] {
+                                                        self.user.setToken(s: tab["key"] as! String)
+                                                        print(self.statut)
+                                                    }else {
+                                                        print(self.statut)
+                                                    }
+                                                
+                                                    if self.statut == 200 {
+                                                        DispatchQueue.main.async(execute: {
+                                                            //self.getFriendsPositions()
+                                                            self.performSegue(withIdentifier: "SegueLogin", sender: nil)
+                                                        })
+                                                    } else if self.statut == 401 || self.statut == 401 {
+                                                        DispatchQueue.main.async(execute: {
+                                                            let monAlerte = UIAlertController(title: "☔️", message: "Mot de passe ou pseudo incorrect", preferredStyle: UIAlertControllerStyle.alert)
+                                                            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                                                            self.present(monAlerte, animated: true, completion: nil)
+                                                        })
+                                                    } else {
+                                                        DispatchQueue.main.async(execute: {
+                                                            let monAlerte = UIAlertController(title: "☔️", message: "Une erreur s'est produite", preferredStyle: UIAlertControllerStyle.alert)
+                                                            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                                                            self.present(monAlerte, animated: true, completion: nil)
+                                                        })
+                                                    
+                                                    }
+                                                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                                            }
+                                             )
     }
     
-    func getFriendsPositions()//sortie: @escaping (_ statut: Int) -> Void)
+    
+    //Probleme probleme
+    /*func getFriendsPositions()//sortie: @escaping (_ statut: Int) -> Void)
     {
         //UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
@@ -192,17 +156,17 @@ class LoginPageController: UIViewController
                     for i in 1...json.count {
                         var f: Friend = Friend.init()
                         print(json)
-                        /*if let s = json[i]["pseudo"] as? [String: AnyObject] {
-                            print("pseudo ok", coord)
+                        if let s = json[i]["pseudo"] as? [String:Any] {
+                            print("pseudo ok", s)
                             f.setPseudo(s: s)
-                            sortie(self.statut)
+                            //sortie(self.statut)
                         }
-                        if let coord = json[i]["coordinates"] as? [String: AnyObject] {
-                            print("latitude ok", coord)
-                            f.setCoordinates(latitude: coord[xCoordinate] as! CLLocationDegrees, longitude: latitude as! CLLocationDegrees)
-                            sortie(self.statut)
-                        }*/
-                        
+                        if let coord = json[i]["coordinates"] as? [[String: Any]] {
+                            print("coordonnées ok", coord)
+                            f.setCoordinates(latitude: coord["xCoordinate"] as! CLLocationDegrees, longitude: coord["yCoordinate"] as! CLLocationDegrees)
+                            //sortie(self.statut)
+                        }
+                        self.friendsToDisplay.append(f)
                     }
                 } else {
                     //sortie(self.statut)
@@ -219,7 +183,7 @@ class LoginPageController: UIViewController
 
 
         
-    }
+    }*/
     
     
     //Envoyer à la vue suivante les amis récupérés et le token
