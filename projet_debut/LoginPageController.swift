@@ -41,9 +41,7 @@ class LoginPageController: UIViewController
         
         if (login?.isEmpty)! || (password?.isEmpty)!
         {
-            let monAlerte = UIAlertController(title: "☔️", message: "Veuillez renseigner tous les champs", preferredStyle: UIAlertControllerStyle.alert)
-            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-            self.present(monAlerte, animated: true, completion: nil)
+            self.message(display: "Veuillez renseigner tous les champs", emoji: "☔️", dissmiss: "Annuler")
             
         }
         else
@@ -54,14 +52,15 @@ class LoginPageController: UIViewController
     
     
     
-func connexion(login: String, password: String){//, sortie: @escaping (_ statut: Int, _ token: String, _ pseudo: String) -> Void) {
-        
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
-        let parameters = [
-            "pseudo": "\(login)",
-            "password": "\(password)"
-        ]
+    func connexion(login: String, password: String)
+    {//, sortie: @escaping (_ statut: Int, _ token: String, _ pseudo: String) -> Void) {
+            
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
+            
+            let parameters = [
+                "pseudo": "\(login)",
+                "password": "\(password)"
+            ]
 
         let url = URL(string: "https://eeba1d3c.ngrok.io/api/user/auth")!
         
@@ -108,11 +107,39 @@ func connexion(login: String, password: String){//, sortie: @escaping (_ statut:
                                                             self.present(monAlerte, animated: true, completion: nil)
                                                         })
                                                     
-                                                    }
-                                                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                                            }
-                                             )
-    }
+                                                        self.statut = response["statut"] as! Int
+                                                        let json: [String:Any] = response["json"] as! [String : Any]
+                                                    
+                                                        if let tab = json["user"] as? [String: AnyObject] {
+                                                            self.user.setPseudo(s: tab["pseudo"] as! String)
+                                                        }
+                                                    
+                                                        if let tab = json["token"] as? [String: AnyObject] {
+                                                            self.user.setToken(s: tab["key"] as! String)
+                                                            print(self.statut)
+                                                        }else {
+                                                            print(self.statut)
+                                                        }
+                                                    
+                                                        if self.statut == 200 {
+                                                            DispatchQueue.main.async(execute: {
+                                                                //self.getFriendsPositions()
+                                                                self.performSegue(withIdentifier: "SegueLogin", sender: nil)
+                                                            })
+                                                        } else if self.statut == 401 || self.statut == 401 {
+                                                            DispatchQueue.main.async(execute: {
+                                                                self.message(display: "Mot de passe ou pseudo incorrect", emoji: "☔️", dissmiss: "Annuler")
+                                                            })
+                                                        } else {
+                                                            DispatchQueue.main.async(execute: {
+                                                                self.message(display: "Une erreur s'est produite", emoji: "☔️", dissmiss: "Annuler")
+                                                            })
+                                                        
+                                                        }
+                                                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                                                }
+                                                 )
+        }
     
     
     func getFriendsPositions()//sortie: @escaping (_ statut: Int) -> Void)
@@ -201,7 +228,8 @@ func connexion(login: String, password: String){//, sortie: @escaping (_ statut:
     
     
     //Envoyer à la vue suivante les amis récupérés et le token
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
         if segue.identifier == "SegueLogin" {
             let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
             map.friendSegue = self.friendsToDisplay
