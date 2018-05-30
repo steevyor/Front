@@ -1,13 +1,11 @@
 import UIKit
 
-class VueDemandesController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class VueInvitationsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
     @IBOutlet weak var listeDemands: UITableView!
     
     //pour l'affichage des amis
     var demands: [String] = [String].init()
-    var filteredDemands: [String] = [String].init()
-    var searchActive: Bool = false
     
     var user: User = User.init()
     
@@ -65,8 +63,8 @@ class VueDemandesController: UIViewController, UITableViewDataSource, UITableVie
             print("Ami ajouté")
         }
         
-        let deleteFriend = UITableViewRowAction(style: .default, title: "Ajouter", handler: deleteClosure)
-        let addFriend = UITableViewRowAction(style: .normal, title: "Supprimer", handler: addClosure)
+        let deleteFriend = UITableViewRowAction(style: .normal, title: "Ajouter", handler: deleteClosure)
+        let addFriend = UITableViewRowAction(style: .default, title: "Supprimer", handler: addClosure)
         
         return [deleteFriend, addFriend]
         

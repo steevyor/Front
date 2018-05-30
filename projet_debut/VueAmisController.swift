@@ -64,14 +64,14 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
     
         filteredFriends.remove()
-        
         friends.filter(login: searchText, filteredFriends: &filteredFriends)
         
-        if(filteredFriends.getList().count == 0){
+        if(filteredFriends.getList().count == 0 && searchText.isEmpty){
             searchActive = false;
         } else {
             searchActive = true;
         }
+ 
         self.listeAmis.reloadData()
     }
     //par rapport à la mémoire et au nombre de lignes

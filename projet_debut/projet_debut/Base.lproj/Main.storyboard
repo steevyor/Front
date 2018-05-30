@@ -170,10 +170,10 @@
             </objects>
             <point key="canvasLocation" x="661.60000000000002" y="-1652.0239880059971"/>
         </scene>
-        <!--Demandes-->
+        <!--Invitations-->
         <scene sceneID="t8G-cT-UCX">
             <objects>
-                <viewController id="but-r7-ngy" customClass="VueDemandesController" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="but-r7-ngy" customClass="VueInvitationsController" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="06N-uk-GTF"/>
                         <viewControllerLayoutGuide type="bottom" id="Ceu-kj-eub"/>
@@ -195,7 +195,7 @@
                             <constraint firstItem="udf-l2-hhf" firstAttribute="top" secondItem="c33-aZ-Viw" secondAttribute="top" constant="20" id="zu8-DU-HTN"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" tag="12" title="Demandes" image="demandes" selectedImage="demandes" id="GTO-5w-zwq"/>
+                    <tabBarItem key="tabBarItem" tag="12" title="Invitations" image="demandes" selectedImage="demandes" id="GTO-5w-zwq"/>
                     <toolbarItems/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
