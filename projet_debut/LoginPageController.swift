@@ -12,7 +12,7 @@ class LoginPageController: UIViewController
     @IBOutlet weak var pseudo: UITextField!
     @IBOutlet weak var mdp: UITextField!
     
-    var token: String = ""
+    //var token: String = ""
     var user: User = User.init()
     var statut: Int = 0
     
@@ -70,25 +70,32 @@ func connexion(login: String, password: String){//, sortie: @escaping (_ statut:
                                              finRequete:{ response in
                                                 
                                                     self.statut = response["statut"] as! Int
-                                                    let json: [String:Any] = response["json"] as! [String : Any]
+                                                print(response)
+                                                    let preJson: [String:AnyObject] = response["json"] as! [String : AnyObject]
+                                                    let json: [String:AnyObject] = preJson["json"] as! [String : AnyObject]
+                                                    print(json)
+                                                if let tab: [String:AnyObject] = json["user"] as? [String: AnyObject] {
+                                                    print("tab:", tab["pseudo"])
+                                                    self.user.setPseudo(s: tab["pseudo"] as! String)
+                                                    print(self.user.getPseudo()
+                                                    )
+                                                }
                                                 
-                                                    if let tab = json["user"] as? [String: AnyObject] {
-                                                        self.user.setPseudo(s: tab["pseudo"] as! String)
-                                                    }
-                                                
-                                                    if let tab = json["token"] as? [String: AnyObject] {
-                                                        self.user.setToken(s: tab["key"] as! String)
-                                                        print(self.statut)
+                                                if let tab: [String:AnyObject] = json["token"] as? [String: AnyObject] {
+                                                    print("tab:", tab["key"])
+                                                    self.user.setToken(s: tab["key"] as! String)
+                                                        print(self.user.getToken())
                                                     }else {
                                                         print(self.statut)
                                                     }
                                                 
                                                     if self.statut == 200 {
                                                         DispatchQueue.main.async(execute: {
-                                                            //self.getFriendsPositions()
+                                                            print("token avant friend : " + self.user.getToken())
+                                                            self.getFriendsPositions()
                                                             self.performSegue(withIdentifier: "SegueLogin", sender: nil)
                                                         })
-                                                    } else if self.statut == 401 || self.statut == 401 {
+                                                    } else if self.statut == 401 || self.statut == 400 {
                                                         DispatchQueue.main.async(execute: {
                                                             let monAlerte = UIAlertController(title: "☔️", message: "Mot de passe ou pseudo incorrect", preferredStyle: UIAlertControllerStyle.alert)
                                                             monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
@@ -108,47 +115,54 @@ func connexion(login: String, password: String){//, sortie: @escaping (_ statut:
     }
     
     
-    //Probleme probleme
-    /*func getFriendsPositions()//sortie: @escaping (_ statut: Int) -> Void)
+    func getFriendsPositions()//sortie: @escaping (_ statut: Int) -> Void)
     {
-        //UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let parameters = [
             "pseudo": "\(self.user.getPseudo())",
-            "token": "\(self.token)"
-        ]
+            "token": [
+                "key":"\(self.user.getToken())"
+                ]
+        ] as [String : AnyObject]
         
         let url = URL(string: "https://6adff20d.ngrok.io/api/user/friendPositions")!
         
-        let session = URLSession.shared
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST" //set http method as POST
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata
-        } catch let error {
-            print(error.localizedDescription)
-        }
-        
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
-        
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            
-            guard error == nil else {
-                return
-            }
-            
-            guard let data = data else {
-                return
-            }
-            
-            if let httpStatus = response as? HTTPURLResponse , httpStatus.statusCode != 200 {
-                self.statut = httpStatus.statusCode
-                print("Positions", self.statut)
-            }
+        let r = Requests()
+        r.post(parameters: parameters as! [String : AnyObject], url: url,
+               finRequete:{ response in
                 
+                self.statut = response["statut"] as! Int
+                let json: [AnyObject] = response["json"] as! [AnyObject]
+                
+                for i in 0...json.count-1 {
+                    var f: Friend = Friend.init()
+                    if let amis = json[i] as? [String: AnyObject] {
+                        print("amis ok", amis)
+                        f.setPseudo(s: amis["pseudo"] as! String )
+                        if let coord = amis["coordinate"] as? [String: AnyObject] {
+                            f.setCoordinates(latitude: coord["xCoordinate"] as! CLLocationDegrees, longitude: coord["yCoordinate"] as! CLLocationDegrees)
+                        }
+                    }
+                    self.friendsToDisplay.append(f)
+                }
+                
+                if self.statut != 200 {
+                    DispatchQueue.main.async(execute: {
+                        let monAlerte = UIAlertController(title: "☔️", message: "Une erreur s'est produite dans le chargement de la position des amis", preferredStyle: UIAlertControllerStyle.alert)
+                        monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+                        self.present(monAlerte, animated: true, completion: nil)
+                    })
+                    
+                }
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
+        )
+        
+        /*
+         
+         
             do {
                 //create json object from data
                 if let json = try JSONSerialization.jsonObject(with: data, options: [[]]) as? [String: AnyObject]{
@@ -180,10 +194,10 @@ func connexion(login: String, password: String){//, sortie: @escaping (_ statut:
         })
         task.resume()
         //UIApplication.shared.isNetworkActivityIndicatorVisible = false
-
+*/
 
         
-    }*/
+    }
     
     
     //Envoyer à la vue suivante les amis récupérés et le token

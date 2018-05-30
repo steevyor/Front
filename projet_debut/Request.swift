@@ -9,14 +9,15 @@
 import Foundation
 class Requests {
     
-    func post(parameters: [String: String], url: URL, finRequete: @escaping (_ response: [String: Any]) -> Void) {
-        var requestResults :[String: Any] = [String: Any].init()
+    func post(parameters: [String: AnyObject], url: URL, finRequete: @escaping (_ response: [String: Any]) -> Void) {
+        var requestResults :[String: AnyObject] = [String: AnyObject].init()
         
         let session = URLSession.shared
         var request = URLRequest(url: url)
         request.httpMethod = "POST" //set http method as POST
         do {
             request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+            print(request.httpBody)
         } catch let error {
             print(error.localizedDescription)
         }
@@ -36,23 +37,23 @@ class Requests {
             
             if let httpStatus = response as? HTTPURLResponse  {
                 print(httpStatus.statusCode)
-                requestResults["statut"] = httpStatus.statusCode
+                requestResults["statut"] = httpStatus.statusCode as AnyObject
             } else {
-                requestResults["statut"] = 0
+                requestResults["statut"] = 0 as AnyObject
             }
             
             do {
                 //create json object from data
-                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject]{
-                    let item: [String: Any] = [
-                        "json": json
+                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: AnyObject]{
+                    let item: [String: AnyObject] = [
+                        "json": json as AnyObject
                     ]
-                    requestResults["json"] = item
+                    requestResults["json"] = item as AnyObject
                 }else {
-                    requestResults["json"] = [String: Any].init()
+                    //requestResults["json"] = [String: AnyObject].init()
                 }
             } catch let error {
-                requestResults["json"] = [String: Any].init()
+                //requestResults["json"] = [String: AnyObject].init()
                 print("Erreur Json")
                 print(error)
             }
