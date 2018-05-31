@@ -8,7 +8,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     //Pour récupérer les amis à afficher dans la liste
     var friendSegue: [Friend] = [Friend].init()
     var friends: FriendList = FriendList.init()
-    
+    var research: FriendList = FriendList.init()
     
     var user: User = User.init()
     var filteredFriends: FriendList = FriendList.init()
@@ -110,7 +110,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func doSearch(_ searchWord: String)
-    {// Requete de récupération de liste d'amis
+    {// Requete de récupération de liste d'amis 
         searchBar.resignFirstResponder()
         
         let myUrl = URL(string: "https://6adff20d.ngrok.io/api/user/friends")
@@ -153,7 +153,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                             {
                                 let name = (friendObj["pseudo"] as! String)
                                 
-                                self.filteredFriends.addFriend(f: Friend.init(pseudo: name))
+                                self.research.addFriend(f: Friend.init(pseudo: name))
                             }
                             
                             self.listeAmis.reloadData()
@@ -194,6 +194,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     
     //action sur un ami
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
+        
         
         let deleteClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             //TODO: Ajouter l'action de suppression
