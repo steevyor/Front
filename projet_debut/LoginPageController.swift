@@ -61,25 +61,23 @@ class LoginPageController: UIViewController
                 "password": "\(password)"
             ]
 
-        let url = URL(string: "https://eeba1d3c.ngrok.io/api/user/auth")!
+        let url = URL(string: "https://cbf9a6c5.ngrok.io/api/user/auth")!
         
         let r = Requests()
         r.post(parameters: parameters as [String : AnyObject], url: url,
-                                             finRequete:{ response in
+                                             finRequete:{ response, statut in
                                                 
-                                                    self.statut = response["statut"] as! Int
-                                                print(response)
-                                                    let preJson: [String:AnyObject] = response["json"] as! [String : AnyObject]
-                                                    let json: [String:AnyObject] = preJson["json"] as! [String : AnyObject]
-                                                    print(json)
-                                                if let tab: [String:AnyObject] = json["user"] as? [String: AnyObject] {
+                                                self.statut = statut as! Int
+                                                
+                                                print("Reponse auth", response)
+                                                if let tab: [String:AnyObject] = response["user"] as? [String: AnyObject] {
                                                     print("tab:", tab["pseudo"])
                                                     self.user.setPseudo(s: tab["pseudo"] as! String)
                                                     print(self.user.getPseudo()
                                                     )
                                                 }
                                                 
-                                                if let tab: [String:AnyObject] = json["token"] as? [String: AnyObject] {
+                                                if let tab: [String:AnyObject] = response["token"] as? [String: AnyObject] {
                                                     print("tab:", tab["key"])
                                                     self.user.setToken(s: tab["key"] as! String)
                                                         print(self.user.getToken())
@@ -87,42 +85,42 @@ class LoginPageController: UIViewController
                                                         print(self.statut)
                                                     }
                                                 
-                                                    if self.statut == 200 {
-                                                        DispatchQueue.main.async(execute: {
-                                                            print("token avant friend : " + self.user.getToken())
-                                                            self.getFriendsPositions()
-                                                            self.performSegue(withIdentifier: "SegueLogin", sender: nil)
-                                                        })
-                                                    } else if self.statut == 401 || self.statut == 400 {
-                                                        DispatchQueue.main.async(execute: {
-                                                            let monAlerte = UIAlertController(title: "☔️", message: "Mot de passe ou pseudo incorrect", preferredStyle: UIAlertControllerStyle.alert)
-                                                            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                                                            self.present(monAlerte, animated: true, completion: nil)
-                                                        })
-                                                    } else {
-                                                        DispatchQueue.main.async(execute: {
-                                                            let monAlerte = UIAlertController(title: "☔️", message: "Une erreur s'est produite", preferredStyle: UIAlertControllerStyle.alert)
-                                                            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-                                                            self.present(monAlerte, animated: true, completion: nil)
-                                                        })
-                                                    
-                                                        self.statut = response["statut"] as! Int
-                                                        let json: [String:Any] = response["json"] as! [String : Any]
-                                                    
-                                                        if let tab = json["user"] as? [String: AnyObject] {
-                                                            self.user.setPseudo(s: tab["pseudo"] as! String)
-                                                        }
-                                                    
-                                                        if let tab = json["token"] as? [String: AnyObject] {
-                                                            self.user.setToken(s: tab["key"] as! String)
-                                                            print(self.statut)
-                                                        }else {
-                                                            print(self.statut)
-                                                        }
-                                                    
+//                                                    if self.statut == 200 {
+//                                                        DispatchQueue.main.async(execute: {
+//                                                            print("token avant friend : " + self.user.getToken())
+//                                                            self.getFriendsPositions()
+//                                                            self.performSegue(withIdentifier: "SegueLogin", sender: nil)
+//                                                        })
+//                                                    } else if self.statut == 401 || self.statut == 400 {
+//                                                        DispatchQueue.main.async(execute: {
+//                                                            let monAlerte = UIAlertController(title: "☔️", message: "Mot de passe ou pseudo incorrect", preferredStyle: UIAlertControllerStyle.alert)
+//                                                            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+//                                                            self.present(monAlerte, animated: true, completion: nil)
+//                                                        })
+//                                                    } else {
+//                                                        DispatchQueue.main.async(execute: {
+//                                                            let monAlerte = UIAlertController(title: "☔️", message: "Une erreur s'est produite", preferredStyle: UIAlertControllerStyle.alert)
+//                                                            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
+//                                                            self.present(monAlerte, animated: true, completion: nil)
+//                                                        })
+//                                                    
+//                                                        self.statut = response["statut"] as! Int
+//                                                        let json: [String:Any] = response["json"] as! [String : Any]
+//                                                    
+//                                                        if let tab = json["user"] as? [String: AnyObject] {
+//                                                            self.user.setPseudo(s: tab["pseudo"] as! String)
+//                                                        }
+//                                                    
+//                                                        if let tab = json["token"] as? [String: AnyObject] {
+//                                                            self.user.setToken(s: tab["key"] as! String)
+//                                                            print(self.statut)
+//                                                        }else {
+//                                                            print(self.statut)
+//                                                        }
+//                                                    
                                                         if self.statut == 200 {
                                                             DispatchQueue.main.async(execute: {
-                                                                //self.getFriendsPositions()
+                                                                self.getFriendsPositions()
                                                                 self.performSegue(withIdentifier: "SegueLogin", sender: nil)
                                                             })
                                                         } else if self.statut == 401 || self.statut == 401 {
@@ -137,11 +135,11 @@ class LoginPageController: UIViewController
                                                         }
                                                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                                                 }
-        })
+        )
     }
     
     
-    func getFriendsPositions()//sortie: @escaping (_ statut: Int) -> Void)
+    func getFriendsPositions()
     {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
@@ -152,19 +150,19 @@ class LoginPageController: UIViewController
                 ]
         ] as [String : AnyObject]
         
-        let url = URL(string: "https://6adff20d.ngrok.io/api/user/friendPositions")!
+        let url = URL(string: "https://cbf9a6c5.ngrok.io/api/user/friendPositions")!
         
         
         let r = Requests()
-        r.post(parameters: parameters as! [String : AnyObject], url: url,
-               finRequete:{ response in
+        r.post(parameters: parameters, url: url,
+               finRequete:{ response, statut in
                 
-                self.statut = response["statut"] as! Int
-                let json: [AnyObject] = response["json"] as! [AnyObject]
+                self.statut = statut as! Int
                 
-                for i in 0...json.count-1 {
+                print("Reponse getPositions", response)
+                for i in 0...response.count-1 {
                     var f: Friend = Friend.init()
-                    if let amis = json[i] as? [String: AnyObject] {
+                    if let amis = response as? [String:AnyObject] {
                         print("amis ok", amis)
                         f.setPseudo(s: amis["pseudo"] as! String )
                         if let coord = amis["coordinate"] as? [String: AnyObject] {
@@ -182,12 +180,15 @@ class LoginPageController: UIViewController
                     })
                     
                 }
+                DispatchQueue.main.async(execute: {
+                    self.performSegue(withIdentifier: "SegueLogin", sender: nil)
+                })
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         )
     }
     
-        
+    
     //Chargée d'afficher les messages à l'utilisateur
     func message(display: String, emoji: String, dissmiss: String) -> Void
     {

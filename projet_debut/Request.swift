@@ -9,7 +9,7 @@
 import Foundation
 class Requests {
     
-    func post(parameters: [String: AnyObject], url: URL, finRequete: @escaping (_ response: [String: Any]) -> Void) {
+    func post(parameters: [String: AnyObject], url: URL, finRequete: @escaping (_ response: [String: Any], _ httpCode: Int?) -> Void) {
         var requestResults :[String: AnyObject] = [String: AnyObject].init()
         
         let session = URLSession.shared
@@ -34,21 +34,14 @@ class Requests {
             guard let data = data else {
                 return
             }
+            var httpCode = (response as? HTTPURLResponse)?.statusCode
             
-            if let httpStatus = response as? HTTPURLResponse  {
-                print(httpStatus.statusCode)
-                requestResults["statut"] = httpStatus.statusCode as AnyObject
-            } else {
-                requestResults["statut"] = 0 as AnyObject
-            }
             
             do {
                 //create json object from data
                 if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: AnyObject]{
-                    let item: [String: AnyObject] = [
-                        "json": json as AnyObject
-                    ]
-                    requestResults["json"] = item as AnyObject
+                
+                    finRequete(json, httpCode)
                 }else {
                     //requestResults["json"] = [String: AnyObject].init()
                 }
@@ -57,7 +50,7 @@ class Requests {
                 print("Erreur Json")
                 print(error)
             }
-            finRequete(requestResults)
+            
 
         }
         )
