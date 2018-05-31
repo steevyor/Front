@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1314" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17E202" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,33 +22,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iOS-stock-30-for-iPhone-X" translatesAutoresizingMaskIntoConstraints="NO" id="b4I-JE-Hnc">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MAP" translatesAutoresizingMaskIntoConstraints="NO" id="DfU-bC-UqA">
+                                <rect key="frame" x="100" y="120" width="175" height="46"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MapTonPote" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Qa-4t-EXj">
-                                <rect key="frame" x="96.5" y="314" width="181.5" height="39"/>
-                                <fontDescription key="fontDescription" name=".SFNSDisplay" family=".SF NS Display" pointSize="32"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <color key="shadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleAspectFit" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-1024" translatesAutoresizingMaskIntoConstraints="NO" id="iIs-vg-ffk">
+                                <rect key="frame" x="104" y="281" width="167" height="128"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="eBa-xM-ldc"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="0Qa-4t-EXj" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="7SU-AJ-DNC"/>
-                            <constraint firstItem="0Qa-4t-EXj" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="F1x-eW-45i"/>
-                            <constraint firstItem="b4I-JE-Hnc" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="MHE-dK-fxJ"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="b4I-JE-Hnc" secondAttribute="bottom" id="YXd-UF-4XU"/>
-                            <constraint firstAttribute="trailing" secondItem="b4I-JE-Hnc" secondAttribute="trailing" id="k3V-hA-1hk"/>
-                            <constraint firstItem="b4I-JE-Hnc" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="qfY-D3-dEA"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="iIs-vg-ffk" secondAttribute="bottom" constant="258" id="IFN-eA-MxD"/>
+                            <constraint firstItem="iIs-vg-ffk" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="88" id="ItR-Hv-rB1"/>
+                            <constraint firstItem="DfU-bC-UqA" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="f8m-qq-bbC"/>
+                            <constraint firstItem="DfU-bC-UqA" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="84" id="fav-4T-YWT"/>
+                            <constraint firstItem="DfU-bC-UqA" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="100" id="ulC-FO-Yjk"/>
+                            <constraint firstItem="iIs-vg-ffk" firstAttribute="centerX" secondItem="DfU-bC-UqA" secondAttribute="centerX" id="y9M-eZ-rH1"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-266.39999999999998" y="359.37031484257875"/>
+            <point key="canvasLocation" x="-324" y="409.7451274362819"/>
         </scene>
     </scenes>
     <resources>
-        <image name="iOS-stock-30-for-iPhone-X" width="375" height="812"/>
+        <image name="Icon-1024" width="512" height="512"/>
+        <image name="MAP" width="217" height="46"/>
     </resources>
 </document>

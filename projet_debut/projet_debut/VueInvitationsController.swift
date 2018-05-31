@@ -61,7 +61,7 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
             self.listeDemands.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
             print("Ami suprimé")
         }
- 
+        
         let addClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             //TODO: ajouter l'action d'ajout
             //self.delete_or_add_friends(action: false, pseudo: self.demands[indexPath.row], indexPath: indexPath)
@@ -69,20 +69,20 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
             self.demands.remove(at: indexPath.row)
             self.listeDemands.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
         }
-
+        
         
         let deleteFriend = UITableViewRowAction(style: .default, title: "Supprimer", handler: deleteClosure)
- 
+        
         let addFriend = UITableViewRowAction(style: .default, title: "Ajouter", handler: addClosure)
         addFriend.backgroundColor = UIColor.green
         return [ addFriend,deleteFriend]
         
     }
     
-    func liste_invitation() -> [String]
+    func liste_invitation() -> Void
     {
         let parameters = [
-            "": "",
+            "pseudo": "\(self.user)",
         ]
         
         let url = URL(string: "https://6adff20d.ngrok.io/api/user/friendslist")!
@@ -111,17 +111,15 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         )
-        return [""]
         
     }
     
     func delete_or_add_friends(action: Bool, pseudo: String, indexPath: IndexPath!) -> Void
-    
+        
     {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let parameters = [
-            "user": "soso2",
-            "pseudo": "\(pseudo)",
+            "pseudo": "\(self.user)",
         ]
         if action == true
         {
@@ -135,18 +133,18 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
                     self.statut = statut!
                     
                     print("suppresion d'un ami ....", response)
-
+                    
                     if self.statut == 200 {
                         self.demands.remove(at: indexPath.row)
                         self.listeDemands.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
                         self.message(display: "\(self.demands[indexPath.row]) supprimé 👌🏾", emoji: "☔️", dissmiss: "Annuler")
                     }else{
                         DispatchQueue.main.async(execute: {
-                        self.message(display: "Une erreur s'est produite lors de la suppresion de l'ami", emoji: "☔️", dissmiss: "Annuler")
+                            self.message(display: "Une erreur s'est produite lors de la suppresion de l'ami", emoji: "☔️", dissmiss: "Annuler")
                         })
-
+                        
                     }
-
+                    
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
             )
@@ -169,18 +167,18 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
                         self.message(display: "\(self.demands[indexPath.row]) ajouté 👌🏾", emoji: "☔️", dissmiss: "Annuler")
                     }else{
                         DispatchQueue.main.async(execute: {
-                        self.message(display: "Une erreur s'est produite lors de l'ajout de l'ami", emoji: "☔️", dissmiss: "Annuler")
+                            self.message(display: "Une erreur s'est produite lors de l'ajout de l'ami", emoji: "☔️", dissmiss: "Annuler")
                         })
-
+                        
                     }
-
+                    
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
             }
             )
         }
-
         
-            
+        
+        
     }
     
     func message(display: String, emoji: String, dissmiss: String) -> Void
@@ -192,6 +190,6 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
     }
     
 }
-    
-    
+
+
 
