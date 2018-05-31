@@ -36,17 +36,14 @@ class Requests {
             }
             var httpCode = (response as? HTTPURLResponse)?.statusCode
             
-            
+            print(data)
             do {
                 //create json object from data
                 if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: AnyObject]{
                 
                     finRequete(json, httpCode)
-                }else {
-                    //requestResults["json"] = [String: AnyObject].init()
                 }
             } catch let error {
-                //requestResults["json"] = [String: AnyObject].init()
                 print("Erreur Json")
                 print(error)
             }

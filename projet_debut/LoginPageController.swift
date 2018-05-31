@@ -70,14 +70,10 @@ class LoginPageController: UIViewController
                                                 self.statut = statut as! Int
                                                 
                                                 print("Reponse auth", response)
-                                                if let tab: [String:AnyObject] = response["user"] as? [String: AnyObject] {
+                                                if let tab: [String:AnyObject] = response["token"] as? [String: AnyObject] {
                                                     print("tab:", tab["pseudo"])
                                                     self.user.setPseudo(s: tab["pseudo"] as! String)
-                                                    print(self.user.getPseudo()
-                                                    )
-                                                }
-                                                
-                                                if let tab: [String:AnyObject] = response["token"] as? [String: AnyObject] {
+                                                    print(self.user.getPseudo())
                                                     print("tab:", tab["key"])
                                                     self.user.setToken(s: tab["key"] as! String)
                                                         print(self.user.getToken())
@@ -85,10 +81,8 @@ class LoginPageController: UIViewController
                                                         print(self.statut)
                                                 }
                                                 if self.statut == 200 {
-                                                    DispatchQueue.main.async(execute: {
-                                                        self.getFriendsPositions()
-                                                        self.performSegue(withIdentifier: "SegueLogin", sender: nil)
-                                                        })
+                                                    self.getFriendsPositions()
+                                                        
                                                 } else if self.statut == 401 {
                                                     DispatchQueue.main.async(execute: {
                                                             self.message(display: "Mot de passe ou pseudo incorrect", emoji: "☔️", dissmiss: "Annuler")
@@ -122,19 +116,20 @@ class LoginPageController: UIViewController
                finRequete:{ response, statut in
                 
                 self.statut = statut as! Int
-                
-                print("Reponse getPositions", response)
-                for i in 0...response.count-1 {
-                    var f: Friend = Friend.init()
-                    if let amis = response as? [String:AnyObject] {
-                        print("amis ok", amis)
-                        f.setPseudo(s: amis["pseudo"] as! String )
-                        if let coord = amis["coordinate"] as? [String: AnyObject] {
-                            f.setCoordinates(latitude: coord["xCoordinate"] as! CLLocationDegrees, longitude: coord["yCoordinate"] as! CLLocationDegrees)
+                if let tab = response["friends"] as? [AnyObject] {
+                    print("Reponse getPositions", tab)
+                    for i in 0...tab.count-1 {
+                        var f: Friend = Friend.init()
+                        if let amis = tab[i] as? [String: AnyObject] {
+                            print("amis ok", amis)
+                            f.setPseudo(s: amis["pseudo"] as! String )
+                            if let coord = amis["coordinate"] as? [String: AnyObject] {
+                                f.setCoordinates(latitude: coord["xCoordinate"] as! Double, longitude: coord["yCoordinate"] as! Double)
+                            }
                         }
-                    }
-                    self.friendsToDisplay.append(f)
+                        self.friendsToDisplay.append(f)
                 }
+            }
                 
                 if self.statut != 200 {
                     DispatchQueue.main.async(execute: {
@@ -148,6 +143,9 @@ class LoginPageController: UIViewController
                     self.performSegue(withIdentifier: "SegueLogin", sender: nil)
                 })
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                DispatchQueue.main.async(execute: {
+                    self.performSegue(withIdentifier: "SegueLogin", sender: nil)
+                })
         }
         )
     }
@@ -167,6 +165,9 @@ class LoginPageController: UIViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "SegueLogin" {
+            for i in 0...friendsToDisplay.count-1 {
+                print("dans prepare", friendsToDisplay[i].getPseudo(), friendsToDisplay[i].getCoordinates().latitude, friendsToDisplay[i].getCoordinates().longitude )
+            }
             let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
             map.friendSegue = self.friendsToDisplay
             map.user = User.init(u: self.user)

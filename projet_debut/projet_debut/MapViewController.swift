@@ -40,12 +40,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                              repeats: true)
         //Ajouter à la liste d'amis à afficher
         friendsToDisplay.addList(tab: self.friendSegue)
+        for i in 0...friendsToDisplay.list.count-1 {
+            print("dans map", friendsToDisplay.getList()[i].getPseudo(), friendsToDisplay.getList()[i].getCoordinates().latitude, friendsToDisplay.getList()[i].getCoordinates().longitude )
+        }
         self.displayFriends()
         
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         if !annotation.isEqual(mapView.userLocation){
+            print("dans display", annotation.title, annotation.coordinate.latitude, annotation.coordinate.longitude )
             let a = CustomMKAnnotationView()
             a.title = annotation.title as! String
             a.image = #imageLiteral(resourceName: "rabbit-25")
