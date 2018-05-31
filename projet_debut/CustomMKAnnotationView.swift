@@ -1,5 +1,5 @@
 //
-//  Pin.swift
+//  CustomMKAnnotationView.swift
 //  projet_debut
 //
 //  Created by m2sar on 31/05/2018.
@@ -8,9 +8,8 @@
 
 import Foundation
 import MapKit
-class Pin: MKAnnotationView{
-    
-    
+class CustomMKAnnotationView: MKAnnotationView{
+    var title:String=""
     
     
     

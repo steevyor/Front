@@ -3,7 +3,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var `switch`: UISwitch!
@@ -30,6 +30,8 @@ class MapViewController: UIViewController {
     {
         super.viewDidLoad()
         
+        map.delegate = self
+        
         self.zoomPos()
         self.displayFriendPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11), friendName: "Soso")
         print(self.del.locations.longitude, del.locations.latitude)
@@ -40,6 +42,21 @@ class MapViewController: UIViewController {
         friendsToDisplay.addList(tab: self.friendSegue)
         self.displayFriends()
         
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
+        if !annotation.isEqual(mapView.userLocation){
+            let a = CustomMKAnnotationView()
+            a.title = annotation.title as! String
+            a.image = #imageLiteral(resourceName: "rabbit-25")
+            a.annotation = annotation
+            a.canShowCallout = true
+            a.calloutOffset = CGPoint(x: -5, y: 5)
+            //let detailButton = UIButton(type: .detailDisclosure) as UIView
+            //a.rightCalloutAccessoryView = detailButton
+            return a
+        }
+        return nil
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -138,7 +155,6 @@ class MapViewController: UIViewController {
         let annotation = MKPointAnnotation()
         annotation.coordinate = pos
         annotation.title = friendName
-        //annotation.UIImage(named: "pins.png")
         self.map.addAnnotation(annotation)
     }
     

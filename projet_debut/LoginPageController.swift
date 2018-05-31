@@ -61,7 +61,7 @@ class LoginPageController: UIViewController
                 "password": "\(password)"
             ]
 
-        let url = URL(string: "https://cbf9a6c5.ngrok.io/api/user/auth")!
+        let url = URL(string: "https://9b638f40.ngrok.io/api/user/auth")!
         
         let r = Requests()
         r.post(parameters: parameters as [String : AnyObject], url: url,
@@ -81,59 +81,25 @@ class LoginPageController: UIViewController
                                                     print("tab:", tab["key"])
                                                     self.user.setToken(s: tab["key"] as! String)
                                                         print(self.user.getToken())
-                                                    }else {
+                                                }else {
                                                         print(self.statut)
-                                                    }
-                                                
-//                                                    if self.statut == 200 {
-//                                                        DispatchQueue.main.async(execute: {
-//                                                            print("token avant friend : " + self.user.getToken())
-//                                                            self.getFriendsPositions()
-//                                                            self.performSegue(withIdentifier: "SegueLogin", sender: nil)
-//                                                        })
-//                                                    } else if self.statut == 401 || self.statut == 400 {
-//                                                        DispatchQueue.main.async(execute: {
-//                                                            let monAlerte = UIAlertController(title: "☔️", message: "Mot de passe ou pseudo incorrect", preferredStyle: UIAlertControllerStyle.alert)
-//                                                            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-//                                                            self.present(monAlerte, animated: true, completion: nil)
-//                                                        })
-//                                                    } else {
-//                                                        DispatchQueue.main.async(execute: {
-//                                                            let monAlerte = UIAlertController(title: "☔️", message: "Une erreur s'est produite", preferredStyle: UIAlertControllerStyle.alert)
-//                                                            monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))
-//                                                            self.present(monAlerte, animated: true, completion: nil)
-//                                                        })
-//                                                    
-//                                                        self.statut = response["statut"] as! Int
-//                                                        let json: [String:Any] = response["json"] as! [String : Any]
-//                                                    
-//                                                        if let tab = json["user"] as? [String: AnyObject] {
-//                                                            self.user.setPseudo(s: tab["pseudo"] as! String)
-//                                                        }
-//                                                    
-//                                                        if let tab = json["token"] as? [String: AnyObject] {
-//                                                            self.user.setToken(s: tab["key"] as! String)
-//                                                            print(self.statut)
-//                                                        }else {
-//                                                            print(self.statut)
-//                                                        }
-//                                                    
-                                                        if self.statut == 200 {
-                                                            DispatchQueue.main.async(execute: {
-                                                                self.getFriendsPositions()
-                                                                self.performSegue(withIdentifier: "SegueLogin", sender: nil)
-                                                            })
-                                                        } else if self.statut == 401 || self.statut == 401 {
-                                                            DispatchQueue.main.async(execute: {
-                                                                self.message(display: "Mot de passe ou pseudo incorrect", emoji: "☔️", dissmiss: "Annuler")
-                                                            })
-                                                        } else {
-                                                            DispatchQueue.main.async(execute: {
-                                                                self.message(display: "Une erreur s'est produite", emoji: "☔️", dissmiss: "Annuler")
-                                                            })
+                                                }
+                                                if self.statut == 200 {
+                                                    DispatchQueue.main.async(execute: {
+                                                        self.getFriendsPositions()
+                                                        self.performSegue(withIdentifier: "SegueLogin", sender: nil)
+                                                        })
+                                                } else if self.statut == 401 {
+                                                    DispatchQueue.main.async(execute: {
+                                                            self.message(display: "Mot de passe ou pseudo incorrect", emoji: "☔️", dissmiss: "Annuler")
+                                                        })
+                                                } else {
+                                                        DispatchQueue.main.async(execute: {
+                                                            self.message(display: "Une erreur s'est produite", emoji: "☔️", dissmiss: "Annuler")
+                                                        })
                                                         
-                                                        }
-                                                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                                                }
+                                                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                                                 }
         )
     }
@@ -145,12 +111,10 @@ class LoginPageController: UIViewController
         
         let parameters = [
             "pseudo": "\(self.user.getPseudo())",
-            "token": [
-                "key":"\(self.user.getToken())"
-                ]
+            "tokenKey": "\(self.user.getToken())"
         ] as [String : AnyObject]
         
-        let url = URL(string: "https://cbf9a6c5.ngrok.io/api/user/friendPositions")!
+        let url = URL(string: "https://9b638f40.ngrok.io/api/user/friendPositions")!
         
         
         let r = Requests()
