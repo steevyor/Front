@@ -108,7 +108,9 @@ class LoginPageController: UIViewController
             "tokenKey": "\(self.user.getToken())"
         ] as [String : AnyObject]
         
-        let url = URL(string: "https://9b638f40.ngrok.io/api/user/friendPositions")!
+        print(self.user.getPseudo())
+        print(self.user.getToken())
+        let url = URL(string: "https://9b638f40.ngrok.io/api/user/friends")!
         
         
         let r = Requests()
@@ -138,14 +140,12 @@ class LoginPageController: UIViewController
                         self.present(monAlerte, animated: true, completion: nil)
                     })
                     
+                } else {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                    DispatchQueue.main.async(execute: {
+                        self.performSegue(withIdentifier: "SegueLogin", sender: nil)
+                    })
                 }
-                DispatchQueue.main.async(execute: {
-                    self.performSegue(withIdentifier: "SegueLogin", sender: nil)
-                })
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                DispatchQueue.main.async(execute: {
-                    self.performSegue(withIdentifier: "SegueLogin", sender: nil)
-                })
         }
         )
     }
