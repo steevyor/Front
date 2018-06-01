@@ -55,7 +55,10 @@ class LoginPageController: UIViewController
     func connexion(login: String, password: String){
             
             UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            
+            let storage = UserDefaults.standard
+            storage.set(login, forKey: "pseudo")
+            storage.synchronize()
+        
             let parameters = [
                 "pseudo": "\(login)",
                 "password": "\(password)"

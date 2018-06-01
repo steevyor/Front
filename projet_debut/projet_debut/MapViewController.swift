@@ -11,7 +11,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     //Amis récupérés à afficher
     var friendsToDisplay: FriendList = FriendList.init()
     var friendSegue: [Friend] = [Friend].init()
-    
+    var token: String = ""
     var user: User = User.init()
     
     var partage : Bool = true
@@ -40,9 +40,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                              repeats: true)
         //Ajouter à la liste d'amis à afficher
         friendsToDisplay.addList(tab: self.friendSegue)
-        for i in 0...friendsToDisplay.list.count-1 {
+        /*for i in 0...friendsToDisplay.list.count-1 {
             print("dans map", friendsToDisplay.getList()[i].getPseudo(), friendsToDisplay.getList()[i].getCoordinates().latitude, friendsToDisplay.getList()[i].getCoordinates().longitude )
         }
+        */
         self.displayFriends()
         
     }
@@ -189,17 +190,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let vueAmis = (segue.destination as! TabBarController).viewControllers?.first as! VueAmisController
             vueAmis.friendSegue = tab
             vueAmis.user = User.init(u: self.user)
+            vueAmis.token = self.token
             
         }
-       
         
     }
     
     
     
     @IBAction func logOut(_ sender: Any) {
+        let delete = UserDefaults.standard
+        delete.removeObject(forKey: "taken")
+        delete.synchronize()
         
       //Deconnexion
+      
     }
 
     @IBAction func liste(_ sender: Any) {
