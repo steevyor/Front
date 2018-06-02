@@ -20,9 +20,26 @@ class LoginPageController: UIViewController
     var friendsToDisplay = FriendList()
     
     
-
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(true)
+        print("On est où là gros")
+        
+        if let pseudo = UserDefaults.standard.string(forKey: "pseudo"),
+            let token  = UserDefaults.standard.string(forKey: "taken"){
+            user.setPseudo(s: pseudo)
+            //getFriendsPositions(pseudo: pseudo, token: token)
+            performSegue(withIdentifier: "SegueLogin", sender: self)
+            print("On est là")
+        
+        }
+        print("En fait ça fonctionne")
+    }
     
-    override func viewDidLoad(){
+    
+    
+    override func viewDidLoad()
+    {
         self.friendsToDisplay.addList(tab:
             [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 20.10, longitude: 10.12)),
              Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 83.10, longitude: 15.19)),
@@ -32,13 +49,13 @@ class LoginPageController: UIViewController
         
     }
 
-    override func didReceiveMemoryWarning(){
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
     }
     
 
     @IBAction func connexion(_ sender: Any)
-    
     {
         let login = self.pseudo.text
         let password = self.mdp.text
@@ -57,6 +74,8 @@ class LoginPageController: UIViewController
     
     
     func connexion(login: String, password: String){
+        
+
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
             
         let parameters = [
@@ -81,6 +100,10 @@ class LoginPageController: UIViewController
                                                     self.user.setToken(s: tab["key"] as! String)
                                                 }
                                                 if self.statut == 200 {
+                                                    let connect = UserDefaults.standard
+                                                    connect.set(login, forKey: "Bruce")
+                                                    connect.set(self.user.getToken(), forKey: "taken")
+                                                    connect.synchronize()
                                                     self.getFriendsPositions()
                                                 } else if self.statut == 401 {
                                                     DispatchQueue.main.async(execute: {
