@@ -186,12 +186,13 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         
         // Si la recherche est activée et que la recherche ne correspond pas à quelqu'un qui est déjà notre ami
         //if ( searchActive && !(self.friends.contains(login: self.research.list[indexPath.row].getPseudo())) ){
-        if (searchActive){
+        if (dbResearchActive){
                 let ajouterClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
                 //TODO: Envoie d'une demande en amie
-                self.friendsToDisplay.remove(index: indexPath.row)
+                self.dbResearch.remove(index: indexPath.row)
                 self.listeAmis.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
             }
+            
             
             let askFriend = UITableViewRowAction(style: .normal, title: "Ajouter", handler: ajouterClosure)
             askFriend.backgroundColor = UIColor.blue
