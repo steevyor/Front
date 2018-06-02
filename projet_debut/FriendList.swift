@@ -56,6 +56,16 @@ class FriendList: CustomStringConvertible{
         self.list.remove(at: index)
     }
     
+    func remove(pseudo: String){
+        for i in 0..<self.list.count{
+            if self.list[i].getPseudo() == pseudo{
+                self.list.remove(at: i)
+                return
+            }
+        }
+    }
+    
+    
     func filter( login: String, filteredFriends: inout FriendList) {
         var tab: [Friend] = []
         
