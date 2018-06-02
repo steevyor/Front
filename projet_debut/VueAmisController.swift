@@ -188,7 +188,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         //if ( searchActive && !(self.friends.contains(login: self.research.list[indexPath.row].getPseudo())) ){
         if (dbResearchActive){
                 let ajouterClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
-                //TODO: Envoie d'une demande en amie
+                self.inviter(recepterPseudo: self.dbResearch.getList()[indexPath.row].getPseudo())
                 self.dbResearch.remove(index: indexPath.row)
                 self.listeAmis.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
             }
@@ -212,6 +212,51 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
             return [deleteFriend]
             
         }
+        
+    }
+    
+    func inviter(recepterPseudo: String){
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        print("VueAmisController.invite : ")
+        
+        let parameters = [
+            "emitterPseudo": "\(self.user.getPseudo())",
+            "tokenKey": "\(self.user.getToken())",
+            "recepterPseudo": "\(recepterPseudo)"
+            ] as [String : AnyObject]
+        
+        
+        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/sendInvitation")!
+        print("VueAmisController.invite : URL : \(url)")
+        
+        let r = Requests()
+        r.post(parameters: parameters, url: url,
+               finRequete:{ response, statut in
+                print("VueAmisController.invite : Statut : \(statut)")
+                if statut == 200 {
+                    DispatchQueue.main.async(execute: {
+                        self.message(display: "Une invitation a été envoyée à \(recepterPseudo)", emoji: "☀️", dissmiss: "Ok")
+                    })
+                } else {
+                    DispatchQueue.main.async(execute: {
+                        self.message(display: "Une invitation a été envoyée à \(recepterPseudo)", emoji: "☀️", dissmiss: "Ok")
+                    })
+                }
+                
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                
+                
+                DispatchQueue.main.async(execute: {
+                    self.listeAmis.reloadData()
+                })
+                
+        }
+        )
+        
+        
+        
+        
         
     }
     
