@@ -163,7 +163,7 @@
                     <connections>
                         <outlet property="map" destination="W6N-X9-Tbj" id="dVV-01-6Zz"/>
                         <outlet property="switch" destination="xwS-qY-C3k" id="3gv-qn-TG9"/>
-                        <segue destination="VVX-Ef-FjC" kind="showDetail" identifier="MapToLogin" id="RjT-CK-WHB"/>
+                        <segue destination="VVX-Ef-FjC" kind="presentation" identifier="MapToLogin" modalTransitionStyle="flipHorizontal" id="RjT-CK-WHB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
