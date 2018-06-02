@@ -13,8 +13,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var user: User = User.init()
     
     //var partage : Bool = true
-    let timer :Timer? = nil
+    var timer :Timer? = nil
+    var timer2 :Timer? = nil
     let del = UIApplication.shared.delegate as! MappAppDelegate
+    
     
     deinit
     {
@@ -33,9 +35,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         self.displayFriendPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11), friendName: "Soso")
         
-        Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
+        self.timer = Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
                              repeats: true)
-        Timer.scheduledTimer(timeInterval: 30, target: self,selector: #selector(MapViewController.updateFriends), userInfo: nil,
+        self.timer2 = Timer.scheduledTimer(timeInterval: 30, target: self,selector: #selector(MapViewController.updateFriends), userInfo: nil,
                              repeats: true)
         
         self.displayFriends()
@@ -214,7 +216,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     @IBAction func logOut(_ sender: Any) {
-        
+        let disconect = UserDefaults.standard
+        disconect.removeObject(forKey: "taken")
+        disconect.removeObject(forKey: "Bruce")
+        print("\(disconect.string(forKey: "taken"))")
+        print("\(disconect.string(forKey: "Bruce"))")
+        disconect.synchronize()
+        self.timer?.invalidate()
+        self.timer2?.invalidate()
+        performSegue(withIdentifier: "MapToLogin", sender: self)
+        print("Disconnect")
       //Deconnexion
     }
 
