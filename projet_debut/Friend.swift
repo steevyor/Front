@@ -2,11 +2,12 @@
 import CoreLocation
 import Foundation
 
-class Friend : Equatable{
+class Friend : Equatable, CustomStringConvertible {
     private var pseudo: String
     private var isConnected: Bool
     private var isVisible: Bool
     private var coordinates = CLLocationCoordinate2D()
+    public var description: String { return "Pseudo : \(self.pseudo), Coordinates : \(self.coordinates)" }
     
     
     init(){

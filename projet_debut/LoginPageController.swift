@@ -1,7 +1,7 @@
 import UIKit
 import SwiftKeychainWrapper
 import MapKit
-
+let ngrok = "fd4b2c2c"
 
 class LoginPageController: UIViewController
 {
@@ -12,7 +12,6 @@ class LoginPageController: UIViewController
     @IBOutlet weak var pseudo: UITextField!
     @IBOutlet weak var mdp: UITextField!
     
-    //var token: String = ""
     var user: User = User.init()
     var statut: Int = 0
     
@@ -53,36 +52,31 @@ class LoginPageController: UIViewController
     
     
     func connexion(login: String, password: String){
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
             
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            
-            let parameters = [
+        let parameters = [
                 "pseudo": "\(login)",
                 "password": "\(password)"
-            ]
+        ]
 
-        let url = URL(string: "https://9b638f40.ngrok.io/api/user/auth")!
+        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/auth")!
+        print("LoginController.connexion : URL : \(url)")
         
         let r = Requests()
         r.post(parameters: parameters as [String : AnyObject], url: url,
                                              finRequete:{ response, statut in
-                                                
+                                                print("LoginController.connexion : statut = \(statut)")
                                                 self.statut = statut as! Int
-                                                
-                                                print("Reponse auth", response)
+                
                                                 if let tab: [String:AnyObject] = response["token"] as? [String: AnyObject] {
-                                                    print("tab:", tab["pseudo"])
+                                                    print("LoginController.connexion : Récupération du json")
+                                                    print("LoginController.connexion : Pseudo: \(tab["pseudo"])")
+                                                    print("LoginController.connexion : Token: \(tab["token"])")
                                                     self.user.setPseudo(s: tab["pseudo"] as! String)
-                                                    print(self.user.getPseudo())
-                                                    print("tab:", tab["key"])
                                                     self.user.setToken(s: tab["key"] as! String)
-                                                        print(self.user.getToken())
-                                                }else {
-                                                        print(self.statut)
                                                 }
                                                 if self.statut == 200 {
                                                     self.getFriendsPositions()
-                                                        
                                                 } else if self.statut == 401 {
                                                     DispatchQueue.main.async(execute: {
                                                             self.message(display: "Mot de passe ou pseudo incorrect", emoji: "☔️", dissmiss: "Annuler")
@@ -91,7 +85,6 @@ class LoginPageController: UIViewController
                                                         DispatchQueue.main.async(execute: {
                                                             self.message(display: "Une erreur s'est produite", emoji: "☔️", dissmiss: "Annuler")
                                                         })
-                                                        
                                                 }
                                                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                                                 }
@@ -108,18 +101,19 @@ class LoginPageController: UIViewController
             "tokenKey": "\(self.user.getToken())"
         ] as [String : AnyObject]
         
-        print(self.user.getPseudo())
-        print(self.user.getToken())
-        let url = URL(string: "https://9b638f40.ngrok.io/api/user/friends")!
+        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/friends")!
+        print("LoginController.getFriendsPosition : URL : \(url)")
+
         
         
         let r = Requests()
         r.post(parameters: parameters, url: url,
                finRequete:{ response, statut in
-                
+                print("LoginController.getFriendsPosition : statut = \(statut)")
                 self.statut = statut as! Int
+                
                 if let tab = response["friends"] as? [AnyObject] {
-                    print("Reponse getPositions", tab)
+                    print("LoginController.getFriendsPosition : Récupération du json")
                     for i in 0...tab.count-1 {
                         var f: Friend = Friend.init()
                         if let amis = tab[i] as? [String: AnyObject] {
@@ -127,11 +121,11 @@ class LoginPageController: UIViewController
                             f.setPseudo(s: amis["pseudo"] as! String )
                             if let coord = amis["coordinate"] as? [String: AnyObject] {
                                 f.setCoordinates(latitude: coord["xCoordinate"] as! Double, longitude: coord["yCoordinate"] as! Double)
+                                self.friendsToDisplay.append(f)
                             }
                         }
-                        self.friendsToDisplay.append(f)
+                    }
                 }
-            }
                 
                 if self.statut != 200 {
                     DispatchQueue.main.async(execute: {
@@ -141,11 +135,12 @@ class LoginPageController: UIViewController
                     })
                     
                 } else {
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     DispatchQueue.main.async(execute: {
                         self.performSegue(withIdentifier: "SegueLogin", sender: nil)
                     })
                 }
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+
         }
         )
     }
@@ -165,14 +160,10 @@ class LoginPageController: UIViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
         if segue.identifier == "SegueLogin" {
-            for i in 0...friendsToDisplay.count-1 {
-                print("dans prepare", friendsToDisplay[i].getPseudo(), friendsToDisplay[i].getCoordinates().latitude, friendsToDisplay[i].getCoordinates().longitude )
-            }
+            print("LoginController.Prepare")
             let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
             map.friendSegue = self.friendsToDisplay
             map.user = User.init(u: self.user)
-            print("prepare")
-            print("Pseudo : " + self.user.getPseudo() + " token :" + self.user.getToken())
         }
     }
 

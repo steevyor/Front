@@ -2,8 +2,16 @@
 
 import Foundation
 
-class FriendList {
+class FriendList: CustomStringConvertible{
     var list : [Friend]
+    public var description: String {
+        var s:String = ""
+        for f in list {
+            s = "\(s) \n \(f.description)"
+        }
+        return s
+    }
+
     
     init(){
         self.list = []
@@ -63,7 +71,7 @@ class FriendList {
         
         filteredFriends.addList(tab: tab)
     }
-
+    
     
 
 

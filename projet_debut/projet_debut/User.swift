@@ -21,8 +21,8 @@ class User : Equatable {
         self.contacts = FriendList.init()
         self.invitationDemands = []
         self.invitationRequests = []
-        self.isVisible = false
-        self.isConnected = false
+        self.isVisible = true
+        self.isConnected = true
         self.coordinates = CLLocationCoordinate2D.init()
         
     }
@@ -34,8 +34,8 @@ class User : Equatable {
         self.contacts = FriendList.init()
         self.invitationDemands = []
         self.invitationRequests = []
-        self.isVisible = false
-        self.isConnected = false
+        self.isVisible = true
+        self.isConnected = true
         self.coordinates = CLLocationCoordinate2D.init()
         
     }
