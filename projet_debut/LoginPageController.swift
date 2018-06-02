@@ -119,7 +119,7 @@ class LoginPageController: UIViewController
                 
                 if let tab = response["friends"] as? [AnyObject] {
                     print("LoginController.getFriendsPosition : Récupération du json")
-                    for i in 0...tab.count-1 {
+                    for i in 0..<tab.count {
                         var f: Friend = Friend.init()
                         if let amis = tab[i] as? [String: AnyObject] {
                             print("amis ok", amis)

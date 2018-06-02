@@ -33,10 +33,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         self.displayFriendPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11), friendName: "Soso")
         
-        Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
+        /*Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
                              repeats: true)
         Timer.scheduledTimer(timeInterval: 30, target: self,selector: #selector(MapViewController.updateFriends), userInfo: nil,
-                             repeats: true)
+                             repeats: true)*/
         
         self.displayFriends()
         
@@ -77,8 +77,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     {
         if self.user.getIsVIsible() == true {
             print("MapViewController.updatePosition : Coordinates : \(self.del.locations.latitude) , \(self.del.locations.longitude)")
-
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
             let parameters = [
                 "pseudo": "\(self.user.getPseudo())",
@@ -95,7 +93,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             r.post(parameters: parameters, url: url,
                 finRequete:{ response, statut in
                     print("MapViewController.updatePosition : Statut : \(statut) ")
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         )
     }
@@ -104,7 +101,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     //récupérer les amis et leurs positions
     func updateFriends()
     {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
         print("MapViewController.updateFriends : ")
 
         let parameters = [
@@ -127,7 +123,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 if let tab = response["friends"] as? [AnyObject] {
                     print("MapViewController.updateFriends :  Récupération des friends")
 
-                    for i in 0...tab.count-1 {
+                    for i in 0..<tab.count {
                         var f: Friend = Friend.init()
                         if let amis = tab[i] as? [String: AnyObject] {
                             f.setPseudo(s: amis["pseudo"] as! String )
@@ -139,7 +135,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     }
                     //print("MapViewController.updateFriends : friends : \(self.friendsToDisplay)")
                 }
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
         }
         )
         
@@ -180,11 +175,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func displayFriends(){
-        if self.friendsToDisplay.getList().count != 0 {
-            for i in 0...self.friendsToDisplay.getList().count-1{
+            for i in 0..<self.friendsToDisplay.getList().count{
                 displayFriendPosition(pos: self.friendsToDisplay.getList()[i].getCoordinates(), friendName:
                     self.friendsToDisplay.getList()[i].getPseudo())
-            }
         }
         
     }
