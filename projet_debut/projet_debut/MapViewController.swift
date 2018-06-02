@@ -8,11 +8,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var `switch`: UISwitch!
     
-    //Amis à afficher
-    var friendsToDisplay: FriendList = FriendList.init()
     //Amis récupérés
-    var friendSegue: [Friend] = [Friend].init()
-    
+    var friendsToDisplay = FriendList()
     var user: User = User.init()
     
     //var partage : Bool = true
@@ -41,8 +38,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         Timer.scheduledTimer(timeInterval: 30, target: self,selector: #selector(MapViewController.updateFriends), userInfo: nil,
                              repeats: true)
         
-        //Ajouter la liste récupérée a la FriendListe à afficher
-        friendsToDisplay.addList(tab: self.friendSegue)
         self.displayFriends()
         
     }
@@ -206,10 +201,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     //Envoyer à la vue suivante les amis récupérés et le token
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "Segue" {
-            let tab = [Friend.init(pseudo: "A"), Friend.init(pseudo: "B"), Friend.init(pseudo: "C")]
+        if segue.identifier == "SegueFriends" {
             let vueAmis = (segue.destination as! TabBarController).viewControllers?.first as! VueAmisController
-            vueAmis.friendSegue = tab
+            vueAmis.friendsToDisplay = friendsToDisplay
             vueAmis.user = User.init(u: self.user)
             
         }

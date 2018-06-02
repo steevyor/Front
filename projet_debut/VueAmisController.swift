@@ -5,20 +5,19 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listeAmis: UITableView!
     
-    //Pour récupérer les amis à afficher dans la liste
-    var friendSegue: [Friend] = [Friend].init()
-    var friends: FriendList = FriendList.init()
-    var research: FriendList = FriendList.init()
+    //Amis récupérés
+    var friendsToDisplay = FriendList()
     
     var user: User = User.init()
+    
+    var research: FriendList = FriendList.init()
     var filteredFriends: FriendList = FriendList.init()
     var searchActive: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //Afficher les amis récupérés
-        friends.addList(tab: friendSegue)
-        friends.addList(tab: [Friend.init(pseudo: "Alex"),
+        friendsToDisplay.addList(tab: [Friend.init(pseudo: "Alex"),
                               Friend.init(pseudo: "Guillaume"),
                               Friend.init(pseudo: "Henri"),
                               Friend.init(pseudo: "Sonia")]
@@ -64,7 +63,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String){
         
         filteredFriends.remove()
-        friends.filter(login: searchText, filteredFriends: &filteredFriends)
+        friendsToDisplay.filter(login: searchText, filteredFriends: &filteredFriends)
         
         if(filteredFriends.getList().count == 0 && searchText.isEmpty){
             searchActive = false;
@@ -87,7 +86,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         if(searchActive) {
             return filteredFriends.getList().count
         }
-        return friends.getList().count;
+        return friendsToDisplay.getList().count;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -96,7 +95,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         if searchActive {
             friend = filteredFriends.getList()[indexPath.row]
         } else {
-            friend = friends.getList()[indexPath.row]
+            friend = friendsToDisplay.getList()[indexPath.row]
         }
         
         // Créer une cellule
@@ -198,7 +197,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         if (searchActive){
                 let ajouterClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
                 //TODO: Envoie d'une demande en amie
-                self.friends.remove(index: indexPath.row)
+                self.friendsToDisplay.remove(index: indexPath.row)
                 self.listeAmis.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
             }
             
@@ -210,7 +209,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
             
             let deleteClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
                 //TODO: Ajouter l'action de suppression
-                self.friends.remove(index: indexPath.row)
+                self.friendsToDisplay.remove(index: indexPath.row)
                 self.listeAmis.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
                 
             }

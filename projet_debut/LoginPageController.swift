@@ -17,14 +17,19 @@ class LoginPageController: UIViewController
     
     
     //Les amis récupérés à afficher sur la map
-    var friendsToDisplay = [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 20.10, longitude: 10.12)),
-                            Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 83.10, longitude: 15.19)),
-                            Friend.init(pseudo: "C", coord: CLLocationCoordinate2D(latitude: 04.15, longitude: 17.11))]
+    var friendsToDisplay = FriendList()
+    
     
 
     
     override func viewDidLoad(){
+        self.friendsToDisplay.addList(tab:
+            [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 20.10, longitude: 10.12)),
+             Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 83.10, longitude: 15.19)),
+             Friend.init(pseudo: "C", coord: CLLocationCoordinate2D(latitude: 04.15, longitude: 17.11))]
+        )
         super.viewDidLoad()
+        
     }
 
     override func didReceiveMemoryWarning(){
@@ -121,7 +126,7 @@ class LoginPageController: UIViewController
                             f.setPseudo(s: amis["pseudo"] as! String )
                             if let coord = amis["coordinate"] as? [String: AnyObject] {
                                 f.setCoordinates(latitude: coord["xCoordinate"] as! Double, longitude: coord["yCoordinate"] as! Double)
-                                self.friendsToDisplay.append(f)
+                                self.friendsToDisplay.addFriend(f: f)
                             }
                         }
                     }
@@ -162,7 +167,7 @@ class LoginPageController: UIViewController
         if segue.identifier == "SegueLogin" {
             print("LoginController.Prepare")
             let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
-            map.friendSegue = self.friendsToDisplay
+            map.friendsToDisplay = self.friendsToDisplay
             map.user = User.init(u: self.user)
         }
     }
