@@ -30,6 +30,8 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         searchBar.delegate = self
         listeAmis.dataSource = self
         listeAmis.delegate = self
+        searchActive = false;
+        dbResearchActive = false
         
     }
     
@@ -85,7 +87,6 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         if(searchActive) {
             return filteredFriends.getList().count
         } else if dbResearchActive {
-            print("VueAmisController \(dbResearch.getList().count)")
             return dbResearch.getList().count
         }
         return friendsToDisplay.getList().count
@@ -188,14 +189,15 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         if (dbResearchActive){
                 let ajouterClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
                 self.inviter(recepterPseudo: self.dbResearch.getList()[indexPath.row].getPseudo(), row: [indexPath!])
-            }
+                }
+            
             let askFriend = UITableViewRowAction(style: .normal, title: "Ajouter", handler: ajouterClosure)
             askFriend.backgroundColor = UIColor.blue
             return [askFriend]
+            
         }else{
             let deleteClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
                 self.supprimer(requestedPseudo: self.friendsToDisplay.getList()[indexPath.row].getPseudo(), row: [indexPath!])
-                
             }
             
             let deleteFriend = UITableViewRowAction(style: .default, title: "Supprimer", handler: deleteClosure)
@@ -261,7 +263,8 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
             ] as [String : AnyObject]
         
         
-        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/deleteFriendship")!
+        
+        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/deleteFriendShip")!
         print("VueAmisController.supprimer : URL : \(url)")
         
         let r = Requests()

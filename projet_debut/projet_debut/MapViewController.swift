@@ -45,19 +45,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
-        let animals: [UIImage] = [#imageLiteral(resourceName: "alligator"), #imageLiteral(resourceName: "bear"), #imageLiteral(resourceName: "bird"), #imageLiteral(resourceName: "bull"), #imageLiteral(resourceName: "chicken"), #imageLiteral(resourceName: "clown-fish"), #imageLiteral(resourceName: "dinosaur"), #imageLiteral(resourceName: "dolphin"), #imageLiteral(resourceName: "duck"), #imageLiteral(resourceName: "deer"), #imageLiteral(resourceName: "falson"), #imageLiteral(resourceName: "fish"), #imageLiteral(resourceName: "giraffe"), #imageLiteral(resourceName: "gorilla"), #imageLiteral(resourceName: "hummingbird"), #imageLiteral(resourceName: "leopard"), #imageLiteral(resourceName: "octopus"), #imageLiteral(resourceName: "pelican"), #imageLiteral(resourceName: "pig"), #imageLiteral(resourceName: "puffin"), #imageLiteral(resourceName: "running-rabbit"), #imageLiteral(resourceName: "seahorse"), #imageLiteral(resourceName: "sheep"), #imageLiteral(resourceName: "stork"), #imageLiteral(resourceName: "turtle"), #imageLiteral(resourceName: "unicorn")]
-        let index: Int = Int(arc4random_uniform(UInt32(animals.count-1)))
         if !annotation.isEqual(mapView.userLocation){
             //mapView.removeAnnotation(annotation)
             //var a = mapView.dequeueReusableAnnotationView(withIdentifier: "friend")
             //let a = CustomMKAnnotationView(annotation: annotation, "friend")
+            
             var a = CustomMKAnnotationView()
             a.title = annotation.title as! String
             
             var zoomRect = MKMapRectNull;
             mapView.setVisibleMapRect(zoomRect, animated: true)
             
-            a.image = animals[index]
+            a.image = #imageLiteral(resourceName: "ami")
             a.annotation = annotation
             a.canShowCallout = true
             a.calloutOffset = CGPoint(x: -5, y: 5)
@@ -196,9 +195,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     //Envoyer à la vue suivante les amis récupérés et le token
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("MapViewController.prepare ")
+
         if segue.identifier == "SegueFriends" {
             let vueAmis = (segue.destination as! TabBarController).viewControllers?.first as! VueAmisController
-            vueAmis.friendsToDisplay = friendsToDisplay
+            vueAmis.friendsToDisplay = FriendList.init(f: friendsToDisplay.getList())
             vueAmis.user = User.init(u: self.user)
             
         }

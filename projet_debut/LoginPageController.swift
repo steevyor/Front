@@ -190,7 +190,7 @@ class LoginPageController: UIViewController
         if segue.identifier == "SegueLogin" {
             print("LoginController.Prepare")
             let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
-            map.friendsToDisplay = self.friendsToDisplay
+            map.friendsToDisplay = FriendList.init(f: friendsToDisplay.getList())
             map.user = User.init(u: self.user)
         }
     }

@@ -17,6 +17,13 @@ class FriendList: CustomStringConvertible{
         self.list = []
     }
     
+    init(f: [Friend]){
+        self.list = []
+        for friend in f {
+            self.list.append(friend)
+        }
+    }
+    
     func getList() -> [Friend] {
         return self.list
     }
