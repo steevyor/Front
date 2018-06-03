@@ -184,38 +184,28 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     //action sur un ami
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
         
-        // Si la recherche est activée et que la recherche ne correspond pas à quelqu'un qui est déjà notre ami
-        //if ( searchActive && !(self.friends.contains(login: self.research.list[indexPath.row].getPseudo())) ){
+        // Si la recherche en bdd est activée
         if (dbResearchActive){
                 let ajouterClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
-                self.inviter(recepterPseudo: self.dbResearch.getList()[indexPath.row].getPseudo())
-                self.dbResearch.remove(index: indexPath.row)
-                self.listeAmis.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
+                self.inviter(recepterPseudo: self.dbResearch.getList()[indexPath.row].getPseudo(), row: [indexPath!])
             }
-            
-            
             let askFriend = UITableViewRowAction(style: .normal, title: "Ajouter", handler: ajouterClosure)
             askFriend.backgroundColor = UIColor.blue
-            
             return [askFriend]
         }else{
-            
             let deleteClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
-                //TODO: Ajouter l'action de suppression
-                self.friendsToDisplay.remove(index: indexPath.row)
-                self.listeAmis.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
+                self.supprimer(requestedPseudo: self.friendsToDisplay.getList()[indexPath.row].getPseudo(), row: [indexPath!])
                 
             }
             
             let deleteFriend = UITableViewRowAction(style: .default, title: "Supprimer", handler: deleteClosure)
-            
             return [deleteFriend]
             
         }
         
     }
     
-    func inviter(recepterPseudo: String){
+    func inviter(recepterPseudo: String, row: [IndexPath]){
         
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         print("VueAmisController.invite : ")
@@ -237,10 +227,13 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                 if statut == 200 {
                     DispatchQueue.main.async(execute: {
                         self.message(display: "Une invitation a été envoyée à \(recepterPseudo)", emoji: "☀️", dissmiss: "Ok")
+                        self.dbResearch.remove(pseudo: recepterPseudo)
+                        self.listeAmis.deleteRows(at: row, with: UITableViewRowAnimation.automatic)
+
                     })
                 } else {
                     DispatchQueue.main.async(execute: {
-                        self.message(display: "Une invitation a été envoyée à \(recepterPseudo)", emoji: "☀️", dissmiss: "Ok")
+                        self.message(display: "L'envoi de l'invitation à \(recepterPseudo) a échouée", emoji: "☂️", dissmiss: "Ok")
                     })
                 }
                 
@@ -254,16 +247,50 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         }
         )
         
-        
-        
-        
-        
     }
     
-    
-    
-    
-    
-    
+    func supprimer(requestedPseudo: String, row: [IndexPath]){
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        print("VueAmisController.supprimer : ")
+        
+        let parameters = [
+            "userPseudo": "\(self.user.getPseudo())",
+            "tokenKey": "\(self.user.getToken())",
+            "requestedPseudo": "\(requestedPseudo)"
+            ] as [String : AnyObject]
+        
+        
+        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/deleteFriendship")!
+        print("VueAmisController.supprimer : URL : \(url)")
+        
+        let r = Requests()
+        r.post(parameters: parameters, url: url,
+               finRequete:{ response, statut in
+                print("VueAmisController.supprimer : Statut : \(statut)")
+                if statut as! Int == 200 {
+                    DispatchQueue.main.async(execute: {
+                        self.message(display: "La suppression a bien été effectuée", emoji: "☀️", dissmiss: "Ok")
+                        self.friendsToDisplay.remove(pseudo: requestedPseudo)
+                        self.listeAmis.deleteRows(at: row, with: UITableViewRowAnimation.automatic)
+                        
+                    })
+                } else {
+                    DispatchQueue.main.async(execute: {
+                        self.message(display: "La suppression a échouée", emoji: "☂️", dissmiss: "Ok")
+                    })
+                }
+                
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                
+                
+                DispatchQueue.main.async(execute: {
+                    self.listeAmis.reloadData()
+                })
+                
+        }
+        )
+        
+    }
     
 }
