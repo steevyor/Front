@@ -100,7 +100,7 @@ class InscriptionPageController: UIViewController {
                 "password": "\(password1)"
         ]
         
-        let url = URL(string: "https://6adff20d.ngrok.io/api/user/inscription")!
+        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/inscription")!
         
         let session = URLSession.shared
         

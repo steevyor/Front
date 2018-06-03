@@ -1,11 +1,11 @@
 import UIKit
 
-class VueInvitationsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class VueInvitationsController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UITabBarDelegate {
     
     @IBOutlet weak var listeDemands: UITableView!
     
     //pour l'affichage des amis
-    var demands: [String] = [String].init()
+    var invitations: [String] = [String].init()
     
     var statut: Int = 0
     
@@ -14,12 +14,21 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        demands = [ "Alex2", "Guillaume2", "Henri2", "Sonia2"]
-        
+        self.getInvitations()
+
+        //invitations.append(contentsOf:  "Alex2", "Guillaume2", "Henri2", "Sonia2")
         listeDemands.dataSource = self
         listeDemands.delegate = self
         
-    }    
+    }
+    
+    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        if item.title == "Amis" {
+            self.getInvitations()
+            
+        }
+    }
+    
     
     //par rapport à la mémoire et au nombre de lignes
     override func didReceiveMemoryWarning() {
@@ -31,7 +40,7 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return demands.count
+        return invitations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -40,7 +49,7 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "testCell")
         
         // Ajouter les infos
-        cell.textLabel?.text = self.demands[indexPath.row]
+        cell.textLabel?.text = self.invitations[indexPath.row]
         //cell.detailTextLabel?.text = element.name
         
         
@@ -52,17 +61,17 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
 
         let deleteClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             //TODO: ajouter l'action de suppression
-            //self.delete_or_add_friends(action: true, pseudo: self.demands[indexPath.row], indexPath: indexPath)
-            self.demands.remove(at: indexPath.row)
+            //self.delete_or_add_friends(action: false, pseudo: self.demands[indexPath.row], indexPath: indexPath)
+            self.invitations.remove(at: indexPath.row)
             self.listeDemands.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
-            print("Ami suprimé")
+            print("Invitation suprimée")
         }
         
         let addClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             //TODO: ajouter l'action d'ajout
-            //self.delete_or_add_friends(action: false, pseudo: self.demands[indexPath.row], indexPath: indexPath)
-            print("Ami ajouté")
-            self.demands.remove(at: indexPath.row)
+            //self.delete_or_add_friends(action: true, pseudo: self.demands[indexPath.row], indexPath: indexPath)
+            print("Invitation ajoutée")
+            self.invitations.remove(at: indexPath.row)
             self.listeDemands.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
         }
         
@@ -75,68 +84,94 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-    func liste_invitation() -> Void
+    func getInvitations()
     {
-        let parameters = [
-            "pseudo": "\(self.user)",
-        ]
+         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+         print("VueInvitation.getInvitations: ")
+         
+         let parameters = [
+         "userPseudo": "\(self.user.getPseudo())",
+         "tokenKey": "\(self.user.getToken())"
+         ] as [String : AnyObject]
+         
+         
+         let url = URL(string: "https://\(ngrok).ngrok.io/api/user/invitationList")!
+         print("VueInvitation.getInvitations : URL : \(url)")
+        print("VueInvitation.getInvitations : token : \(self.user.getToken())")
+
         
-        let url = URL(string: "https://6adff20d.ngrok.io/api/user/friendslist")!
-        
-        let r = Requests()
-        r.post(parameters: parameters as [String : AnyObject], url: url,
-               finRequete:{ response, statut in
-                
-                self.statut = statut!
-                
-                print("récupèration de la liste des amis ....", response)
-                
-                if self.statut == 200 {
-                    print("Reponse getPositions", response)
-                    for (_,value) in response {
-                        self.demands.append( value as! String)
-                    }
-                    
-                }else{
-                    DispatchQueue.main.async(execute: {
-                        self.message(display: "Une erreur s'est produite lors de l'affichage des invitations", emoji: "☔️", dissmiss: "Annuler")
-                    })
-                    
+         let r = Requests()
+         r.post(parameters: parameters, url: url,
+            finRequete:{ response, statut in
+            print("VueInvitation.getInvitations : Statut : \(statut)")
+            
+            self.invitations.removeAll()
+            if let tab = response["emitters"] as? [AnyObject] {
+                print("VueInvitation.getInvitations :  Récupération des résultat")
+                print("VueInvitation.getInvitations : invitations : \(tab)")
+            
+                for i in 0..<tab.count {
+                    print("VueInvitation.getInvitations : user : \(tab[i])")
+                    var f: Friend = Friend.init()
+                    f.setPseudo(s: tab[i] as! String )
+                    self.invitations.append(f.getPseudo())
                 }
-                
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                print("VueInvitation.getInvitations : results : \(self.invitations)")
+            } else {
+                print("VueInvitation.getInvitations : Aucun résultat ")
+            }
+            
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+         
+        DispatchQueue.main.async(execute: {
+            self.listeDemands.reloadData()
+        })
+         
         }
         )
-        
     }
     
-    func delete_or_add_friends(action: Bool, pseudo: String, indexPath: IndexPath!) -> Void
-        
+    
+    /*func refuseOrAcceptInvitation(action: Bool, requestedPseudo: String, indexPath: [IndexPath])
     {
+        print("VueInvitation.refuseOrAcceptInvitation: ")
+
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        
         let parameters = [
-            "pseudo": "\(self.user)",
-        ]
-        if action == true
+            "emitterPseudo": "\(self.user.getPseudo())",
+            "tokenKey": "\(self.user.getToken())",
+            "recepterPseudo": "\(requestedPseudo)"
+            ] as [String : AnyObject]
+        
+        var msg200 = String()
+        var url = String()
+        if action
         {
-            
-            let url = URL(string: "https://6adff20d.ngrok.io/api/user/delete")!
-            
-            let r = Requests()
-            r.post(parameters: parameters as [String : AnyObject], url: url,
+            url = "https://\(ngrok).ngrok.io/api/user/acceptInvitation"
+            msg200 = "Invitation acceptée"
+        } else {
+            url = "https://\(ngrok).ngrok.io/api/user/refuseInvitation"
+            msg200 = "Invitation refusée"
+        }
+        
+        let r = Requests()
+        
+        r.post(parameters: parameters as [String : AnyObject], url: URL(string: url)!,
                    finRequete:{ response, statut in
-                    
-                    self.statut = statut!
-                    
-                    print("suppresion d'un ami ....", response)
+
+                    print("VueInvitation.refuseOrAcceptInvitation: statut: \(statut)")
                     
                     if self.statut == 200 {
-                        self.demands.remove(at: indexPath.row)
-                        self.listeDemands.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
-                        self.message(display: "\(self.demands[indexPath.row]) supprimé 👌🏾", emoji: "☔️", dissmiss: "Annuler")
+                        DispatchQueue.main.async(execute: {
+                            self.message(display: msg200, emoji: "☀️", dissmiss: "Ok")
+                            self.invitations.remove(at: indexPath)
+                            self.listeDemands.deleteRows(at: indexPath, with: UITableViewRowAnimation.automatic)
+                        })
+
                     }else{
                         DispatchQueue.main.async(execute: {
-                            self.message(display: "Une erreur s'est produite lors de la suppresion de l'ami", emoji: "☔️", dissmiss: "Annuler")
+                            self.message(display: "Une erreur s'est produite", emoji: "☔️", dissmiss: "Annuler")
                         })
                         
                     }
@@ -145,76 +180,7 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
             }
             )
         }
-        else
-        {
-            let url = URL(string: "https://6adff20d.ngrok.io/api/user/add")!
-            
-            let r = Requests()
-            r.post(parameters: parameters as [String : AnyObject], url: url,
-                   finRequete:{ response, statut in
-                    
-                    self.statut = statut!
-                    
-                    print("ajout d'un ami ....", response)
-                    
-                    if self.statut == 200 {
-                        self.demands.remove(at: indexPath.row)
-                        self.listeDemands.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
-                        self.message(display: "\(self.demands[indexPath.row]) ajouté 👌🏾", emoji: "☔️", dissmiss: "Annuler")
-                    }else{
-                        DispatchQueue.main.async(execute: {
-                            self.message(display: "Une erreur s'est produite lors de l'ajout de l'ami", emoji: "☔️", dissmiss: "Annuler")
-                        })
-                        
-                    }
-                    
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            }
-            )
-        }
-        
-        
-        
-    }
-    
-    
-/*
- UIApplication.shared.isNetworkActivityIndicatorVisible = true
- print("VueAmisController.invite : ")
- 
- let parameters = [
- "emitterPseudo": "\(self.user.getPseudo())",
- "tokenKey": "\(self.user.getToken())",
- "recepterPseudo": "\(recepterPseudo)"
- ] as [String : AnyObject]
- 
- 
- let url = URL(string: "https://\(ngrok).ngrok.io/api/user/sendInvitation")!
- print("VueAmisController.invite : URL : \(url)")
- 
- let r = Requests()
- r.post(parameters: parameters, url: url,
- finRequete:{ response, statut in
- print("VueAmisController.invite : Statut : \(statut)")
- if statut == 200 {
- DispatchQueue.main.async(execute: {
- self.message(display: "Une invitation a été envoyée à \(recepterPseudo)", emoji: "☀️", dissmiss: "Ok")
- })
- } else {
- DispatchQueue.main.async(execute: {
- self.message(display: "Une invitation a été envoyée à \(recepterPseudo)", emoji: "☀️", dissmiss: "Ok")
- })
- }
- 
- UIApplication.shared.isNetworkActivityIndicatorVisible = false
- 
- 
- DispatchQueue.main.async(execute: {
- self.listeAmis.reloadData()
- })
- 
- }
- )*/
+    */
  
     func message(display: String, emoji: String, dissmiss: String) -> Void
     {

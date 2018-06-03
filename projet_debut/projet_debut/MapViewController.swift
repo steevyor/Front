@@ -198,12 +198,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         print("MapViewController.prepare ")
 
         if segue.identifier == "SegueFriends" {
-            let vueAmis = (segue.destination as! TabBarController).viewControllers?.first as! VueAmisController
+            
+            let barViewControllers = segue.destination as! UITabBarController
+            let vueAmis = barViewControllers.viewControllers![0] as! VueAmisController
             vueAmis.friendsToDisplay = FriendList.init(f: friendsToDisplay.getList())
             vueAmis.user = User.init(u: self.user)
+            let vueInvitations = barViewControllers.viewControllers![1] as! VueInvitationsController
+            //vueInvitations.friendsToDisplay = FriendList.init(f: friendsToDisplay.getList())
+            vueInvitations.user = User.init(u: self.user)
             
         }
-       
         
     }
     
@@ -229,5 +233,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         
     }
+    
 }
 
