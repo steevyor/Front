@@ -9,7 +9,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var `switch`: UISwitch!
     
     //Amis récupérés
-    var friendsToDisplay = FriendList()
+    //var friendsToDisplay = FriendList()
     var user: User = User.init()
     
     //var partage : Bool = true
@@ -110,7 +110,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             ] as [String : AnyObject]
         
         print("MapViewController.updateFriends : Removing friends")
-        self.friendsToDisplay.remove()
+        self.user.getContacts().remove()
         
         let url = URL(string: "https://\(ngrok).ngrok.io/api/user/friends")!
         print("MapViewController.updateFriends : URL : \(url)")
@@ -132,7 +132,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                                 f.setCoordinates(latitude: coord["xCoordinate"] as! Double, longitude: coord["yCoordinate"] as! Double)
                             }
                         }
-                        self.friendsToDisplay.addFriend(f: f)
+                        self.user.addContact(f: f)
                     }
                     //print("MapViewController.updateFriends : friends : \(self.friendsToDisplay)")
                 }
@@ -176,9 +176,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func displayFriends(){
-            for i in 0..<self.friendsToDisplay.getList().count{
-                displayFriendPosition(pos: self.friendsToDisplay.getList()[i].getCoordinates(), friendName:
-                    self.friendsToDisplay.getList()[i].getPseudo())
+            for i in 0..<self.user.getContacts().getList().count{
+                displayFriendPosition(pos: self.user.getContacts().getList()[i].getCoordinates(), friendName:
+                    self.user.getContacts().getList()[i].getPseudo())
         }
         
     }
@@ -201,7 +201,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             let barViewControllers = segue.destination as! UITabBarController
             let vueAmis = barViewControllers.viewControllers![0] as! VueAmisController
-            vueAmis.friendsToDisplay = FriendList.init(f: friendsToDisplay.getList())
+            vueAmis.user.addContacts(f: self.user.getContacts())
             vueAmis.user = User.init(u: self.user)
             let vueInvitations = barViewControllers.viewControllers![1] as! VueInvitationsController
             //vueInvitations.friendsToDisplay = FriendList.init(f: friendsToDisplay.getList())

@@ -6,7 +6,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var listeAmis: UITableView!
     
     //Amis récupérés
-    var friendsToDisplay = FriendList()
+    //var friendsToDisplay = FriendList()
     var dbResearch = FriendList()
     
     var user: User = User.init()
@@ -19,11 +19,11 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        friendsToDisplay.addList(tab: [Friend.init(pseudo: "Alex"),
-                              Friend.init(pseudo: "Guillaume"),
-                              Friend.init(pseudo: "Henri"),
-                              Friend.init(pseudo: "Sonia")]
-        )
+        let tab = [Friend.init(pseudo: "Alex"),
+                                    Friend.init(pseudo: "Guillaume"),
+                                    Friend.init(pseudo: "Henri"),
+                                    Friend.init(pseudo: "Sonia")]
+        self.user.addContacts(f: FriendList.init(f: tab))
         
       
         searchBar.showsScopeBar = false
@@ -64,7 +64,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         
         filteredFriends.remove()
         dbResearch.remove()
-        friendsToDisplay.filter(login: searchText, filteredFriends: &filteredFriends)
+        self.user.getContacts().filter(login: searchText, filteredFriends: &filteredFriends)
         
         if(filteredFriends.getList().count == 0 && searchText.isEmpty ){
             searchActive = false;
@@ -89,7 +89,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         } else if dbResearchActive {
             return dbResearch.getList().count
         }
-        return friendsToDisplay.getList().count
+        return self.user.getContacts().getList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -104,7 +104,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
             print("VueAmisController.cellRowAt \(dbResearch.getList()[indexPath.row])")
 
         } else {
-            friend = friendsToDisplay.getList()[indexPath.row]
+            friend = self.user.getContacts().getList()[indexPath.row]
         }
         
         // Créer une cellule
@@ -197,7 +197,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
             
         }else{
             let deleteClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
-                self.supprimer(requestedPseudo: self.friendsToDisplay.getList()[indexPath.row].getPseudo(), row: [indexPath!])
+                self.supprimer(requestedPseudo: self.user.getContacts().getList()[indexPath.row].getPseudo(), row: [indexPath!])
             }
             
             let deleteFriend = UITableViewRowAction(style: .default, title: "Supprimer", handler: deleteClosure)
@@ -274,7 +274,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                 if statut as! Int == 200 {
                     DispatchQueue.main.async(execute: {
                         self.message(display: "La suppression a bien été effectuée", emoji: "☀️", dissmiss: "Ok")
-                        self.friendsToDisplay.remove(pseudo: requestedPseudo)
+                        self.user.getContacts().remove(pseudo: requestedPseudo)
                         self.listeAmis.deleteRows(at: row, with: UITableViewRowAnimation.automatic)
                         
                     })

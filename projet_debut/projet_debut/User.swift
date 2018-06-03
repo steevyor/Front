@@ -43,7 +43,7 @@ class User : Equatable {
         self.pseudo = u.getPseudo()
         self.email = u.getEmail()
         self.token = u.getToken()
-        self.contacts = u.getContacts()
+        self.contacts = FriendList.init(f: u.getContacts().getList())
         self.invitationDemands = u.getInvitationDemands()
         self.invitationRequests = u.getInvitationsRequests()
         self.isVisible = u.getIsVIsible()
@@ -139,7 +139,14 @@ class User : Equatable {
         return user1.pseudo == user2.pseudo && user1.email == user2.email
 
     }
-    
+
+    func addContacts(f : FriendList){
+        for friend in f.getList(){
+            
+            self.contacts.addFriend(f: friend)
+
+        }
+    }
     
     
 }

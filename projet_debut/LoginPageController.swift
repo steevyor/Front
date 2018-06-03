@@ -17,7 +17,7 @@ class LoginPageController: UIViewController
     
     
     //Les amis récupérés à afficher sur la map
-    var friendsToDisplay = FriendList()
+    //var friendsToDisplay = FriendList()
     
     
     override func viewWillAppear(_ animated: Bool)
@@ -40,11 +40,11 @@ class LoginPageController: UIViewController
     
     override func viewDidLoad()
     {
-        self.friendsToDisplay.addList(tab:
-            [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 20.10, longitude: 10.12)),
+        let tab = [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 20.10, longitude: 10.12)),
              Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 83.10, longitude: 15.19)),
              Friend.init(pseudo: "C", coord: CLLocationCoordinate2D(latitude: 04.15, longitude: 17.11))]
-        )
+        
+        self.user.addContacts(f: FriendList(f: tab))
         super.viewDidLoad()
         
     }
@@ -149,7 +149,7 @@ class LoginPageController: UIViewController
                             f.setPseudo(s: amis["pseudo"] as! String )
                             if let coord = amis["coordinate"] as? [String: AnyObject] {
                                 f.setCoordinates(latitude: coord["xCoordinate"] as! Double, longitude: coord["yCoordinate"] as! Double)
-                                self.friendsToDisplay.addFriend(f: f)
+                                self.user.addContact(f: f)
                             }
                         }
                     }
@@ -190,8 +190,8 @@ class LoginPageController: UIViewController
         if segue.identifier == "SegueLogin" {
             print("LoginController.Prepare")
             let map =  (segue.destination as! NavigationController).viewControllers.first as! MapViewController
-            map.friendsToDisplay = FriendList.init(f: friendsToDisplay.getList())
             map.user = User.init(u: self.user)
+
         }
     }
 
