@@ -27,9 +27,11 @@ class Requests {
         
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             guard error == nil else {
+
                 return
             }
             guard let data = data else {
+
                 return
             }
             var httpCode = (response as? HTTPURLResponse)?.statusCode
@@ -38,6 +40,10 @@ class Requests {
                 if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: AnyObject]{
                 
                     finRequete(json, httpCode)
+                }
+                else {
+                    finRequete([String: AnyObject](), httpCode)
+
                 }
             } catch let error {
                 print("Request.post : Récupération JSON pas ok")

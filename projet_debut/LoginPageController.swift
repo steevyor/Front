@@ -12,9 +12,7 @@ class LoginPageController: UIViewController
     @IBOutlet weak var pseudo: UITextField!
     @IBOutlet weak var mdp: UITextField!
     
-    var user: User = User.init()
-    var statut: Int = 0
-    
+    var user: User = User.init()    
     
     //Les amis récupérés à afficher sur la map
     //var friendsToDisplay = FriendList()
@@ -90,7 +88,6 @@ class LoginPageController: UIViewController
         r.post(parameters: parameters as [String : AnyObject], url: url,
                                              finRequete:{ response, statut in
                                                 print("LoginController.connexion : statut = \(statut)")
-                                                self.statut = statut as! Int
                 
                                                 if let tab: [String:AnyObject] = response["token"] as? [String: AnyObject] {
                                                     print("LoginController.connexion : Récupération du json")
@@ -99,13 +96,13 @@ class LoginPageController: UIViewController
                                                     self.user.setPseudo(s: tab["pseudo"] as! String)
                                                     self.user.setToken(s: tab["key"] as! String)
                                                 }
-                                                if self.statut == 200 {
+                                                if statut == 200 {
                                                     let connect = UserDefaults.standard
                                                     connect.set(login, forKey: "Bruce")
                                                     connect.set(self.user.getToken(), forKey: "taken")
                                                     connect.synchronize()
                                                     self.getFriendsPositions()
-                                                } else if self.statut == 401 {
+                                                } else if statut == 401 {
                                                     DispatchQueue.main.async(execute: {
                                                             self.message(display: "Mot de passe ou pseudo incorrect", emoji: "☔️", dissmiss: "Annuler")
                                                         })
@@ -138,7 +135,6 @@ class LoginPageController: UIViewController
         r.post(parameters: parameters, url: url,
                finRequete:{ response, statut in
                 print("LoginController.getFriendsPosition : statut = \(statut)")
-                self.statut = statut as! Int
                 
                 if let tab = response["friends"] as? [AnyObject] {
                     print("LoginController.getFriendsPosition : Récupération du json")
@@ -155,7 +151,7 @@ class LoginPageController: UIViewController
                     }
                 }
                 
-                if self.statut != 200 {
+                if statut != 200 {
                     DispatchQueue.main.async(execute: {
                         let monAlerte = UIAlertController(title: "☔️", message: "Une erreur s'est produite dans le chargement de la position des amis", preferredStyle: UIAlertControllerStyle.alert)
                         monAlerte.addAction(UIAlertAction(title: "Annuler", style: UIAlertActionStyle.default,handler: nil))

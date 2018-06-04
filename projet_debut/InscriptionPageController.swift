@@ -10,8 +10,6 @@ class InscriptionPageController: UIViewController {
     @IBOutlet weak var password1: UITextField!
     @IBOutlet weak var password2: UITextField!
     
-    var msg: String = ""
-    var emoji: String = ""
     
     
     override func viewDidLoad()
@@ -32,7 +30,7 @@ class InscriptionPageController: UIViewController {
         let password1 = self.password1.text
         let password2 = self.password2.text
         
-        print("bouton d'inscription")
+        
         /*
          criteres pour une inscription reussie: remplir tous les champs
          les deux mots de passe sont différents
@@ -48,39 +46,16 @@ class InscriptionPageController: UIViewController {
         else
         {
             if password1 != password2 {
-                    self.message(display: "Les mots de passe entrés sont différents", emoji: "☔️", dissmiss: "Annuler")
+                    self.message(display: "Les mots de passe entrés sont différents", emoji: "☔️", dissmiss: "Ok")
                 
             }else{
                 if !isValidEmailAddress(emailAddressString: email!) {
-                    self.message(display: "Veuillez entrer un mail valide", emoji: "☔️", dissmiss: "Annuler")
+                    self.message(display: "Veuillez entrer un mail valide", emoji: "☔️", dissmiss: "Ok")
                     
                     
                 } else {
                     
-                    inscription(login: login!, email: email!, password1: password1!,
-                                sortie:{statut in
-                                    print(statut)
-                                    if statut == 200 {
-                                        self.msg = "L'inscription a bien été prise en compte, vous pouvez vous connecter !"
-                                        self.emoji = "☀️"
-                                        DispatchQueue.main.async(execute: {
-                                            self.message(display: self.msg, emoji: self.emoji, dissmiss: "Ok")
-                                        })
-                                    } else if statut == 403 {
-                                        self.msg = "Pseudo déjà utilisé, veuillez en entrer un nouveau"
-                                        self.emoji = "☔️"
-                                        DispatchQueue.main.async(execute: {
-                                            self.message(display: self.msg, emoji: self.emoji, dissmiss: "Ok")
-                                        })
-                                    } else {
-                                        self.msg = "Une erreur s'est produite, veuillez réessayer"
-                                        self.emoji = "☔️"
-                                        DispatchQueue.main.async(execute: {
-                                            self.message(display: self.msg, emoji: self.emoji, dissmiss: "Ok")
-                                        })
-                                    }
-                    }
-                    )
+                    inscription(login: login!, email: email!, password: password1!)
                     
                 }
             }
@@ -91,56 +66,77 @@ class InscriptionPageController: UIViewController {
     
 
     
-    func inscription( login: String, email: String, password1: String, sortie: @escaping (_ statut: Int) -> Void) {
-        //UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    func inscription( login: String, email: String, password: String) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        print("InscriptionPageController.inscription :  ")
         let parameters =
             [
                 "pseudo": "\(login)",
                 "email": "\(email)",
-                "password": "\(password1)"
-        ]
+                "password": "\(password)"
+        ] as [String : AnyObject]
         
         let url = URL(string: "https://\(ngrok).ngrok.io/api/user/inscription")!
+        print("InscriptionPageController.inscription : url : \(url)")
         
-        let session = URLSession.shared
+        let r = Requests()
+        r.post(parameters: parameters, url: url,
+               finRequete:{ response, statut in
+                print("InscriptionPageController.inscription : statut = \(statut)")
+                
+                
+                if statut == 200 {
+                    DispatchQueue.main.async(execute: {
+                        self.message(display:  "L'inscription a bien été prise en compte, vous pouvez vous connecter !", emoji: "☀️", dissmiss: "Ok")
+                    })
+                } else if statut == 403 {
+                    DispatchQueue.main.async(execute: {
+                        self.message(display: "Pseudo déjà utilisé, veuillez en entrer un nouveau", emoji: "☔️", dissmiss: "Ok")
+                    })
+                } else {
+                    DispatchQueue.main.async(execute: {
+                        self.message(display: "Une erreur s'est produite, veuillez réessayer", emoji: "☔️", dissmiss: "Ok")
+                    })
+                }
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                
+        })
+
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST" //set http method as POST
-        do {
-            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata
-        } catch let error {
-            print(error.localizedDescription)
-        }
         
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        /*
         
-        
-        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
-            
-            guard error == nil else {
-                return
+        let r = Requests()
+        r.post(parameters: parameters, url: url,
+               finRequete: { response, statut in
+                print("On est dans InscriptionPageController.inscription")
+
+                print("InscriptionPageController.inscription : statut : \(statut)")
+            print("InscriptionPageController.inscription : response : \(response)")
+         
+
+            if statut == 200 {
+                DispatchQueue.main.async(execute: {
+                    self.message(display:  "L'inscription a bien été prise en compte, vous pouvez vous connecter !", emoji: "☀️", dissmiss: "Ok")
+                })
+            } else if statut == 403 {
+                DispatchQueue.main.async(execute: {
+                    self.message(display: "Pseudo déjà utilisé, veuillez en entrer un nouveau", emoji: "☔️", dissmiss: "Ok")
+                })
+            } else {
+                DispatchQueue.main.async(execute: {
+                    self.message(display: "Une erreur s'est produite, veuillez réessayer", emoji: "☔️", dissmiss: "Ok")
+                })
             }
-            
-            guard let data = data else {
-                return
-            }
-            
-            if let httpStatus = response as? HTTPURLResponse{
-                print(httpStatus.statusCode)
-                sortie(httpStatus.statusCode)
-            }
-            
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             
         })
-        task.resume()
-        
-        //UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        
+        */
         
     }
-    // Vérification de la validité du mail
     
+    
+    // Vérification de la validité du mail
     func isValidEmailAddress(emailAddressString: String) -> Bool {
         
         var returnValue = true

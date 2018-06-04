@@ -211,24 +211,56 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     
     
+    
     @IBAction func logOut(_ sender: Any) {
-        let disconect = UserDefaults.standard
-        disconect.removeObject(forKey: "taken")
-        disconect.removeObject(forKey: "Bruce")
-        print("\(disconect.string(forKey: "taken"))")
-        print("\(disconect.string(forKey: "Bruce"))")
-        disconect.synchronize()
-        self.timer?.invalidate()
-        self.timer2?.invalidate()
-        performSegue(withIdentifier: "MapToLogin", sender: self)
-        print("Disconnect")
+
+        print("MapViewController.disconnect : ")
+        
+        let parameters = [
+            "userPseudo": "\(self.user.getPseudo())",
+            "tokenKey": "\(self.user.getToken())"
+            ] as [String : AnyObject]
+        
+        
+        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/disconnect")!
+        print("MapViewController.disconnect : URL : \(url)")
+        
+        
+        let r = Requests()
+        r.post(parameters: parameters, url: url,
+               finRequete:{ response, statut in
+                print("MapViewController.disconnect : Statut : \(statut)")
+                if statut == 202 {
+                    DispatchQueue.main.async(execute: {
+                        let disconect = UserDefaults.standard
+                        disconect.removeObject(forKey: "taken")
+                        disconect.removeObject(forKey: "Bruce")
+                        print("\(disconect.string(forKey: "taken"))")
+                        print("\(disconect.string(forKey: "Bruce"))")
+                        disconect.synchronize()
+                        self.timer?.invalidate()
+                        self.timer2?.invalidate()
+                        self.performSegue(withIdentifier: "MapToLogin", sender: self)
+                        self.message(display: "Déconnexion réussie", emoji: "☀️", dissmiss: "Ok")
+
+
+                    })
+
+                    
+                }
+                
+        }
+        )
+        
       //Deconnexion
     }
 
-    @IBAction func liste(_ sender: Any) {
-        //charger la liste d'amis
-        
-        
+    //Chargée d'afficher les messages à l'utilisateur
+    func message(display: String, emoji: String, dissmiss: String) -> Void
+    {
+        let monAlerte = UIAlertController(title: emoji, message:display, preferredStyle: UIAlertControllerStyle.alert)
+        monAlerte.addAction(UIAlertAction(title: dissmiss, style: UIAlertActionStyle.default,handler: nil))
+        self.present(monAlerte, animated: true, completion: nil)
         
     }
     
