@@ -12,6 +12,29 @@ import UIKit
 class LaunchView: UIViewController {
     
     private var user: User = User.init()
+    private var activity: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    override func viewDidLoad() {
+        self.viewDidLoad()
+        self.activity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        
+        // Position Activity Indicator in the center of the main view
+        self.activity.center = view.center
+        
+        // If needed, you can prevent Acivity Indicator from hiding when stopAnimating() is called
+        self.activity.hidesWhenStopped = false
+        
+        // Start Activity Indicator
+        self.activity.startAnimating()
+        
+        // Call stopAnimating() when need to stop activity indicator
+        //myActivityIndicator.stopAnimating()
+        
+        
+        view.addSubview(self.activity)
+        
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -19,16 +42,13 @@ class LaunchView: UIViewController {
         let change = UserDefaults.standard
         let first = change.string(forKey: "Bruce")
         let second = change.string(forKey: "taken")
-        //print("**********************************")
         if (first != nil) && (second != nil){
-            //print(first)
-            //print(second)
             user.setPseudo(s: first!)
             user.setToken(s: second!)
             getFriendsPositions()
         }else{
-            print(first)
-            print(second)
+
+            self.activity.stopAnimating()
             self.performSegue(withIdentifier: "ToLogin", sender: self)
         }
         
@@ -37,8 +57,7 @@ class LaunchView: UIViewController {
     func getFriendsPositions()
     {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        print(self.user.getPseudo())
-        print(self.user.getToken())
+        
         let parameters = [
             "pseudo": "\(self.user.getPseudo())",
             "tokenKey": "\(self.user.getToken())"
@@ -71,12 +90,13 @@ class LaunchView: UIViewController {
                 
                 if statut == 200 {
                     DispatchQueue.main.async(execute: {
+                        self.activity.stopAnimating()
                         self.performSegue(withIdentifier: "ToMap", sender: self)
                         
                     })
                     
                 }else{
-                    self.message(display: "OUPS ça a foiré gros", emoji: "🤣", dissmiss: "Bye Bye")
+                    self.message(display: "Veuillez redemmarer l'application et activer une connexion reseau", emoji: "", dissmiss: "☠︎")
                 }
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 

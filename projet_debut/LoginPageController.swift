@@ -3,7 +3,7 @@ import SwiftKeychainWrapper
 import MapKit
 let ngrok = "e3c87133"
 
-class LoginPageController: UIViewController
+class LoginPageController: UIViewController, UITextFieldDelegate
 {
 
     
@@ -18,26 +18,10 @@ class LoginPageController: UIViewController
     //var friendsToDisplay = FriendList()
     
     
-    override func viewWillAppear(_ animated: Bool)
-    {
-        super.viewWillAppear(true)
-        print("On est où là gros")
-        
-        if let pseudo = UserDefaults.standard.string(forKey: "pseudo"),
-            let token  = UserDefaults.standard.string(forKey: "taken"){
-            user.setPseudo(s: pseudo)
-            //getFriendsPositions(pseudo: pseudo, token: token)
-            performSegue(withIdentifier: "SegueLogin", sender: self)
-            print("On est là")
-        
-        }
-        print("En fait ça fonctionne")
-    }
-    
-    
-    
     override func viewDidLoad()
     {
+        self.pseudo.delegate = self
+        self.mdp.delegate = self
         let tab = [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 20.10, longitude: 10.12)),
              Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 83.10, longitude: 15.19)),
              Friend.init(pseudo: "C", coord: CLLocationCoordinate2D(latitude: 04.15, longitude: 17.11))]
@@ -46,12 +30,23 @@ class LoginPageController: UIViewController
         super.viewDidLoad()
         
     }
-
+    
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.pseudo.resignFirstResponder()
+        self.mdp.resignFirstResponder()
+        return true
+    }
+    
     override func didReceiveMemoryWarning()
     {
         super.didReceiveMemoryWarning()
     }
-    
 
     @IBAction func connexion(_ sender: Any)
     {

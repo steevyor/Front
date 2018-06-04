@@ -250,8 +250,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         disconect.synchronize()
                         self.timer?.invalidate()
                         self.timer2?.invalidate()
+                        print("ok")
                         self.performSegue(withIdentifier: "MapToLogin", sender: self)
-                        self.message(display: "Déconnexion réussie", emoji: "☀️", dissmiss: "Ok")
 
 
                     })
