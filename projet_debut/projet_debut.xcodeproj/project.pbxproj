@@ -28,6 +28,7 @@
 		D6750C6C20752C5C005B15F3 /* projet_debutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C6B20752C5C005B15F3 /* projet_debutTests.swift */; };
 		D6750C7720752C5C005B15F3 /* projet_debutUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C7620752C5C005B15F3 /* projet_debutUITests.swift */; };
 		D6750C8520752C75005B15F3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6750C8420752C75005B15F3 /* User.swift */; };
+		D68540E920C5454B004598F9 /* SuggestionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68540E820C5454B004598F9 /* SuggestionsController.swift */; };
 		D6E208A320AEF166006BBB9A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6E208A220AEF166006BBB9A /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		D6750C7620752C5C005B15F3 /* projet_debutUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = projet_debutUITests.swift; sourceTree = "<group>"; };
 		D6750C7820752C5C005B15F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6750C8420752C75005B15F3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = projet_debut/User.swift; sourceTree = "<group>"; };
+		D68540E820C5454B004598F9 /* SuggestionsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionsController.swift; sourceTree = "<group>"; };
 		D6E208A220AEF166006BBB9A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1598E5D446786FEDBF3C944 /* Pods_projet_debutTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_projet_debutTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -150,6 +152,7 @@
 				063A9D5820B319590044B1AC /* VueInvitationsController.swift */,
 				0665488C20B0AAFF00CCC323 /* NavigationController.swift */,
 				061E46E620B08789002DB85A /* TabBarController.swift */,
+				D68540E820C5454B004598F9 /* SuggestionsController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 				06CF3C572087B19E006A7A3D /* InscriptionPageController.swift in Sources */,
 				0665488D20B0AAFF00CCC323 /* NavigationController.swift in Sources */,
 				D6750C5720752C5C005B15F3 /* MapAppDelegate.swift in Sources */,
+				D68540E920C5454B004598F9 /* SuggestionsController.swift in Sources */,
 				D6269EE220C00DD5002BD836 /* CustomMKAnnotationView.swift in Sources */,
 				061E46E720B08789002DB85A /* TabBarController.swift in Sources */,
 				06DA6EC0209886A600AE1F4C /* FriendList.swift in Sources */,

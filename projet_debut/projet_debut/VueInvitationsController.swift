@@ -16,11 +16,13 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
-        if item.title == "Amis" {
+    func tabBarController(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        /*if item.title == "Amis" {
             self.getInvitations()
             
-        }
+        }*/
+        print("TabBarItem Suggestions")
+
     }
     
     

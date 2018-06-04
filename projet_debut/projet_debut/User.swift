@@ -8,6 +8,7 @@ class User : Equatable {
     private var token:String
     private var contacts = FriendList()
     private var invitationRequests = FriendList()
+    private var suggestions = FriendList()
     private var isConnected: Bool
     private var isVisible: Bool
     private var coordinates = CLLocationCoordinate2D()
@@ -19,6 +20,7 @@ class User : Equatable {
         self.token = ""
         self.contacts = FriendList.init()
         self.invitationRequests = FriendList.init()
+        self.suggestions = FriendList.init()
         self.isVisible = true
         self.isConnected = true
         self.coordinates = CLLocationCoordinate2D.init()
@@ -31,6 +33,7 @@ class User : Equatable {
         self.token = ""
         self.contacts = FriendList.init()
         self.invitationRequests = FriendList.init()
+        self.suggestions = FriendList.init()
         self.isVisible = true
         self.isConnected = true
         self.coordinates = CLLocationCoordinate2D.init()
@@ -42,6 +45,7 @@ class User : Equatable {
         self.token = u.getToken()
         self.contacts = FriendList.init(f: u.getContacts().getList())
         self.invitationRequests = FriendList.init(f: u.getInvitationsRequests().getList())
+        self.suggestions = FriendList.init(f: u.getSuggestions().getList())
         self.isVisible = u.getIsVIsible()
         self.isConnected = u.getIsConnected()
         self.coordinates = u.getCoordinates()
@@ -62,6 +66,9 @@ class User : Equatable {
     }
     func getInvitationsRequests() -> FriendList{
         return self.invitationRequests
+    }
+    func getSuggestions() -> FriendList{
+        return self.suggestions
     }
     func getIsConnected() -> Bool{
         return self.isConnected
@@ -87,7 +94,6 @@ class User : Equatable {
     func deleteContact(index : Int){
         self.contacts.remove(index: index)
     }
-    
     func addInvitationRequests(request : Friend){
         self.invitationRequests.addFriend(f: request)
     }
@@ -107,6 +113,27 @@ class User : Equatable {
     func deleteAllInvitationRequest(){
         self.invitationRequests.remove()
     }
+    
+    func addSuggestion(request : Friend){
+        self.suggestions.addFriend(f: request)
+    }
+    
+    func addSuggestions(requests : [Friend]){
+        self.suggestions.addList(tab: requests)
+    }
+    
+    func deleteSuggestion(request : String){
+        self.suggestions.remove(pseudo: request)
+    }
+    
+    func deleteSuggestion(index : Int){
+        self.suggestions.remove(index: index)
+    }
+    
+    func deleteAllSuggestions(){
+        self.suggestions.remove()
+    }
+    
     
     func setPseudo(s: String){
         self.pseudo = s

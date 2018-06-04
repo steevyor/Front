@@ -257,7 +257,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         let parameters = [
             "userPseudo": "\(self.user.getPseudo())",
             "tokenKey": "\(self.user.getToken())",
-            "requestedPseudo": "\(requestedPseudo)"
+            "friendPseudo": "\(requestedPseudo)"
             ] as [String : AnyObject]
         
         
