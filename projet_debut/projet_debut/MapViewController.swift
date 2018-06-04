@@ -31,15 +31,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
         self.zoomPos()
         
-        self.displayFriendPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11), friendName: "Soso")
+        //self.displayFriendPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11), friendName: "Soso")
         
         self.timer = Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
                              repeats: true)
         self.timer2 = Timer.scheduledTimer(timeInterval: 30, target: self,selector: #selector(MapViewController.updateFriends), userInfo: nil,
                              repeats: true)
-        
-        self.displayFriends()
-        
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
@@ -53,8 +50,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             
             var zoomRect = MKMapRectNull;
             mapView.setVisibleMapRect(zoomRect, animated: true)
+            let images = [#imageLiteral(resourceName: "monster"), #imageLiteral(resourceName: "ami-7"), #imageLiteral(resourceName: "ami-4"), #imageLiteral(resourceName: "ami-2"), #imageLiteral(resourceName: "ami-10"), #imageLiteral(resourceName: "ami-16"), #imageLiteral(resourceName: "ami-19")]
             
-            a.image = #imageLiteral(resourceName: "ami")
+            let randomNum:UInt32 = arc4random_uniform(UInt32(images.count))
+            let someInt:Int = Int(randomNum)
+            a.image = images[someInt]
             a.annotation = annotation
             a.canShowCallout = true
             a.calloutOffset = CGPoint(x: -5, y: 5)
@@ -92,6 +92,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             r.post(parameters: parameters, url: url,
                 finRequete:{ response, statut in
                     print("MapViewController.updatePosition : Statut : \(statut) ")
+                    /*if statut == 200 {
+                        self.displayFriends()
+
+                    }*/
         }
         )
     }
@@ -165,18 +169,22 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         self.zoomPos()        
     }
     
-    func displayFriendPosition(pos: CLLocationCoordinate2D, friendName: String)
+    func displayFriendPosition(friend: Friend)
     {
         let annotation = MKPointAnnotation()
-        annotation.coordinate = pos
-        annotation.title = friendName
+        annotation.coordinate = friend.getCoordinates()
+        annotation.title = friend.getPseudo()
+
+        let from = CLLocation(latitude: friend.getCoordinates().latitude, longitude: friend.getCoordinates().longitude)
+        let to = CLLocation(latitude: self.user.getCoordinates().latitude, longitude: self.user.getCoordinates().longitude)
+        annotation.subtitle = "\(annotation.title!) est à \(from.distance(from: to)) mètres"
+
         self.map.addAnnotation(annotation)
     }
     
     func displayFriends(){
             for i in 0..<self.user.getContacts().getList().count{
-                displayFriendPosition(pos: self.user.getContacts().getList()[i].getCoordinates(), friendName:
-                    self.user.getContacts().getList()[i].getPseudo())
+                displayFriendPosition(friend: self.user.getContacts().getList()[i])
         }
         
     }
@@ -202,8 +210,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             vueAmis.user.addContacts(f: self.user.getContacts())
             vueAmis.user = User.init(u: self.user)
             let vueInvitations = barViewControllers.viewControllers![1] as! VueInvitationsController
-            //vueInvitations.friendsToDisplay = FriendList.init(f: friendsToDisplay.getList())
             vueInvitations.user = User.init(u: self.user)
+            let vueSuggestions = barViewControllers.viewControllers![2] as! SuggestionsController
+            vueSuggestions.user = User.init(u: self.user)
+
             
         }
         
