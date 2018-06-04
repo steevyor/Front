@@ -16,15 +16,6 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-    func tabBarController(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        /*if item.title == "Amis" {
-            self.getInvitations()
-            
-        }*/
-        print("TabBarItem Suggestions")
-
-    }
-    
     
     //par rapport à la mémoire et au nombre de lignes
     override func didReceiveMemoryWarning() {
