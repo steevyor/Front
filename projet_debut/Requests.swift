@@ -1,11 +1,3 @@
-//
-//  Request.swift
-//  projet_debut
-//
-//  Created by Autre on 30/05/2018.
-//  Copyright © 2018 m2sar. All rights reserved.
-//
-
 import Foundation
 class Requests {
     
@@ -58,7 +50,116 @@ class Requests {
         
     }
     
+    func connexion(login: String, password: String, messages: @escaping (_ user: User,_ message: String) -> Void){
+        
+        var user = User()
+        let parameters = [
+            "pseudo": "\(login)",
+            "password": "\(password)"
+        ]
+        
+        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/auth")!
+        print("LoginController.connexion : URL : \(url)")
+        
+        let r = Requests()
+        r.post(parameters: parameters as [String : AnyObject], url: url,
+               finRequete:{ response, statut in
+                print("LoginController.connexion : statut = \(statut)")
+                
+                if let tab: [String:AnyObject] = response["token"] as? [String: AnyObject] {
+                    print("LoginController.connexion : Récupération du json")
+                    print("LoginController.connexion : Pseudo: \(tab["pseudo"])")
+                    print("LoginController.connexion : Token: \(tab["token"])")
+                    user.setPseudo(s: tab["pseudo"] as! String)
+                    user.setToken(s: tab["key"] as! String)
+                }
+
+                if statut == 200 {
+                    let connect = UserDefaults.standard
+                    connect.set(login, forKey: "Bruce")
+                    connect.set(user.getToken(), forKey: "taken")
+                    connect.synchronize()
+                    self.getFriendPositions(pseudo: user.getPseudo(), token: user.getToken(), chargementAmis:{ friends in
+                    user.addContacts(f: friends)
+                    messages(user, "")
+                    })
+                } else if statut == 401 {
+                    messages(user, "Mot de passe ou pseudo incorrect")
+                    
+                } else {
+                    messages(user, "Une erreur s'est produite")
+                    
+                }
+        }
+        )
+    }
     
+    
+    func getFriendPositions(pseudo: String, token: String, chargementAmis: @escaping (_ friends: FriendList) -> Void)
+    {
+        var friends = FriendList()
+        let parameters = [
+            "pseudo": "\(pseudo)",
+            "tokenKey": "\(token)"
+            ] as [String : AnyObject]
+        
+        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/friends")!
+        print("LoginController.getFriendsPosition : URL : \(url)")
+        
+        
+        
+        let r = Requests()
+        r.post(parameters: parameters, url: url,
+               finRequete:{ response, statut in
+                print("LoginController.getFriendsPosition : statut = \(statut)")
+                
+                if let tab = response["friends"] as? [AnyObject] {
+                    print("LoginController.getFriendsPosition : Récupération du json")
+                    for i in 0..<tab.count {
+                        var f: Friend = Friend.init()
+                        if let amis = tab[i] as? [String: AnyObject] {
+                            print("amis ok", amis)
+                            f.setPseudo(s: amis["pseudo"] as! String )
+                            if let coord = amis["coordinate"] as? [String: AnyObject] {
+                                f.setCoordinates(latitude: coord["xCoordinate"] as! Double, longitude: coord["yCoordinate"] as! Double)
+                                friends.addFriend(f: f)
+                            }
+                        }
+                    }
+                    chargementAmis(friends)
+                }
+                })
+    }
+    
+    
+    
+    
+    //envoyer notre position au server
+    func updatePosition(user: User, del: MappAppDelegate)
+    {
+        if user.getIsVIsible() == true {
+            print("MapViewController.updatePosition : Coordinates : \(del.locations.latitude) , \(del.locations.longitude)")
+            
+            let parameters = [
+                "pseudo": "\(user.getPseudo())",
+                "tokenKey": "\(user.getToken())",
+                "xCoordinates": "\(del.locations.longitude)",
+                "yCoordinates": "\(del.locations.latitude)"
+                ] as [String : AnyObject]
+            
+            let url = URL(string: "https://\(ngrok).ngrok.io/api/user/updateUserCoordinates")!
+            print("MapViewController.updatePosition : URL : \(url)")
+            
+            
+            let r = Requests()
+            r.post(parameters: parameters, url: url,
+                   finRequete:{ response, statut in
+                    print("MapViewController.updatePosition : Statut : \(statut) ")
+                    
+            }
+            )
+        }
+    }
     
     
 }

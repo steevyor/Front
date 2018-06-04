@@ -139,6 +139,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                 print("VueAmisController.research : removing FilteredFriends")
                 print("VueAmisController.research : reloading listeAmis")
                 self.filteredFriends.remove()
+                
                 if let tab = response["utilisateurs"] as? [AnyObject] {
                     print("VueAmisController.research :  Récupération des résultat")
                     print("VueAmisController.research : utilisateurs : \(tab)")
@@ -154,8 +155,9 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                     print("VueAmisController.research : results : \(self.dbResearch)")
                 } else {
                     print("VueAmisController.research : Aucun résultat ")
-
-                    self.message(display: "Aucun utilisateur ne correspond", emoji: "☔️", dissmiss: "Annuler")
+                    DispatchQueue.main.async(execute: {
+                        self.message(display: "Aucun utilisateur ne correspond", emoji: "☔️", dissmiss: "Annuler")
+                    })
 
                 }
                 
@@ -226,23 +228,20 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                 print("VueAmisController.invite : Statut : \(statut)")
                 if statut == 200 {
                     DispatchQueue.main.async(execute: {
-                        self.message(display: "Une invitation a été envoyée à \(recepterPseudo)", emoji: "☀️", dissmiss: "Ok")
                         self.dbResearch.remove(pseudo: recepterPseudo)
                         self.listeAmis.deleteRows(at: row, with: UITableViewRowAnimation.automatic)
+                        self.listeAmis.reloadData()
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                        self.message(display: "Une invitation a été envoyée à \(recepterPseudo)", emoji: "☀️", dissmiss: "Ok")
 
                     })
                 } else {
                     DispatchQueue.main.async(execute: {
                         self.message(display: "L'envoi de l'invitation à \(recepterPseudo) a échouée", emoji: "☂️", dissmiss: "Ok")
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+
                     })
                 }
-                
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                
-                
-                DispatchQueue.main.async(execute: {
-                    self.listeAmis.reloadData()
-                })
                 
         }
         )
@@ -274,24 +273,29 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                         self.message(display: "La suppression a bien été effectuée", emoji: "☀️", dissmiss: "Ok")
                         self.user.deleteContact(pseudo: requestedPseudo)
                         self.listeAmis.deleteRows(at: row, with: UITableViewRowAnimation.automatic)
+                        self.listeAmis.reloadData()
+
                         
                     })
                 } else {
                     DispatchQueue.main.async(execute: {
                         self.message(display: "La suppression a échouée", emoji: "☂️", dissmiss: "Ok")
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+
                     })
                 }
                 
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 
-                
-                DispatchQueue.main.async(execute: {
-                    self.listeAmis.reloadData()
-                })
                 
         }
         )
         
     }
+    
+    /*override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.getInvitations()
+        
+    }*/
     
 }

@@ -15,7 +15,7 @@ class LaunchView: UIViewController {
     private var activity: UIActivityIndicatorView = UIActivityIndicatorView()
     
     override func viewDidLoad() {
-        self.viewDidLoad()
+        super.viewDidLoad()
         self.activity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
         
         // Position Activity Indicator in the center of the main view

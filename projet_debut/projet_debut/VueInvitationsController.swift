@@ -64,6 +64,11 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.getInvitations()
+    }
+    
     func getInvitations()
     {
          UIApplication.shared.isNetworkActivityIndicatorVisible = true

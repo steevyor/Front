@@ -43,6 +43,11 @@ class SuggestionsController : UIViewController, UITableViewDataSource, UITableVi
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.getSuggestions()
+    }
+    
     //actions sur une invitation
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
         

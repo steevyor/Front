@@ -37,13 +37,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                              repeats: true)
         self.timer2 = Timer.scheduledTimer(timeInterval: 30, target: self,selector: #selector(MapViewController.updateFriends), userInfo: nil,
                              repeats: true)
+        self.displayFriends()
+
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         if !annotation.isEqual(mapView.userLocation){
             //mapView.removeAnnotation(annotation)
-            //var a = mapView.dequeueReusableAnnotationView(withIdentifier: "friend")
-            //let a = CustomMKAnnotationView(annotation: annotation, "friend")
+            
             
             var a = CustomMKAnnotationView()
             a.title = annotation.title as! String
@@ -92,10 +93,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             r.post(parameters: parameters, url: url,
                 finRequete:{ response, statut in
                     print("MapViewController.updatePosition : Statut : \(statut) ")
-                    /*if statut == 200 {
-                        self.displayFriends()
-
-                    }*/
+                    
         }
         )
     }
@@ -175,9 +173,10 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         annotation.coordinate = friend.getCoordinates()
         annotation.title = friend.getPseudo()
 
-        let from = CLLocation(latitude: friend.getCoordinates().latitude, longitude: friend.getCoordinates().longitude)
-        let to = CLLocation(latitude: self.user.getCoordinates().latitude, longitude: self.user.getCoordinates().longitude)
-        annotation.subtitle = "\(annotation.title!) est à \(from.distance(from: to)) mètres"
+        let to = CLLocation(latitude: friend.getCoordinates().latitude, longitude: friend.getCoordinates().longitude)
+        let from = CLLocation(latitude: self.user.getCoordinates().latitude, longitude: self.user.getCoordinates().longitude)
+        let formatedString = String(format:"%.2f",Float(to.distance(from: from) / 1000.0 + 0.005))
+        annotation.subtitle = "\(annotation.title!) est à \(formatedString) kilomètres"
 
         self.map.addAnnotation(annotation)
     }
