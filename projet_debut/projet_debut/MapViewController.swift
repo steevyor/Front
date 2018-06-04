@@ -8,8 +8,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var map: MKMapView!
     @IBOutlet weak var `switch`: UISwitch!
     
-    //Amis récupérés
-    //var friendsToDisplay = FriendList()
     var user: User = User.init()
     
     //var partage : Bool = true
@@ -110,7 +108,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             ] as [String : AnyObject]
         
         print("MapViewController.updateFriends : Removing friends")
-        self.user.getContacts().remove()
+        self.user.deleteAllContacts()
         
         let url = URL(string: "https://\(ngrok).ngrok.io/api/user/friends")!
         print("MapViewController.updateFriends : URL : \(url)")

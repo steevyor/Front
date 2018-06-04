@@ -4,11 +4,6 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var listeDemands: UITableView!
     
-    //pour l'affichage des amis
-    var invitations: [String] = [String].init()
-    
-    var statut: Int = 0
-    
     var user: User = User.init()
     
     override func viewDidLoad() {
@@ -16,7 +11,6 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
         
         self.getInvitations()
 
-        //invitations.append(contentsOf:  "Alex2", "Guillaume2", "Henri2", "Sonia2")
         listeDemands.dataSource = self
         listeDemands.delegate = self
         
@@ -40,7 +34,7 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return invitations.count
+        return self.user.getInvitationsRequests().getList().count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,30 +43,23 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "testCell")
         
         // Ajouter les infos
-        cell.textLabel?.text = self.invitations[indexPath.row]
+        cell.textLabel?.text = self.user.getInvitationsRequests().getList()[indexPath.row].getPseudo()
         //cell.detailTextLabel?.text = element.name
         
         
         return cell
     }
     
-    //actions sur une demande
+    //actions sur une invitation
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
 
         let deleteClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
             //TODO: ajouter l'action de suppression
-            //self.delete_or_add_friends(action: false, pseudo: self.demands[indexPath.row], indexPath: indexPath)
-            self.invitations.remove(at: indexPath.row)
-            self.listeDemands.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
-            print("Invitation suprimée")
+            self.refuseOrAcceptInvitation(action: false, requestedPseudo: self.user.getInvitationsRequests().getList()[indexPath.row].getPseudo(), indexPath: [indexPath])
         }
         
         let addClosure = { (action: UITableViewRowAction!, indexPath: IndexPath!) -> Void in
-            //TODO: ajouter l'action d'ajout
-            //self.delete_or_add_friends(action: true, pseudo: self.demands[indexPath.row], indexPath: indexPath)
-            print("Invitation ajoutée")
-            self.invitations.remove(at: indexPath.row)
-            self.listeDemands.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
+            self.refuseOrAcceptInvitation(action: true, requestedPseudo: self.user.getInvitationsRequests().getList()[indexPath.row].getPseudo(), indexPath: [indexPath])
         }
         
         
@@ -105,7 +92,7 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
             finRequete:{ response, statut in
             print("VueInvitation.getInvitations : Statut : \(statut)")
             
-            self.invitations.removeAll()
+            self.user.deleteAllInvitationRequest()
             if let tab = response["emitters"] as? [AnyObject] {
                 print("VueInvitation.getInvitations :  Récupération des résultat")
                 print("VueInvitation.getInvitations : invitations : \(tab)")
@@ -114,9 +101,9 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
                     print("VueInvitation.getInvitations : user : \(tab[i])")
                     var f: Friend = Friend.init()
                     f.setPseudo(s: tab[i] as! String )
-                    self.invitations.append(f.getPseudo())
+                    self.user.addInvitationRequests(request: f)
                 }
-                print("VueInvitation.getInvitations : results : \(self.invitations)")
+                print("VueInvitation.getInvitations : results : \(self.user.getInvitationsRequests())")
             } else {
                 print("VueInvitation.getInvitations : Aucun résultat ")
             }
@@ -132,16 +119,16 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    /*func refuseOrAcceptInvitation(action: Bool, requestedPseudo: String, indexPath: [IndexPath])
+    func refuseOrAcceptInvitation(action: Bool, requestedPseudo: String, indexPath: [IndexPath])
     {
         print("VueInvitation.refuseOrAcceptInvitation: ")
 
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         
         let parameters = [
-            "emitterPseudo": "\(self.user.getPseudo())",
+            "emitterPseudo": "\(requestedPseudo)",
             "tokenKey": "\(self.user.getToken())",
-            "recepterPseudo": "\(requestedPseudo)"
+            "recepterPseudo": "\(self.user.getPseudo())"
             ] as [String : AnyObject]
         
         var msg200 = String()
@@ -162,11 +149,15 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
 
                     print("VueInvitation.refuseOrAcceptInvitation: statut: \(statut)")
                     
-                    if self.statut == 200 {
+                    if statut == 200 {
                         DispatchQueue.main.async(execute: {
                             self.message(display: msg200, emoji: "☀️", dissmiss: "Ok")
-                            self.invitations.remove(at: indexPath)
+                            print("VueInvitation.refuseOrAcceptInvitation avant delete : \(self.user.getInvitationsRequests())")
+
+                            self.user.deleteInvitationRequest(request: requestedPseudo)
+                            
                             self.listeDemands.deleteRows(at: indexPath, with: UITableViewRowAnimation.automatic)
+                            self.listeDemands.reloadData()
                         })
 
                     }else{
@@ -180,7 +171,6 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
             }
             )
         }
-    */
  
     func message(display: String, emoji: String, dissmiss: String) -> Void
     {

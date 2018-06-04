@@ -5,8 +5,6 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listeAmis: UITableView!
     
-    //Amis récupérés
-    //var friendsToDisplay = FriendList()
     var dbResearch = FriendList()
     
     var user: User = User.init()
@@ -274,7 +272,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                 if statut as! Int == 200 {
                     DispatchQueue.main.async(execute: {
                         self.message(display: "La suppression a bien été effectuée", emoji: "☀️", dissmiss: "Ok")
-                        self.user.getContacts().remove(pseudo: requestedPseudo)
+                        self.user.deleteContact(pseudo: requestedPseudo)
                         self.listeAmis.deleteRows(at: row, with: UITableViewRowAnimation.automatic)
                         
                     })

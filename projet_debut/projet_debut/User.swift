@@ -7,8 +7,7 @@ class User : Equatable {
     private var email: String
     private var token:String
     private var contacts = FriendList()
-    private var invitationDemands = [String]()
-    private var invitationRequests = [String]()
+    private var invitationRequests = FriendList()
     private var isConnected: Bool
     private var isVisible: Bool
     private var coordinates = CLLocationCoordinate2D()
@@ -19,8 +18,7 @@ class User : Equatable {
         self.email = email
         self.token = ""
         self.contacts = FriendList.init()
-        self.invitationDemands = []
-        self.invitationRequests = []
+        self.invitationRequests = FriendList.init()
         self.isVisible = true
         self.isConnected = true
         self.coordinates = CLLocationCoordinate2D.init()
@@ -32,8 +30,7 @@ class User : Equatable {
         self.email = ""
         self.token = ""
         self.contacts = FriendList.init()
-        self.invitationDemands = []
-        self.invitationRequests = []
+        self.invitationRequests = FriendList.init()
         self.isVisible = true
         self.isConnected = true
         self.coordinates = CLLocationCoordinate2D.init()
@@ -44,8 +41,7 @@ class User : Equatable {
         self.email = u.getEmail()
         self.token = u.getToken()
         self.contacts = FriendList.init(f: u.getContacts().getList())
-        self.invitationDemands = u.getInvitationDemands()
-        self.invitationRequests = u.getInvitationsRequests()
+        self.invitationRequests = FriendList.init(f: u.getInvitationsRequests().getList())
         self.isVisible = u.getIsVIsible()
         self.isConnected = u.getIsConnected()
         self.coordinates = u.getCoordinates()
@@ -64,10 +60,7 @@ class User : Equatable {
     func getContacts() -> FriendList{
         return self.contacts
     }
-    func getInvitationDemands() -> [String]{
-        return self.invitationDemands
-    }
-    func getInvitationsRequests() -> [String]{
+    func getInvitationsRequests() -> FriendList{
         return self.invitationRequests
     }
     func getIsConnected() -> Bool{
@@ -83,39 +76,38 @@ class User : Equatable {
         self.contacts.addFriend(f: f)
     }
     
-    func deleteContact(f : Friend){
-        for index in 0...self.contacts.getList().count{
-            if f == self.contacts.getList()[index]  {
-                self.contacts.remove(index: index)
-            }
-            return
-        }
+    func deleteAllContacts(){
+        self.contacts.remove()
     }
     
-    func addInvitationDemand(demand : String){
-        self.invitationDemands.append(demand)
+    func deleteContact(pseudo : String){
+        self.contacts.remove(pseudo: pseudo)
     }
     
-    func deleteInvitationDemand(demand : String){
-        for index in 0...self.invitationDemands.count{
-            if(demand == self.invitationDemands[index]){
-                self.invitationDemands.remove(at: index)
-            }
-            return
-        }
+    func deleteContact(index : Int){
+        self.contacts.remove(index: index)
     }
-    func addInvitationRequest(request : String){
-        self.invitationRequests.append(request)
+    
+    func addInvitationRequests(request : Friend){
+        self.invitationRequests.addFriend(f: request)
+    }
+    
+    func addInvitationRequest(requests : [Friend]){
+    self.invitationRequests.addList(tab: requests)
     }
     
     func deleteInvitationRequest(request : String){
-        for index in 0...self.invitationRequests.count{
-            if(request == self.invitationRequests[index]){
-                self.invitationRequests.remove(at: index)
-            }
-            return
-        }
+        self.invitationRequests.remove(pseudo: request)
     }
+    
+    func deleteInvitationRequest(index : Int){
+        self.invitationRequests.remove(index: index)
+    }
+    
+    func deleteAllInvitationRequest(){
+        self.invitationRequests.remove()
+    }
+    
     func setPseudo(s: String){
         self.pseudo = s
     }
