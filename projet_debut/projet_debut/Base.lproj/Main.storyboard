@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1314" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VVX-Ef-FjC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17E202" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gNj-JQ-hrK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -9,6 +9,28 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Launch View-->
+        <scene sceneID="qaK-1z-EFP">
+            <objects>
+                <viewController id="gNj-JQ-hrK" customClass="LaunchView" customModule="projet_debut" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="odP-4J-nsV"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vsq-Gm-pXy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LcG-sh-6cO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="VVX-Ef-FjC" kind="presentation" identifier="ToLogin" id="5QY-Yl-ave"/>
+                        <segue destination="WHO-gf-lbg" kind="presentation" identifier="ToMap" id="iwQ-LT-QyF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2pg-0C-brZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2226" y="-1202"/>
+        </scene>
         <!--Login View-->
         <scene sceneID="uLQ-26-ci9">
             <objects>
@@ -464,6 +486,7 @@
         <image name="suggestion25" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="iwQ-LT-QyF"/>
         <segue reference="RjT-CK-WHB"/>
     </inferredMetricsTieBreakers>
 </document>

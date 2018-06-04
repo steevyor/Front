@@ -15,6 +15,7 @@
 		06DA6EC0209886A600AE1F4C /* FriendList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06DA6EBF209886A600AE1F4C /* FriendList.swift */; };
 		157B242F71A6D06908A155BC /* Pods_projet_debutUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26499256A34CAEE00997D63A /* Pods_projet_debutUITests.framework */; };
 		2311697E0EF797ED371C9506 /* Pods_projet_debutTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F1598E5D446786FEDBF3C944 /* Pods_projet_debutTests.framework */; };
+		33922F0620C569E9001B9654 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33922F0520C569E9001B9654 /* LaunchView.swift */; };
 		33DA4DD9207ED0E1008E22DB /* LoginPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA4DD8207ED0E1008E22DB /* LoginPageController.swift */; };
 		33FBD6D4207F8334007A3826 /* VueAmisController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33FBD6D3207F8334007A3826 /* VueAmisController.swift */; };
 		87A1383D9929483299F31C78 /* Pods_projet_debut.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5359F428502C9AB8BF533C89 /* Pods_projet_debut.framework */; };
@@ -57,6 +58,7 @@
 		06CF3C562087B19E006A7A3D /* InscriptionPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InscriptionPageController.swift; sourceTree = "<group>"; };
 		06DA6EBF209886A600AE1F4C /* FriendList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendList.swift; sourceTree = "<group>"; };
 		26499256A34CAEE00997D63A /* Pods_projet_debutUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_projet_debutUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		33922F0520C569E9001B9654 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		33DA4DD8207ED0E1008E22DB /* LoginPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginPageController.swift; sourceTree = "<group>"; };
 		33FBD6D3207F8334007A3826 /* VueAmisController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VueAmisController.swift; sourceTree = "<group>"; };
 		4C4D764532B6D81E74A07FD2 /* Pods-projet_debutTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-projet_debutTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-projet_debutTests/Pods-projet_debutTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				0665488C20B0AAFF00CCC323 /* NavigationController.swift */,
 				061E46E620B08789002DB85A /* TabBarController.swift */,
 				D68540E820C5454B004598F9 /* SuggestionsController.swift */,
+				33922F0520C569E9001B9654 /* LaunchView.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6750C5920752C5C005B15F3 /* MapViewController.swift in Sources */,
+				33922F0620C569E9001B9654 /* LaunchView.swift in Sources */,
 				06690EDA20BEDBC2005B43D4 /* Requests.swift in Sources */,
 				06CF3C572087B19E006A7A3D /* InscriptionPageController.swift in Sources */,
 				0665488D20B0AAFF00CCC323 /* NavigationController.swift in Sources */,
