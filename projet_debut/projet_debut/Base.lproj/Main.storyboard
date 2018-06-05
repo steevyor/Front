@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17E202" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gNj-JQ-hrK">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G1314" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gNj-JQ-hrK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,28 +25,31 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MAP" translatesAutoresizingMaskIntoConstraints="NO" id="8hY-Hv-A6N">
-                                <rect key="frame" x="100" y="120" width="175" height="46"/>
+                                <rect key="frame" x="79" y="120" width="217" height="46"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="2hr-FY-p9s"/>
+                                    <constraint firstAttribute="width" constant="217" id="dgG-wz-VZl"/>
+                                </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleAspectFit" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-1024" translatesAutoresizingMaskIntoConstraints="NO" id="z0O-IC-9Xf">
-                                <rect key="frame" x="104" y="281" width="167" height="128"/>
+                                <rect key="frame" x="112.5" y="258.5" width="150" height="150"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="WL3-kB-uBk"/>
+                                    <constraint firstAttribute="height" constant="150" id="60v-jR-zlw"/>
+                                    <constraint firstAttribute="width" constant="150" id="vY4-q2-Dte"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="z0O-IC-9Xf" firstAttribute="leading" secondItem="LcG-sh-6cO" secondAttribute="leadingMargin" constant="88" id="10o-hT-3f7"/>
-                            <constraint firstItem="8hY-Hv-A6N" firstAttribute="top" secondItem="odP-4J-nsV" secondAttribute="bottom" constant="100" id="804-09-7Tw"/>
-                            <constraint firstItem="YTK-VM-0Np" firstAttribute="top" secondItem="LcG-sh-6cO" secondAttribute="top" id="80h-Ub-4em"/>
-                            <constraint firstItem="YTK-VM-0Np" firstAttribute="bottom" secondItem="Vsq-Gm-pXy" secondAttribute="top" id="FOO-e8-Jnb"/>
-                            <constraint firstItem="Vsq-Gm-pXy" firstAttribute="top" secondItem="z0O-IC-9Xf" secondAttribute="bottom" constant="258" id="P7I-mK-SQA"/>
-                            <constraint firstItem="8hY-Hv-A6N" firstAttribute="leading" secondItem="LcG-sh-6cO" secondAttribute="leadingMargin" constant="84" id="XBI-Z0-1e6"/>
-                            <constraint firstItem="YTK-VM-0Np" firstAttribute="leading" secondItem="LcG-sh-6cO" secondAttribute="leading" id="aIz-Vk-iFF"/>
-                            <constraint firstItem="YTK-VM-0Np" firstAttribute="centerX" secondItem="8hY-Hv-A6N" secondAttribute="centerX" id="hwr-QN-VrX"/>
-                            <constraint firstItem="8hY-Hv-A6N" firstAttribute="centerX" secondItem="LcG-sh-6cO" secondAttribute="centerX" id="uQz-JM-QdC"/>
-                            <constraint firstItem="8hY-Hv-A6N" firstAttribute="centerX" secondItem="z0O-IC-9Xf" secondAttribute="centerX" id="zYc-6a-IqX"/>
+                            <constraint firstItem="8hY-Hv-A6N" firstAttribute="centerY" secondItem="LcG-sh-6cO" secondAttribute="centerY" constant="-190" id="092-2a-EZy"/>
+                            <constraint firstItem="Vsq-Gm-pXy" firstAttribute="top" secondItem="YTK-VM-0Np" secondAttribute="bottom" id="CPU-CY-1rY"/>
+                            <constraint firstItem="z0O-IC-9Xf" firstAttribute="centerY" secondItem="LcG-sh-6cO" secondAttribute="centerY" id="Xzp-Aq-m6N"/>
+                            <constraint firstAttribute="trailing" secondItem="YTK-VM-0Np" secondAttribute="trailing" id="b3c-cr-mMa"/>
+                            <constraint firstItem="YTK-VM-0Np" firstAttribute="top" secondItem="LcG-sh-6cO" secondAttribute="top" id="gZg-Rl-zwZ"/>
+                            <constraint firstItem="8hY-Hv-A6N" firstAttribute="centerX" secondItem="LcG-sh-6cO" secondAttribute="centerX" id="ivw-Up-i9B"/>
+                            <constraint firstItem="YTK-VM-0Np" firstAttribute="leading" secondItem="LcG-sh-6cO" secondAttribute="leading" id="jUj-6V-uQ7"/>
+                            <constraint firstItem="z0O-IC-9Xf" firstAttribute="centerX" secondItem="LcG-sh-6cO" secondAttribute="centerX" id="m4V-Xc-j1u"/>
                         </constraints>
                     </view>
                     <connections>

@@ -292,10 +292,24 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-    /*override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.getInvitations()
-        
-    }*/
-    
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        let r = Requests()
+        r.getFriendPositions(pseudo: self.user.getPseudo(), token: self.user.getToken(),  chargementAmis:{ friends in
+            
+            if friends.getList().count != 0 {
+                DispatchQueue.main.async(execute: {
+                    self.user.addContacts(f: friends)
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+
+                })
+            } else {
+                DispatchQueue.main.async(execute: {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                })
+            }
+        })
+    }
+ 
 }
