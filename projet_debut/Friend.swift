@@ -32,6 +32,13 @@ class Friend : Equatable, CustomStringConvertible {
         self.coordinates = CLLocationCoordinate2D(latitude: 0, longitude: 0)
         
     }
+    init(f: Friend){
+        self.pseudo = f.getPseudo()
+        self.isVisible = false
+        self.isConnected = false
+        self.coordinates = f.getCoordinates()
+        
+    }
     
     func getPseudo() -> String{
         return self.pseudo

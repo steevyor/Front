@@ -59,26 +59,23 @@ class Requests {
         ]
         
         let url = URL(string: "https://\(ngrok).ngrok.io/api/user/auth")!
-        print("LoginController.connexion : URL : \(url)")
+        print("Request.connexion : URL : \(url)")
         
         let r = Requests()
         r.post(parameters: parameters as [String : AnyObject], url: url,
                finRequete:{ response, statut in
-                print("LoginController.connexion : statut = \(statut)")
+                print("Request.connexion : statut = \(statut)")
                 
                 if let tab: [String:AnyObject] = response["token"] as? [String: AnyObject] {
-                    print("LoginController.connexion : Récupération du json")
-                    print("LoginController.connexion : Pseudo: \(tab["pseudo"])")
-                    print("LoginController.connexion : Token: \(tab["token"])")
+                    print("Request.connexion : Récupération du json")
+                    print("Request.connexion : Pseudo: \(tab["pseudo"])")
+                    print("Request.connexion : Token: \(tab["token"])")
                     user.setPseudo(s: tab["pseudo"] as! String)
                     user.setToken(s: tab["key"] as! String)
                 }
 
                 if statut == 200 {
-                    let connect = UserDefaults.standard
-                    connect.set(login, forKey: "Bruce")
-                    connect.set(user.getToken(), forKey: "taken")
-                    connect.synchronize()
+                    
                     self.getFriendPositions(pseudo: user.getPseudo(), token: user.getToken(), chargementAmis:{ friends in
                     user.addContacts(f: friends)
                     messages(user, "")

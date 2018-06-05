@@ -36,7 +36,9 @@ class SuggestionsController : UIViewController, UITableViewDataSource, UITableVi
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "testCell")
         
         // Ajouter les infos
-        cell.textLabel?.text = self.user.getSuggestions().getList()[indexPath.row].getPseudo()
+        if indexPath.row < self.user.getSuggestions().getList().count {
+            cell.textLabel?.text = self.user.getSuggestions().getList()[indexPath.row].getPseudo()
+        }
         //cell.detailTextLabel?.text = element.name
         
         return cell
