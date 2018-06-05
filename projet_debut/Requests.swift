@@ -129,6 +129,8 @@ class Requests {
                         }
                     }
                     chargementAmis(friends)
+                } else {
+                    chargementAmis(FriendList())
                 }
                 })
     }
