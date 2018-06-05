@@ -1,7 +1,6 @@
 import UIKit
 import SwiftKeychainWrapper
 import MapKit
-let ngrok = "d6fef36b"
 
 class LoginPageController: UIViewController, UITextFieldDelegate
 {

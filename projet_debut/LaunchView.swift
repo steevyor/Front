@@ -45,84 +45,42 @@ class LaunchView: UIViewController {
         
         
         if (first != nil) && (second != nil){
+            print("Dans le cas ou les valeurs sont ok")
             let r = Requests()
-            r.connexion(login: first!, password: second!, messages: {
-                user, message in
-                DispatchQueue.main.async(execute: {
-                    if message != "" {
+            r.getFriendPositions(pseudo: first!, token: second!, chargementAmis:{ friends in
+                
+                
+                    if friends.getList().count == 0 {
                         DispatchQueue.main.async(execute: {
+                            print("Dans le cas ou la connexion est pas ok")
                             self.activity.stopAnimating()
                             self.performSegue(withIdentifier: "ToLogin", sender: self)
                         })
+
                     } else {
                         DispatchQueue.main.async(execute: {
-                            self.user.setPseudo(s: user.getPseudo())
-                            self.user.setToken(s: user.getToken())
-                            self.getFriendsPositions()
+                            self.user.addContacts(f: friends)
+                            print("Dans le cas ou la connexion est ok")
+                            self.user.setPseudo(s: first!)
+                            self.user.setToken(s: second!)
+                            self.activity.stopAnimating()
+                            self.performSegue(withIdentifier: "ToMap", sender: self)
+                            
                         })
+
                         
                     }
-                    
-                })
+                
             })
 
         }else{
-
+            print("Dans le cas ou les valeurs sont pas ok")
             self.activity.stopAnimating()
             self.performSegue(withIdentifier: "ToLogin", sender: self)
         }
         
     }
     
-    func getFriendsPositions()
-    {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        
-        let parameters = [
-            "pseudo": "\(self.user.getPseudo())",
-            "tokenKey": "\(self.user.getToken())"
-            ] as [String : AnyObject]
-        
-        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/friends")!
-        print("LoginController.getFriendsPosition : URL : \(url)")
-        
-        
-        
-        let r = Requests()
-        r.post(parameters: parameters, url: url,
-               finRequete:{ response, statut in
-                print("LoginController.getFriendsPosition : statut = \(statut)")
-                
-                if let tab = response["friends"] as? [AnyObject] {
-                    print("LoginController.getFriendsPosition : Récupération du json")
-                    for i in 0..<tab.count {
-                        var f: Friend = Friend.init()
-                        if let amis = tab[i] as? [String: AnyObject] {
-                            print("amis ok", amis)
-                            f.setPseudo(s: amis["pseudo"] as! String )
-                            if let coord = amis["coordinate"] as? [String: AnyObject] {
-                                f.setCoordinates(latitude: coord["xCoordinate"] as! Double, longitude: coord["yCoordinate"] as! Double)
-                                self.user.addContact(f: f)
-                            }
-                        }
-                    }
-                }
-                
-                if statut == 200 {
-                    DispatchQueue.main.async(execute: {
-                        self.activity.stopAnimating()
-                        self.performSegue(withIdentifier: "ToMap", sender: self)
-                        
-                    })
-                    
-                }else{
-                    self.message(display: "Veuillez redémarrer l'application et activer une connexion reseau", emoji: "", dissmiss: "Ok")
-                }
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                
-        }
-        )
-    }
     
     //Envoyer à la vue suivante les amis récupérés et le token
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)

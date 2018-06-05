@@ -1,4 +1,7 @@
 import Foundation
+
+let ngrok = "d6fef36b"
+
 class Requests {
     
     func post(parameters: [String: AnyObject], url: URL, finRequete: @escaping (_ response: [String: AnyObject], _ httpCode: Int?) -> Void) {
@@ -16,13 +19,15 @@ class Requests {
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
-        
+
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             guard error == nil else {
+                print("Request.post : Apres envoi JSON error")
 
                 return
             }
             guard let data = data else {
+                print("Request.post : Apres envoi JSON data")
 
                 return
             }
