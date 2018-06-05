@@ -52,50 +52,30 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 return nil
             }
             
+            //let name = annotationView!.image.
             let annotationIdentifier = "ami"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
             
             if annotationView == nil {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
                 annotationView!.canShowCallout = true
+                
+                let images = [#imageLiteral(resourceName: "monster"), #imageLiteral(resourceName: "ami-7"), #imageLiteral(resourceName: "ami-4"), #imageLiteral(resourceName: "ami-2"), #imageLiteral(resourceName: "ami-10"), #imageLiteral(resourceName: "ami-16"), #imageLiteral(resourceName: "ami-19")]
+                
+                let randomNum:UInt32 = arc4random_uniform(UInt32(images.count))
+                let someInt:Int = Int(randomNum)
+                
+                let pinImage = images[someInt]
+                annotationView!.image = pinImage
+                
             }
             else {
                 annotationView!.annotation = annotation
             }
-            
-            
-            
-            let images = [#imageLiteral(resourceName: "monster"), #imageLiteral(resourceName: "ami-7"), #imageLiteral(resourceName: "ami-4"), #imageLiteral(resourceName: "ami-2"), #imageLiteral(resourceName: "ami-10"), #imageLiteral(resourceName: "ami-16"), #imageLiteral(resourceName: "ami-19")]
-            
-            let randomNum:UInt32 = arc4random_uniform(UInt32(images.count))
-            let someInt:Int = Int(randomNum)
-            
-            let pinImage = images[someInt]
-            annotationView!.image = pinImage
-            
             return annotationView
             
             
             
-            /*
-            var a = CustomMKAnnotationView()
-            a.annotation = annotation
-            a.title = annotation.title as! String
-            
-            
-           
-            /*
-            var zoomRect = MKMapRectNull;
-            mapView.setVisibleMapRect(zoomRect, animated: true)*/
-            let images = [#imageLiteral(resourceName: "monster"), #imageLiteral(resourceName: "ami-7"), #imageLiteral(resourceName: "ami-4"), #imageLiteral(resourceName: "ami-2"), #imageLiteral(resourceName: "ami-10"), #imageLiteral(resourceName: "ami-16"), #imageLiteral(resourceName: "ami-19")]
-            
-            let randomNum:UInt32 = arc4random_uniform(UInt32(images.count))
-            let someInt:Int = Int(randomNum)
-            
-            a.image = images[someInt]
-            a.annotation = annotation
-            a.canShowCallout = true
-            a.calloutOffset = CGPoint(x: -5, y: 5)
             
             //let detailButton = UIButton(type: .detailDisclosure) as UIView
             //a.rightCalloutAccessoryView = detailButton*/

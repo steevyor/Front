@@ -42,10 +42,30 @@ class LaunchView: UIViewController {
         let change = UserDefaults.standard
         let first = change.string(forKey: "Bruce")
         let second = change.string(forKey: "taken")
+        
+        
         if (first != nil) && (second != nil){
-            user.setPseudo(s: first!)
-            user.setToken(s: second!)
-            getFriendsPositions()
+            let r = Requests()
+            r.connexion(login: first!, password: second!, messages: {
+                user, message in
+                DispatchQueue.main.async(execute: {
+                    if message != "" {
+                        DispatchQueue.main.async(execute: {
+                            self.activity.stopAnimating()
+                            self.performSegue(withIdentifier: "ToLogin", sender: self)
+                        })
+                    } else {
+                        DispatchQueue.main.async(execute: {
+                            self.user.setPseudo(s: user.getPseudo())
+                            self.user.setToken(s: user.getToken())
+                            self.getFriendsPositions()
+                        })
+                        
+                    }
+                    
+                })
+            })
+
         }else{
 
             self.activity.stopAnimating()
@@ -96,7 +116,7 @@ class LaunchView: UIViewController {
                     })
                     
                 }else{
-                    self.message(display: "Veuillez redemmarer l'application et activer une connexion reseau", emoji: "", dissmiss: "☠︎")
+                    self.message(display: "Veuillez redémarrer l'application et activer une connexion reseau", emoji: "", dissmiss: "Ok")
                 }
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 
