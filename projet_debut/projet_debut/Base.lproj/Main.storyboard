@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17E202" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VVX-Ef-FjC">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="17E202" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gNj-JQ-hrK">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,12 +22,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="background" highlightedImage="background" translatesAutoresizingMaskIntoConstraints="NO" id="LG9-nU-Pft">
-                                <rect key="frame" x="0.0" y="28" width="375" height="639"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black" translatesAutoresizingMaskIntoConstraints="NO" id="YTK-VM-0Np">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MAP" translatesAutoresizingMaskIntoConstraints="NO" id="8hY-Hv-A6N">
+                                <rect key="frame" x="100" y="120" width="175" height="46"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleAspectFit" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-1024" translatesAutoresizingMaskIntoConstraints="NO" id="z0O-IC-9Xf">
+                                <rect key="frame" x="104" y="281" width="167" height="128"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="128" id="WL3-kB-uBk"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="z0O-IC-9Xf" firstAttribute="leading" secondItem="LcG-sh-6cO" secondAttribute="leadingMargin" constant="88" id="10o-hT-3f7"/>
+                            <constraint firstItem="8hY-Hv-A6N" firstAttribute="top" secondItem="odP-4J-nsV" secondAttribute="bottom" constant="100" id="804-09-7Tw"/>
+                            <constraint firstItem="YTK-VM-0Np" firstAttribute="top" secondItem="LcG-sh-6cO" secondAttribute="top" id="80h-Ub-4em"/>
+                            <constraint firstItem="YTK-VM-0Np" firstAttribute="bottom" secondItem="Vsq-Gm-pXy" secondAttribute="top" id="FOO-e8-Jnb"/>
+                            <constraint firstItem="Vsq-Gm-pXy" firstAttribute="top" secondItem="z0O-IC-9Xf" secondAttribute="bottom" constant="258" id="P7I-mK-SQA"/>
+                            <constraint firstItem="8hY-Hv-A6N" firstAttribute="leading" secondItem="LcG-sh-6cO" secondAttribute="leadingMargin" constant="84" id="XBI-Z0-1e6"/>
+                            <constraint firstItem="YTK-VM-0Np" firstAttribute="leading" secondItem="LcG-sh-6cO" secondAttribute="leading" id="aIz-Vk-iFF"/>
+                            <constraint firstItem="YTK-VM-0Np" firstAttribute="centerX" secondItem="8hY-Hv-A6N" secondAttribute="centerX" id="hwr-QN-VrX"/>
+                            <constraint firstItem="8hY-Hv-A6N" firstAttribute="centerX" secondItem="LcG-sh-6cO" secondAttribute="centerX" id="uQz-JM-QdC"/>
+                            <constraint firstItem="8hY-Hv-A6N" firstAttribute="centerX" secondItem="z0O-IC-9Xf" secondAttribute="centerX" id="zYc-6a-IqX"/>
+                        </constraints>
                     </view>
                     <connections>
                         <segue destination="VVX-Ef-FjC" kind="presentation" identifier="ToLogin" id="5QY-Yl-ave"/>
@@ -36,7 +57,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2pg-0C-brZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2226.4000000000001" y="-1202.2488755622189"/>
+            <point key="canvasLocation" x="-2167.1999999999998" y="-1178.8605697151424"/>
         </scene>
         <!--Login View-->
         <scene sceneID="uLQ-26-ci9">
@@ -484,49 +505,13 @@
             </objects>
             <point key="canvasLocation" x="1790" y="432"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="hc8-Py-5hr">
-            <objects>
-                <viewController id="y93-M5-LNt" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="dKD-tC-0hv"/>
-                        <viewControllerLayoutGuide type="bottom" id="iUZ-Up-yCh"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0uF-Z1-Ma7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MAP" translatesAutoresizingMaskIntoConstraints="NO" id="iNl-x6-0pl">
-                                <rect key="frame" x="100" y="120" width="175" height="46"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="scaleAspectFit" semanticContentAttribute="playback" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-1024" translatesAutoresizingMaskIntoConstraints="NO" id="b5B-s9-0IU">
-                                <rect key="frame" x="104" y="281" width="167" height="128"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="128" id="xub-Ea-MCl"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="iNl-x6-0pl" firstAttribute="leading" secondItem="0uF-Z1-Ma7" secondAttribute="leadingMargin" constant="84" id="Byx-Qd-6p6"/>
-                            <constraint firstItem="b5B-s9-0IU" firstAttribute="leading" secondItem="0uF-Z1-Ma7" secondAttribute="leadingMargin" constant="88" id="acT-b0-r5t"/>
-                            <constraint firstItem="iNl-x6-0pl" firstAttribute="top" secondItem="dKD-tC-0hv" secondAttribute="bottom" constant="100" id="bFt-Iq-YwL"/>
-                            <constraint firstItem="iNl-x6-0pl" firstAttribute="centerX" secondItem="0uF-Z1-Ma7" secondAttribute="centerX" id="gEy-qY-fAH"/>
-                            <constraint firstItem="b5B-s9-0IU" firstAttribute="centerX" secondItem="iNl-x6-0pl" secondAttribute="centerX" id="p5N-W8-Dmb"/>
-                            <constraint firstItem="iUZ-Up-yCh" firstAttribute="top" secondItem="b5B-s9-0IU" secondAttribute="bottom" constant="258" id="rAj-j8-t5Q"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="AHA-Es-XP7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-324" y="409.7451274362819"/>
-        </scene>
     </scenes>
     <resources>
         <image name="Icon-1024" width="512" height="512"/>
         <image name="MAP" width="217" height="46"/>
         <image name="amis25" width="25" height="25"/>
         <image name="background" width="1080" height="1920"/>
+        <image name="black" width="640" height="360"/>
         <image name="demandes" width="25" height="25"/>
         <image name="loginBGCard" width="1101" height="1431"/>
         <image name="suggestion25" width="25" height="25"/>
