@@ -1,7 +1,7 @@
 import UIKit
 import SwiftKeychainWrapper
 import MapKit
-let ngrok = "2d1a5313"
+let ngrok = "d6fef36b"
 
 class LoginPageController: UIViewController, UITextFieldDelegate
 {
@@ -65,13 +65,18 @@ class LoginPageController: UIViewController, UITextFieldDelegate
             r.connexion(login: login!, password: password!, messages: {
                 user, message in
                 DispatchQueue.main.async(execute: {
+                    print("LoginController.connexion")
                     self.user = User.init(u: user)
-                    print(user.getPseudo(), user.getToken())
+                    print(self.user.getPseudo(), self.user.getToken())
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     if message != "" {
                         self.message(display: message, emoji: "☔️", dissmiss: "Annuler")
                     } else {
                         DispatchQueue.main.async(execute: {
+                            let connect = UserDefaults.standard
+                            connect.set(self.user.getPseudo(), forKey: "Bruce")
+                            connect.set(self.user.getToken(), forKey: "taken")
+                            connect.synchronize()
                             self.performSegue(withIdentifier: "SegueLogin", sender: nil)
                         })
 

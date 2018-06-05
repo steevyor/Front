@@ -72,6 +72,15 @@ class FriendList: CustomStringConvertible{
         }
     }
     
+    func find(pseudo: String) -> Friend{
+        for i in 0..<self.list.count{
+            if self.list[i].getPseudo() == pseudo{
+                return self.list[i]
+            }
+        }
+        return Friend()
+    }
+    
     
     func filter( login: String, filteredFriends: inout FriendList) {
         var tab: [Friend] = []

@@ -13,6 +13,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     //var partage : Bool = true
     var timer :Timer? = nil
     var timer2 :Timer? = nil
+    var timer3 :Timer? = nil
+
     let del = UIApplication.shared.delegate as! MappAppDelegate
     
     
@@ -28,45 +30,81 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     {
         super.viewDidLoad()
         map.delegate = self
-        
         self.zoomPos()
         
         //self.displayFriendPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11), friendName: "Soso")
         
         self.timer = Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
                              repeats: true)
-        self.timer2 = Timer.scheduledTimer(timeInterval: 30, target: self,selector: #selector(MapViewController.updateFriends), userInfo: nil,
+        self.timer2 = Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updateFriends), userInfo: nil,
                              repeats: true)
         self.displayFriends()
 
     }
     
+    
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         if !annotation.isEqual(mapView.userLocation){
-            //mapView.removeAnnotation(annotation)
+            print("viewFor annotation")
+            
+            if !(annotation is MKPointAnnotation) {
+                return nil
+            }
+            
+            let annotationIdentifier = "ami"
+            var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
+            
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+                annotationView!.canShowCallout = true
+            }
+            else {
+                annotationView!.annotation = annotation
+            }
             
             
-            var a = CustomMKAnnotationView()
-            a.title = annotation.title as! String
             
-            var zoomRect = MKMapRectNull;
-            mapView.setVisibleMapRect(zoomRect, animated: true)
             let images = [#imageLiteral(resourceName: "monster"), #imageLiteral(resourceName: "ami-7"), #imageLiteral(resourceName: "ami-4"), #imageLiteral(resourceName: "ami-2"), #imageLiteral(resourceName: "ami-10"), #imageLiteral(resourceName: "ami-16"), #imageLiteral(resourceName: "ami-19")]
             
             let randomNum:UInt32 = arc4random_uniform(UInt32(images.count))
             let someInt:Int = Int(randomNum)
+            
+            let pinImage = images[someInt]
+            annotationView!.image = pinImage
+            
+            return annotationView
+            
+            
+            
+            /*
+            var a = CustomMKAnnotationView()
+            a.annotation = annotation
+            a.title = annotation.title as! String
+            
+            
+           
+            /*
+            var zoomRect = MKMapRectNull;
+            mapView.setVisibleMapRect(zoomRect, animated: true)*/
+            let images = [#imageLiteral(resourceName: "monster"), #imageLiteral(resourceName: "ami-7"), #imageLiteral(resourceName: "ami-4"), #imageLiteral(resourceName: "ami-2"), #imageLiteral(resourceName: "ami-10"), #imageLiteral(resourceName: "ami-16"), #imageLiteral(resourceName: "ami-19")]
+            
+            let randomNum:UInt32 = arc4random_uniform(UInt32(images.count))
+            let someInt:Int = Int(randomNum)
+            
             a.image = images[someInt]
             a.annotation = annotation
             a.canShowCallout = true
             a.calloutOffset = CGPoint(x: -5, y: 5)
             
             //let detailButton = UIButton(type: .detailDisclosure) as UIView
-            //a.rightCalloutAccessoryView = detailButton
-            return a
+            //a.rightCalloutAccessoryView = detailButton*/
+
         }
         return nil
     }
-    
+
+ 
     override func viewWillAppear(_ animated: Bool)
     {
         updatePosition()
@@ -81,8 +119,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let parameters = [
                 "pseudo": "\(self.user.getPseudo())",
                 "tokenKey": "\(self.user.getToken())",
-                "xCoordinates": "\(self.del.locations.longitude)",
-                "yCoordinates": "\(self.del.locations.latitude)"
+                "xCoordinates": "\(self.del.locations.latitude)",
+                "yCoordinates": "\(self.del.locations.longitude)"
                 ] as [String : AnyObject]
         
             let url = URL(string: "https://\(ngrok).ngrok.io/api/user/updateUserCoordinates")!
@@ -134,7 +172,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         }
                         self.user.addContact(f: f)
                     }
-                    //print("MapViewController.updateFriends : friends : \(self.friendsToDisplay)")
+                    DispatchQueue.main.async(execute: {
+                        self.displayFriends()
+                    })
                 }
         }
         )
@@ -182,8 +222,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func displayFriends(){
-            for i in 0..<self.user.getContacts().getList().count{
-                displayFriendPosition(friend: self.user.getContacts().getList()[i])
+        print("appelé")
+        map.removeAnnotations(map.annotations)
+        
+        for i in 0..<self.user.getContacts().getList().count{
+            displayFriendPosition(friend: self.user.getContacts().getList()[i])
         }
         
     }

@@ -36,7 +36,10 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "testCell")
         
         // Ajouter les infos
-        cell.textLabel?.text = self.user.getInvitationsRequests().getList()[indexPath.row].getPseudo()
+        if indexPath.row < self.user.getInvitationsRequests().getList().count {
+            
+            cell.textLabel?.text = self.user.getInvitationsRequests().getList()[indexPath.row].getPseudo()
+        }
         //cell.detailTextLabel?.text = element.name
         
         
