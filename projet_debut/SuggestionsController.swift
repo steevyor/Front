@@ -38,7 +38,6 @@ class SuggestionsController : UIViewController, UITableViewDataSource, UITableVi
         // Ajouter les infos
         if indexPath.row < self.user.getSuggestions().getList().count {
             cell.textLabel?.text = self.user.getSuggestions().getList()[indexPath.row].getPseudo()
-            cell.imageView?.image = UIImage.init(named: self.user.getSuggestions().getList()[indexPath.row].getImage())
 
         }
         

@@ -69,7 +69,7 @@ class InscriptionPageController: UIViewController {
     func inscription( login: String, email: String, password: String) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         print("InscriptionPageController.inscription :  ")
-        let images = ["monster", "ami-7", "ami-4", "ami-2", "ami10", "ami-16", "ami-19"]
+        let images = ["monster", "ami-7", "ami-4", "ami-2", "ami-10", "ami-16", "ami-19"]
         
         let randomNum:UInt32 = arc4random_uniform(UInt32(images.count))
         let someInt:Int = Int(randomNum)

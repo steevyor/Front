@@ -39,8 +39,11 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
         // Ajouter les infos
         if indexPath.row < self.user.getInvitationsRequests().getList().count {
             
+            if self.user.getInvitationsRequests().getList().count != 0 {
+                
             cell.textLabel?.text = self.user.getInvitationsRequests().getList()[indexPath.row].getPseudo()
-            cell.imageView?.image = UIImage.init(named: self.user.getInvitationsRequests().getList()[indexPath.row].getImage())
+                
+            }
 
         }
         
