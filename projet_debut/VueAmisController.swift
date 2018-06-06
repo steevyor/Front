@@ -5,12 +5,14 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var listeAmis: UITableView!
     
-    var dbResearch = FriendList()
     
     var user: User = User.init()
     
-    var research: FriendList = FriendList.init()
+    //En plus de la liste d'amis, on crée une liste d'amis recherchés dans la liste, une liste d'amis filtrés
     var filteredFriends: FriendList = FriendList.init()
+    var dbResearch = FriendList()
+    
+    //Des booléens pour savoir quelle recherche est activée et ainsi utiliser la bonne FriendList
     var searchActive = false
     var dbResearchActive = false
 
@@ -36,6 +38,8 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchActive = false;
     }
+    
+    //Si on abandonne la recherche: on met les booleens de recherche a faux et on cache le bouton cancel et on
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchActive = false;
         dbResearchActive = false
@@ -67,6 +71,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         
         self.listeAmis.reloadData()
     }
+    
     //par rapport à la mémoire et au nombre de lignes
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -105,7 +110,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         
         // Ajouter les infos
         cell.textLabel?.text = friend.getPseudo()
-        
+        cell.imageView?.image = UIImage.init(named: friend.getImage())
         return cell
     }
     

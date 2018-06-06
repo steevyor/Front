@@ -193,4 +193,33 @@ class Requests {
     }
     
     
+    func logOut(user: User, timer: Timer, timer2: Timer){
+        
+        print("MapViewController.disconnect : ")
+        
+        let parameters = [
+            "userPseudo": "\(user.getPseudo())",
+            "tokenKey": "\(user.getToken())"
+            ] as [String : AnyObject]
+        
+        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/disconnect")!
+        print("MapViewController.disconnect : URL : \(url)")
+        
+        
+        self.post(parameters: parameters, url: url,
+               finRequete:{ response, statut in
+                print("MapViewController.disconnect : Statut : \(statut)")
+                    //on remove le pseudo et token enregistré
+                    let disconect = UserDefaults.standard
+                    disconect.removeObject(forKey: "taken")
+                    disconect.removeObject(forKey: "Bruce")
+                    disconect.synchronize()
+                    timer.invalidate()
+                    timer2.invalidate()
+        })
+        
+        
+    }
+    
+    
 }

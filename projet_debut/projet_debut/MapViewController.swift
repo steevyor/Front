@@ -30,14 +30,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     {
         super.viewDidLoad()
         map.delegate = self
+        
         self.zoomPos()
         
-        //self.displayFriendPosition(pos: CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11), friendName: "Soso")
-        
+        //Mettre à jour la position du user et récupérer celles des amis toutes les 5 sec
         self.timer = Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updatePosition), userInfo: nil,
                              repeats: true)
         self.timer2 = Timer.scheduledTimer(timeInterval: 5, target: self,selector: #selector(MapViewController.updateFriends), userInfo: nil,
                              repeats: true)
+        
+        //Créer les annotations pour chaque ami affiché
         self.displayFriends()
 
     }
@@ -46,36 +48,33 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         if !annotation.isEqual(mapView.userLocation){
-
-            let f = Friend.init(f: self.user.getContacts().find(pseudo: annotation.title as! String))
-
             
+            //Ne pas changer l'annotation du user
             if !(annotation is MKPointAnnotation) {
                 return nil
             }
             
+            //Récupérer l'ami en fonction de son pseudo dans le tableau d'amis du user
+            let f = Friend.init(f: self.user.getContacts().find(pseudo: annotation.title as! String))
             
+            //Soit réutiliser l'annotationview soit en créer une en fonction de l'annotationpoint pour changer son image
             let annotationIdentifier = "ami"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
             
             if annotationView == nil {
-                //annotationView = MKAnnotationView(annotation: annotation2, reuseIdentifier: annotationIdentifier)
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
-
-                annotationView!.canShowCallout = true
-                annotationView?.image = UIImage(named: f.getImage())
                 
             }
             else {
                 annotationView!.annotation = annotation
-                //annotationView!.annotation = annotation2
-                annotationView?.image = UIImage(named: f.getImage())
-
             }
             
+            annotationView?.image = UIImage(named: f.getImage())
+            annotationView!.canShowCallout = true
             
             let detailButton = UIButton(type: .detailDisclosure) as UIView
             annotationView?.rightCalloutAccessoryView = detailButton
+            
             return annotationView
 
         }
@@ -85,13 +84,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
  
     override func viewWillAppear(_ animated: Bool)
     {
+        //Charger les amis quand l'itel est selectionné
         updatePosition()
     }
 
-    //envoyer notre position au server
+    //envoyer la position du user au server si celui ci la partage
     func updatePosition(){
-       print("latitude: \(self.del.locations.latitude), longitude: \(self.del.locations.longitude)")
-        
         if self.user.getIsVIsible() == true {
 
             self.user.setCoord(c: CLLocationCoordinate2D(latitude: self.del.locations.latitude, longitude: self.del.locations.longitude))
@@ -106,12 +104,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func updateFriends()
     {
         print("MapViewController.updateFriends : ")
-
+        //paramètres à envoyer au server
         let parameters = [
             "pseudo": "\(self.user.getPseudo())",
             "tokenKey": "\(self.user.getToken())"
             ] as [String : AnyObject]
         
+        //REtirer l'ancienne liste d'amis
         print("MapViewController.updateFriends : Removing friends")
         self.user.deleteAllContacts()
         
@@ -124,12 +123,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                finRequete:{ response, statut in
                 print("MapViewController.updateFriends : Statut : \(statut)")
 
+                //Si'il y a une liste de friends
                 if let tab = response["friends"] as? [AnyObject] {
                     print("MapViewController.updateFriends :  Récupération des friends")
 
                     for i in 0..<tab.count {
+                        //Créer un friend vide...
                         var f: Friend = Friend.init()
                         if let amis = tab[i] as? [String: AnyObject] {
+                            //... et ajouter les pseudo, tokens, images
                             f.setPseudo(s: amis["pseudo"] as! String )
                             if let coord = amis["coordinate"] as? [String: AnyObject] {
                                 f.setCoordinates(latitude: coord["xCoordinate"] as! Double, longitude: coord["yCoordinate"] as! Double)
@@ -138,9 +140,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                                 f.setImage(s: image)
                             }
                         }
+                        //ajouté cet ami à la liste des mais du user
                         self.user.addContact(f: f)
                     }
                     DispatchQueue.main.async(execute: {
+                        //Créer tous les points à afficher
                         self.displayFriends()
                     })
                 }
@@ -151,13 +155,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
 
-
+    //Pour ne pas partager la position du user
     @IBAction func switchButtonChanged (sender: UISwitch)
     {
-        /*if let url = URL(string: "App-Prefs:root=Privacy&path=LOCATION/your.bundle.identifier") {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }*/
-        
         if sender.isOn
         {
             self.del.enableLocationManager()
@@ -170,13 +170,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    
+    //Zoomer sur la position actuelle du user
     @IBAction func loupe(_ sender: UIButton)
     {
         self.zoomPos()        
     }
     
     
+    func zoomPos()
+    {
+        self.map.setUserTrackingMode( MKUserTrackingMode.followWithHeading, animated: true) //zoomer sur la position
+    }
+    
+    //Créer des annotations pour un ami
     func displayFriendPosition(friend: Friend)
     {
         let annotation = MKPointAnnotation()
@@ -187,14 +193,13 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let from = CLLocation(latitude: self.del.locations.latitude, longitude: self.del.locations.longitude)
         let formatedString = String(format:"%.2f",Float(from.distance(from: to) / 1000.0 + 0.005))
         
-        annotation.subtitle = formatedString
+        annotation.subtitle = "\(friend.getPseudo()) est à \(formatedString) kilomètres"
         
         self.map.addAnnotation(annotation)
     }
     
-    
+    //Créer les annotatinos pour tous les mais de la liste
     func displayFriends(){
-        print("appelé")
         map.removeAnnotations(map.annotations)
         
         for i in 0..<self.user.getContacts().getList().count{
@@ -203,78 +208,40 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
-    func zoomPos()
-    {
-        self.map.setUserTrackingMode( MKUserTrackingMode.followWithHeading, animated: true) //zoomer sur la position
-    }
     
     func myPos()-> CLLocationCoordinate2D {
         return self.del.locations
     }
     
-    //Envoyer à la vue suivante les amis récupérés et le token
-
+    //Envoyer à la vue suivante le user comprenant le pseudo, le token, les listes d'amis
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("MapViewController.prepare ")
 
         if segue.identifier == "SegueFriends" {
-            
+
             let barViewControllers = segue.destination as! UITabBarController
+            
             let vueAmis = barViewControllers.viewControllers![0] as! VueAmisController
-            vueAmis.user.addContacts(f: self.user.getContacts())
             vueAmis.user = User.init(u: self.user)
+            
             let vueInvitations = barViewControllers.viewControllers![1] as! VueInvitationsController
             vueInvitations.user = User.init(u: self.user)
+            
             let vueSuggestions = barViewControllers.viewControllers![2] as! SuggestionsController
             vueSuggestions.user = User.init(u: self.user)
 
-            
         }
         
     }
     
-    
-    
-    
+    //Déconnecter un user
     @IBAction func logOut(_ sender: Any) {
-
-        print("MapViewController.disconnect : ")
-        
-        let parameters = [
-            "userPseudo": "\(self.user.getPseudo())",
-            "tokenKey": "\(self.user.getToken())"
-            ] as [String : AnyObject]
-        
-        
-        let url = URL(string: "https://\(ngrok).ngrok.io/api/user/disconnect")!
-        print("MapViewController.disconnect : URL : \(url)")
-        
-        
         let r = Requests()
-        r.post(parameters: parameters, url: url,
-               finRequete:{ response, statut in
-                print("MapViewController.disconnect : Statut : \(statut)")
-                if statut == 202 {
-                    DispatchQueue.main.async(execute: {
-                        let disconect = UserDefaults.standard
-                        disconect.removeObject(forKey: "taken")
-                        disconect.removeObject(forKey: "Bruce")
-                        print("\(disconect.string(forKey: "taken"))")
-                        print("\(disconect.string(forKey: "Bruce"))")
-                        disconect.synchronize()
-                        self.timer?.invalidate()
-                        self.timer2?.invalidate()
-                        print("ok")
-
-
-                    })
-                }
-                DispatchQueue.main.async(execute: {
-                self.performSegue(withIdentifier: "MapToLogin", sender: self)
-                })
-                
+        r.logOut(user: self.user, timer: self.timer!, timer2: self.timer2!)
+        DispatchQueue.main.async(execute: {
+            self.performSegue(withIdentifier: "MapToLogin", sender: self)
         })
-                
+        
         }
 
     //Chargée d'afficher les messages à l'utilisateur
