@@ -66,7 +66,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 let someInt:Int = Int(randomNum)
                 
                 let pinImage = images[someInt]
-                annotationView!.image = pinImage
+                //annotationView!.image = pinImage
+                annotationView?.image = UIImage(named: "monster")
                 
             }
             else {

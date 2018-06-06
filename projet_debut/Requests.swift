@@ -1,6 +1,6 @@
 import Foundation
 
-let ngrok = "d6fef36b"
+let ngrok = "4dd113e3"
 
 class Requests {
     

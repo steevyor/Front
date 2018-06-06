@@ -160,11 +160,7 @@ class User : Equatable {
     }
 
     func addContacts(f : FriendList){
-        for friend in f.getList(){
-            
-            self.contacts.addFriend(f: friend)
-
-        }
+        self.contacts.addList(tab: f.getList())
     }
     
     

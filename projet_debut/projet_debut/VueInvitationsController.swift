@@ -68,8 +68,8 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         self.getInvitations()
+        super.viewWillAppear(animated)
     }
     
     func getInvitations()

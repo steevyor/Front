@@ -17,19 +17,14 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tab = [Friend.init(pseudo: "Alex"),
-                                    Friend.init(pseudo: "Guillaume"),
-                                    Friend.init(pseudo: "Henri"),
-                                    Friend.init(pseudo: "Sonia")]
-        self.user.addContacts(f: FriendList.init(f: tab))
         
-      
         searchBar.showsScopeBar = false
         searchBar.delegate = self
         listeAmis.dataSource = self
         listeAmis.delegate = self
         searchActive = false;
         dbResearchActive = false
+        self.updateFriends()
         
     }
     
@@ -292,8 +287,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    func updateFriends(){
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         let r = Requests()
         r.getFriendPositions(pseudo: self.user.getPseudo(), token: self.user.getToken(),  chargementAmis:{ friends in
@@ -302,7 +296,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                 DispatchQueue.main.async(execute: {
                     self.user.addContacts(f: friends)
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
-
+                    
                 })
             } else {
                 DispatchQueue.main.async(execute: {
@@ -310,6 +304,17 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                 })
             }
         })
+
+        
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.updateFriends()
+        super.viewWillAppear(animated)
+        
+    
     }
  
 }

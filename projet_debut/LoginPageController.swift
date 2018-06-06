@@ -19,13 +19,7 @@ class LoginPageController: UIViewController, UITextFieldDelegate
     
     override func viewDidLoad()
     {
-        self.pseudo.delegate = self
-        self.mdp.delegate = self
-        let tab = [Friend.init(pseudo: "A", coord: CLLocationCoordinate2D(latitude: 20.10, longitude: 10.12)),
-             Friend.init(pseudo: "B", coord: CLLocationCoordinate2D(latitude: 83.10, longitude: 15.19)),
-             Friend.init(pseudo: "C", coord: CLLocationCoordinate2D(latitude: 04.15, longitude: 17.11))]
         
-        self.user.addContacts(f: FriendList(f: tab))
         super.viewDidLoad()
         
     }
