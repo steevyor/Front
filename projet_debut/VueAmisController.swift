@@ -229,7 +229,7 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
                 if statut == 200 {
                     DispatchQueue.main.async(execute: {
                         self.dbResearch.remove(pseudo: recepterPseudo)
-                        self.listeAmis.deleteRows(at: row, with: UITableViewRowAnimation.automatic)
+                        //self.listeAmis.deleteRows(at: row, with: UITableViewRowAnimation.automatic)
                         self.listeAmis.reloadData()
                         UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         self.message(display: "Une invitation a été envoyée à \(recepterPseudo)", emoji: "☀️", dissmiss: "Ok")
