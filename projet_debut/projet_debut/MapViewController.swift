@@ -50,19 +50,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let f = Friend.init(f: self.user.getContacts().find(pseudo: annotation.title as! String))
 
             
-            let to = CLLocation(latitude: f.getCoordinates().latitude, longitude: f.getCoordinates().longitude)
-            let from = CLLocation(latitude: self.del.locations.latitude, longitude: self.del.locations.longitude)
-            let formatedString = String(format:"%.2f",Float(from.distance(from: to) / 1000.0 + 0.005))
-            
-            
-            var annotation2 = MKPointAnnotation()
-            annotation2.title = f.getPseudo()
-            annotation2.subtitle = "\(f.getPseudo()) est à \(formatedString) kilomètres"
-            annotation2.coordinate = f.getCoordinates()
-            self.map.addAnnotation(annotation2)
-
-
-            
             if !(annotation is MKPointAnnotation) {
                 return nil
             }
@@ -72,13 +59,16 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
             
             if annotationView == nil {
-                annotationView = MKAnnotationView(annotation: annotation2, reuseIdentifier: annotationIdentifier)
+                //annotationView = MKAnnotationView(annotation: annotation2, reuseIdentifier: annotationIdentifier)
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+
                 annotationView!.canShowCallout = true
                 annotationView?.image = UIImage(named: f.getImage())
                 
             }
             else {
-                annotationView!.annotation = annotation2
+                annotationView!.annotation = annotation
+                //annotationView!.annotation = annotation2
                 annotationView?.image = UIImage(named: f.getImage())
 
             }
@@ -99,31 +89,18 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
 
     //envoyer notre position au server
-    func updatePosition()
-    {
+    func updatePosition(){
+       print("latitude: \(self.del.locations.latitude), longitude: \(self.del.locations.longitude)")
+        
         if self.user.getIsVIsible() == true {
-            print("MapViewController.updatePosition : Coordinates : \(self.del.locations.latitude) , \(self.del.locations.longitude)")
-            self.user.setCoord(c: CLLocationCoordinate2D(latitude: self.del.locations.latitude, longitude: self.del.locations.longitude))
-            let parameters = [
-                "pseudo": "\(self.user.getPseudo())",
-                "tokenKey": "\(self.user.getToken())",
-                "xCoordinates": "\(self.del.locations.latitude)",
-                "yCoordinates": "\(self.del.locations.longitude)"
-                ] as [String : AnyObject]
-        
-            let url = URL(string: "https://\(ngrok).ngrok.io/api/user/updateUserCoordinates")!
-            print("MapViewController.updatePosition : URL : \(url)")
 
-        
+            self.user.setCoord(c: CLLocationCoordinate2D(latitude: self.del.locations.latitude, longitude: self.del.locations.longitude))
             let r = Requests()
-            r.post(parameters: parameters, url: url,
-                finRequete:{ response, statut in
-                    print("MapViewController.updatePosition : Statut : \(statut) ")
-                    
+            r.refreshPosition(user: self.user)
         }
-        )
+    
     }
-    }
+    
     
     //récupérer les amis et leurs positions
     func updateFriends()
@@ -193,19 +170,28 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    
     @IBAction func loupe(_ sender: UIButton)
     {
         self.zoomPos()        
     }
+    
     
     func displayFriendPosition(friend: Friend)
     {
         let annotation = MKPointAnnotation()
         annotation.coordinate = friend.getCoordinates()
         annotation.title = friend.getPseudo()
-
+        
+        let to = CLLocation(latitude: friend.getCoordinates().latitude, longitude: friend.getCoordinates().longitude)
+        let from = CLLocation(latitude: self.del.locations.latitude, longitude: self.del.locations.longitude)
+        let formatedString = String(format:"%.2f",Float(from.distance(from: to) / 1000.0 + 0.005))
+        
+        annotation.subtitle = formatedString
+        
         self.map.addAnnotation(annotation)
     }
+    
     
     func displayFriends(){
         print("appelé")
@@ -279,19 +265,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         self.timer?.invalidate()
                         self.timer2?.invalidate()
                         print("ok")
-                        self.performSegue(withIdentifier: "MapToLogin", sender: self)
 
 
                     })
-
-                    
                 }
+                DispatchQueue.main.async(execute: {
+                self.performSegue(withIdentifier: "MapToLogin", sender: self)
+                })
+                
+        })
                 
         }
-        )
-        
-      //Deconnexion
-    }
 
     //Chargée d'afficher les messages à l'utilisateur
     func message(display: String, emoji: String, dissmiss: String) -> Void

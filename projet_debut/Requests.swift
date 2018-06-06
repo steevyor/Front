@@ -1,4 +1,5 @@
 import Foundation
+import MapKit
 
 let ngrok = "4dd113e3"
 
@@ -167,6 +168,28 @@ class Requests {
             }
             )
         }
+    }
+    
+    func refreshPosition(user: User){
+        
+            print("MapViewController.updatePosition : Coordinates : \(user.getCoordinates().latitude) , \(user.getCoordinates().longitude)")
+            let parameters = [
+                "pseudo": "\(user.getPseudo())",
+                "tokenKey": "\(user.getToken())",
+                "xCoordinates": "\(user.getCoordinates().latitude)",
+                "yCoordinates": "\(user.getCoordinates().longitude)"
+                ] as [String : AnyObject]
+            
+            let url = URL(string: "https://\(ngrok).ngrok.io/api/user/updateUserCoordinates")!
+            print("MapViewController.updatePosition : URL : \(url)")
+            
+            
+            let r = Requests()
+            r.post(parameters: parameters, url: url,
+                   finRequete:{ response, statut in })
+            
+        
+        
     }
     
     

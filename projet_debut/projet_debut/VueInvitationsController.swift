@@ -11,6 +11,7 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
         
         self.getInvitations()
 
+        
         listeDemands.dataSource = self
         listeDemands.delegate = self
         
@@ -68,6 +69,7 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        print("viewWillAppear")
         self.getInvitations()
         super.viewWillAppear(animated)
     }
@@ -96,6 +98,7 @@ class VueInvitationsController: UIViewController, UITableViewDataSource, UITable
             self.user.deleteAllInvitationRequest()
             if let tab = response["emitters"] as? [AnyObject] {
                 print("VueInvitation.getInvitations :  Récupération des résultat")
+                
                 print("VueInvitation.getInvitations : invitations : \(tab)")
             
                 for i in 0..<tab.count {
