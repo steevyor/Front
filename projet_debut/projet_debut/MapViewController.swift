@@ -46,26 +46,39 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView?{
         if !annotation.isEqual(mapView.userLocation){
-            print("viewFor annotation")
+
+            let f = Friend.init(f: self.user.getContacts().find(pseudo: annotation.title as! String))
+
+            
+            let to = CLLocation(latitude: f.getCoordinates().latitude, longitude: f.getCoordinates().longitude)
+            let from = CLLocation(latitude: self.del.locations.latitude, longitude: self.del.locations.longitude)
+            let formatedString = String(format:"%.2f",Float(from.distance(from: to) / 1000.0 + 0.005))
+            
+            
+            var annotation2 = MKPointAnnotation()
+            annotation2.title = f.getPseudo()
+            annotation2.subtitle = "\(f.getPseudo()) est à \(formatedString) kilomètres"
+            annotation2.coordinate = f.getCoordinates()
+            self.map.addAnnotation(annotation2)
+
+
             
             if !(annotation is MKPointAnnotation) {
                 return nil
             }
             
-            //let name = annotationView!.image.
+            
             let annotationIdentifier = "ami"
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier)
             
             if annotationView == nil {
-                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
+                annotationView = MKAnnotationView(annotation: annotation2, reuseIdentifier: annotationIdentifier)
                 annotationView!.canShowCallout = true
-                let f = Friend.init(f: self.user.getContacts().find(pseudo: annotation.title as! String))
                 annotationView?.image = UIImage(named: f.getImage())
                 
             }
             else {
-                annotationView!.annotation = annotation
-                let f = Friend.init(f: self.user.getContacts().find(pseudo: annotation.title as! String))
+                annotationView!.annotation = annotation2
                 annotationView?.image = UIImage(named: f.getImage())
 
             }
@@ -74,9 +87,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             let detailButton = UIButton(type: .detailDisclosure) as UIView
             annotationView?.rightCalloutAccessoryView = detailButton
             return annotationView
-            
-            
-            
 
         }
         return nil
@@ -93,7 +103,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     {
         if self.user.getIsVIsible() == true {
             print("MapViewController.updatePosition : Coordinates : \(self.del.locations.latitude) , \(self.del.locations.longitude)")
-        
+            self.user.setCoord(c: CLLocationCoordinate2D(latitude: self.del.locations.latitude, longitude: self.del.locations.longitude))
             let parameters = [
                 "pseudo": "\(self.user.getPseudo())",
                 "tokenKey": "\(self.user.getToken())",
@@ -193,11 +203,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let annotation = MKPointAnnotation()
         annotation.coordinate = friend.getCoordinates()
         annotation.title = friend.getPseudo()
-
-        let to = CLLocation(latitude: friend.getCoordinates().latitude, longitude: friend.getCoordinates().longitude)
-        let from = CLLocation(latitude: self.user.getCoordinates().latitude, longitude: self.user.getCoordinates().longitude)
-        let formatedString = String(format:"%.2f",Float(to.distance(from: from) / 1000.0 + 0.005))
-        annotation.subtitle = "\(annotation.title!) est à \(formatedString) kilomètres"
 
         self.map.addAnnotation(annotation)
     }
