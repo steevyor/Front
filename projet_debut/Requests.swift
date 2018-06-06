@@ -124,8 +124,12 @@ class Requests {
                             f.setPseudo(s: amis["pseudo"] as! String )
                             if let coord = amis["coordinate"] as? [String: AnyObject] {
                                 f.setCoordinates(latitude: coord["xCoordinate"] as! Double, longitude: coord["yCoordinate"] as! Double)
-                                friends.addFriend(f: f)
                             }
+                            
+                            if let image = amis["image"] as? String {
+                                f.setImage(s: image)
+                            }
+                            friends.addFriend(f: f)
                         }
                     }
                     chargementAmis(friends)

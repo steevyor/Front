@@ -59,27 +59,24 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             if annotationView == nil {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: annotationIdentifier)
                 annotationView!.canShowCallout = true
-                
-                let images = [#imageLiteral(resourceName: "monster"), #imageLiteral(resourceName: "ami-7"), #imageLiteral(resourceName: "ami-4"), #imageLiteral(resourceName: "ami-2"), #imageLiteral(resourceName: "ami-10"), #imageLiteral(resourceName: "ami-16"), #imageLiteral(resourceName: "ami-19")]
-                
-                let randomNum:UInt32 = arc4random_uniform(UInt32(images.count))
-                let someInt:Int = Int(randomNum)
-                
-                let pinImage = images[someInt]
-                //annotationView!.image = pinImage
-                annotationView?.image = UIImage(named: "monster")
+                let f = Friend.init(f: self.user.getContacts().find(pseudo: annotation.title as! String))
+                annotationView?.image = UIImage(named: f.getImage())
                 
             }
             else {
                 annotationView!.annotation = annotation
+                let f = Friend.init(f: self.user.getContacts().find(pseudo: annotation.title as! String))
+                annotationView?.image = UIImage(named: f.getImage())
+
             }
+            
+            
+            let detailButton = UIButton(type: .detailDisclosure) as UIView
+            annotationView?.rightCalloutAccessoryView = detailButton
             return annotationView
             
             
             
-            
-            //let detailButton = UIButton(type: .detailDisclosure) as UIView
-            //a.rightCalloutAccessoryView = detailButton*/
 
         }
         return nil
@@ -149,6 +146,9 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                             f.setPseudo(s: amis["pseudo"] as! String )
                             if let coord = amis["coordinate"] as? [String: AnyObject] {
                                 f.setCoordinates(latitude: coord["xCoordinate"] as! Double, longitude: coord["yCoordinate"] as! Double)
+                            }
+                            if let image = amis["image"] as? String {
+                                f.setImage(s: image)
                             }
                         }
                         self.user.addContact(f: f)

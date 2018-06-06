@@ -7,7 +7,8 @@ class Friend : Equatable, CustomStringConvertible {
     private var isConnected: Bool
     private var isVisible: Bool
     private var coordinates = CLLocationCoordinate2D()
-    public var description: String { return "Pseudo : \(self.pseudo), Coordinates : \(self.coordinates)" }
+    private var image: String
+    public var description: String { return "Pseudo : \(self.pseudo), Coordinates : \(self.coordinates), Image : \(self.image)" }
     
     
     init(){
@@ -15,6 +16,8 @@ class Friend : Equatable, CustomStringConvertible {
         self.isVisible = false
         self.isConnected = false
         self.coordinates = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        self.image = ""
+
         
     }
     
@@ -23,6 +26,8 @@ class Friend : Equatable, CustomStringConvertible {
         self.isVisible = false
         self.isConnected = false
         self.coordinates = coord
+        self.image = ""
+
         
     }
     init(pseudo: String){
@@ -30,6 +35,8 @@ class Friend : Equatable, CustomStringConvertible {
         self.isVisible = false
         self.isConnected = false
         self.coordinates = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+        self.image = ""
+
         
     }
     init(f: Friend){
@@ -37,11 +44,17 @@ class Friend : Equatable, CustomStringConvertible {
         self.isVisible = false
         self.isConnected = false
         self.coordinates = f.getCoordinates()
+        self.image = f.image
+
         
     }
     
     func getPseudo() -> String{
         return self.pseudo
+    }
+    
+    func getImage() -> String{
+        return self.image
     }
     
     func getCoordinates() -> CLLocationCoordinate2D{
@@ -59,6 +72,10 @@ class Friend : Equatable, CustomStringConvertible {
     
     func setPseudo(s: String) {
         self.pseudo = s
+    }
+    
+    func setImage(s: String) {
+        self.image = s
     }
     
 

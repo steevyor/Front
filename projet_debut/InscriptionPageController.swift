@@ -69,11 +69,17 @@ class InscriptionPageController: UIViewController {
     func inscription( login: String, email: String, password: String) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         print("InscriptionPageController.inscription :  ")
+        let images = ["monster", "ami-7", "ami-4", "ami-2", "ami10", "ami-16", "ami-19"]
+        
+        let randomNum:UInt32 = arc4random_uniform(UInt32(images.count))
+        let someInt:Int = Int(randomNum)
+
         let parameters =
             [
                 "pseudo": "\(login)",
                 "email": "\(email)",
-                "password": "\(password)"
+                "password": "\(password)",
+                "image":"\(images[someInt])"
         ] as [String : AnyObject]
         
         let url = URL(string: "https://\(ngrok).ngrok.io/api/user/inscription")!
@@ -102,36 +108,6 @@ class InscriptionPageController: UIViewController {
                 
         })
 
-        
-        
-        /*
-        
-        let r = Requests()
-        r.post(parameters: parameters, url: url,
-               finRequete: { response, statut in
-                print("On est dans InscriptionPageController.inscription")
-
-                print("InscriptionPageController.inscription : statut : \(statut)")
-            print("InscriptionPageController.inscription : response : \(response)")
-         
-
-            if statut == 200 {
-                DispatchQueue.main.async(execute: {
-                    self.message(display:  "L'inscription a bien été prise en compte, vous pouvez vous connecter !", emoji: "☀️", dissmiss: "Ok")
-                })
-            } else if statut == 403 {
-                DispatchQueue.main.async(execute: {
-                    self.message(display: "Pseudo déjà utilisé, veuillez en entrer un nouveau", emoji: "☔️", dissmiss: "Ok")
-                })
-            } else {
-                DispatchQueue.main.async(execute: {
-                    self.message(display: "Une erreur s'est produite, veuillez réessayer", emoji: "☔️", dissmiss: "Ok")
-                })
-            }
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            
-        })
-        */
         
     }
     
