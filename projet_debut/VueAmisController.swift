@@ -297,8 +297,9 @@ class VueAmisController:  UIViewController, UITableViewDataSource, UITableViewDe
         let r = Requests()
         r.getFriendPositions(pseudo: self.user.getPseudo(), token: self.user.getToken(),  chargementAmis:{ friends in
             
-            if friends.getList().count != 0 {
+            if friends.getList().count > 0 {
                 DispatchQueue.main.async(execute: {
+                    self.user.deleteAllContacts()
                     self.user.addContacts(f: friends)
                     UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     
